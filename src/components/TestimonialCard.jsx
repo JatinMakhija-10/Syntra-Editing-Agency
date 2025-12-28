@@ -6,10 +6,24 @@ export function TestimonialCard({ testimonial, delay = 0 }) {
   return (
     <div
       ref={cardRef}
-      className="group relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.02] via-black to-black/90 reveal p-6 transition-all duration-500 hover:border-yellow-400/30 hover:-translate-y-1 hover:shadow-lg"
+      className="group relative rounded-2xl border reveal p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
       style={{
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.25) 100%)',
+        borderColor: 'var(--border-color)',
+        background: `linear-gradient(180deg, var(--bg-gradient-start), var(--bg-card))`,
+        backgroundColor: 'var(--bg-card)',
         transitionDelay: `${delay}ms`,
+        willChange: 'transform',
+        boxShadow: '0 1px 3px 0 var(--card-shadow)',
+      }}
+      onMouseEnter={(e) => {
+        if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+          e.currentTarget.style.borderColor = 'rgba(255, 209, 0, 0.3)';
+          e.currentTarget.style.boxShadow = '0 10px 15px -3px var(--card-shadow)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = 'var(--border-color)';
+        e.currentTarget.style.boxShadow = '0 1px 3px 0 var(--card-shadow)';
       }}
     >
       <div className="flex items-start gap-4 mb-4">
@@ -20,12 +34,12 @@ export function TestimonialCard({ testimonial, delay = 0 }) {
           loading="lazy"
         />
         <div className="flex-1">
-          <h4 className="text-sm font-semibold text-white mb-1">{testimonial.name}</h4>
-          <p className="text-[10px] text-gray-400 uppercase tracking-[0.15em]">{testimonial.company}</p>
+          <h4 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{testimonial.name}</h4>
+          <p className="text-[10px] uppercase tracking-[0.15em]" style={{ color: 'var(--text-tertiary)' }}>{testimonial.company}</p>
         </div>
         <div className="text-yellow-400 text-lg">★</div>
       </div>
-      <p className="text-xs text-gray-300 leading-relaxed">{testimonial.review}</p>
+      <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{testimonial.review}</p>
     </div>
   );
 }

@@ -6,10 +6,23 @@ export function TeamCard({ name, role, delay = 0 }) {
   return (
     <div
       ref={cardRef}
-      className="group relative rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-b from-white/[0.02] via-black to-black/90 reveal transition-all duration-500 hover:border-white/20 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+      className="group relative rounded-3xl overflow-hidden border reveal transition-all duration-500 hover:-translate-y-2 hover:scale-[1.01]"
       style={{
+        borderColor: 'var(--border-color)',
         background: 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.25) 100%)',
         transitionDelay: `${delay}ms`,
+        willChange: 'transform',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+      }}
+      onMouseEnter={(e) => {
+        if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+          e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.5)';
+          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+        e.currentTarget.style.borderColor = 'var(--border-color)';
       }}
     >
       <div className="h-40 bg-gradient-to-b from-white/20 to-black/50" />
@@ -19,9 +32,6 @@ export function TeamCard({ name, role, delay = 0 }) {
             {name}
           </div>
           <p className="text-xs text-white font-medium">{role}</p>
-          <p className="text-[10px] text-gray-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Hover for more in a real build.
-          </p>
         </div>
       </div>
     </div>
