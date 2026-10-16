@@ -550,7 +550,7 @@ export const servicesData = {
       examples: [],
       webPreview: [
         { title: 'Syntra Studio', desc: 'Creative studio portfolio website', link: 'https://syntrastudio.netlify.app/' },
-        { title: 'Healio AI', desc: 'AI Healthcare Platform', link: 'https://healio-ai-two.vercel.app/' },
+        { title: 'Arovia AI', desc: 'AI Platform', link: 'https://aroviaai.com/' },
         { title: 'LimitLens', desc: 'Antigravity Limits Checker Tool', link: 'https://limitlens.netlify.app/' },
       ],
     },
