@@ -24,3 +24,19 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Local Netlify folder
+.netlify
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Tooling and agent configs
+.agents
+.cursor
+.helm-diag
+.jetro
+.windsurfrules
+

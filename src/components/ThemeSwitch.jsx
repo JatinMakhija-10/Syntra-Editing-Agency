@@ -7,6 +7,7 @@ export function ThemeSwitch({ theme, onToggle }) {
     <label className="theme-switch" aria-label="Toggle dark/light theme">
       <input
         type="checkbox"
+        id="theme-toggle-checkbox"
         className="theme-switch__checkbox"
         checked={theme === 'dark'}
         onChange={onToggle}

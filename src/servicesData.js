@@ -7,6 +7,7 @@ export const servicesData = {
       desc: 'Action-packed edits capturing your best in-game moments with cinematic pacing.',
       tag: 'Video',
       videoShowcase: [
+        { type: 'youtube', src: 'https://www.youtube.com/embed/Np-nOqlndbU', title: '', description: '' },
         { type: 'youtube', src: 'https://www.youtube.com/embed/JLjJngK736k', title: '', description: '' },
         { type: 'youtube', src: 'https://www.youtube.com/embed/UtneJ7HfEUA', title: '', description: '' },
         { type: 'youtube', src: 'https://www.youtube.com/embed/qTfVaXuyqas', title: '', description: '' },
@@ -34,6 +35,16 @@ export const servicesData = {
       desc: 'Clean, informative edits that make complex tech feel simple and visual.',
       tag: 'Video',
       videoShowcase: [
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DZGL-4kxhji/embed', title: 'Tech Reel', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DY1mqmxRJrh/embed', title: 'Tech Tutorial', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DYvT_1Cxxr-/embed', title: 'Tech Tips', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DYsmXlkxLr_/embed', title: 'Tech Explainer', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DYfk1RgReCn/embed', title: 'Tech Guide', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DYevmNaRB-B/embed', title: 'Tech Review', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DYWVcLBx2zC/embed', title: 'Tech Content', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DYIlZ5DRDkl/embed', title: 'Tech Showcase', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DX13VedxbYJ/embed', title: 'Tech Demo', description: '@famberztech' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DU4NogDEXyT/embed', title: 'Tech Insights', description: '@famberztech' },
         { type: 'youtube', src: 'https://www.youtube.com/embed/XbIyzk7bbM0', title: '', description: '' },
         { type: 'youtube', src: 'https://www.youtube.com/embed/FGw7V0LxYXQ?start=1', title: '', description: '' },
         { type: 'youtube', src: 'https://www.youtube.com/embed/dZMgtkNCnp4', title: '', description: '' },
@@ -77,6 +88,11 @@ export const servicesData = {
       desc: 'Vertical, hook-first edits optimised for watch time and retention.',
       tag: 'Social',
       videoShowcase: [
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DVL0R4nku7F/embed', title: 'Pilates Training Reel', description: '@pilatescoachshilpa' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DUIvnQCihJg/embed', title: 'Pilates Workout Reel', description: '@pilatescoachshilpa' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DVtKhzQii63/embed', title: 'Face Yoga Coach', description: '@pilatescoachshilpa' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DSU2LLxiD2c/embed', title: 'Health & Wellness', description: '@drpreetigyne' },
+        { type: 'instagram', src: 'https://www.instagram.com/reel/DQmAJf4iAfU/embed', title: 'Medical Awareness', description: '@drpreetigyne' },
         { type: 'drive', src: 'https://drive.google.com/file/d/10JsyrxV2X2prRvIeXTru8XXZ7v-yb_n9/preview', title: '', description: '' },
         { type: 'drive', src: 'https://drive.google.com/file/d/1MCSosw2TT0uynZ3ouTc37CCYRvviXp4a/preview', title: '', description: '' },
         { type: 'drive', src: 'https://drive.google.com/file/d/1HWOI_WAzYUB7Lu3j8n09OpOfkyNvI-CJ/preview', title: '', description: '' },
@@ -504,6 +520,14 @@ export const servicesData = {
       desc: 'Hook-first scripts engineered for retention and clarity.',
       tag: 'Script',
       examples: [],
+      videoShowcase: [],
+    },
+    'SEO Blogs': {
+      title: 'SEO Blogs',
+      desc: 'High-ranking, engaging blog content optimized for search and humans.',
+      tag: 'Content',
+      examples: [],
+      videoShowcase: [],
     },
   },
   WEB: {
@@ -512,6 +536,11 @@ export const servicesData = {
       desc: 'Fast, responsive, conversion-focused web experiences.',
       tag: 'Web',
       examples: [],
+      webPreview: [
+        { title: 'Syntra Studio', desc: 'Creative studio portfolio website', link: 'https://syntrastudio.netlify.app/' },
+        { title: 'Healio AI', desc: 'AI Healthcare Platform', link: 'https://healio-ai-two.vercel.app/' },
+        { title: 'LimitLens', desc: 'Antigravity Limits Checker Tool', link: 'https://limitlens.netlify.app/' },
+      ],
     },
   },
 };
