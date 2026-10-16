@@ -11,6 +11,8 @@ import { VideoEmbed } from './components/VideoEmbed';
 import { MobileMenu } from './components/MobileMenu';
 import Admin from './pages/Admin';
 import { subscribeToAdditions, subscribeToNewServices } from './lib/contentStore';
+import { ServicePage } from './components/ServicePage';
+import { slugify, findServiceBySlug } from './utils/slug';
 
 const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB'];
 
@@ -194,12 +196,49 @@ function App() {
     setFormErrors({});
   };
 
-  // Smooth scroll on hash
+  // Handle direct URLs (deep linking) and browser Back/Forward navigation
   useEffect(() => {
-    if (window.location.hash) {
-      const target = document.querySelector(window.location.hash);
-      if (target) setTimeout(() => smoothScrollTo(target, 500), 100);
-    }
+    const handleLocationChange = () => {
+      const path = window.location.pathname;
+
+      // 1. Direct service route: /services/:slug or /service/:slug
+      if (path.startsWith('/services/') || path.startsWith('/service/')) {
+        const slug = path.replace(/^\/services?\//, '').replace(/\/$/, '');
+        const found = findServiceBySlug(mergedData, slug);
+        if (found) {
+          setSelectedService({ ...found.service, category: found.category });
+          setActiveCategory(found.category);
+          return;
+        }
+      }
+
+      // 2. Direct section routes: /about, /services, /testimonials, /process, /contact
+      const cleanPath = path.replace(/^\//, '').toLowerCase();
+      if (['about', 'services', 'testimonials', 'process', 'contact'].includes(cleanPath)) {
+        setSelectedService(null);
+        const target = document.getElementById(cleanPath);
+        if (target) {
+          setTimeout(() => smoothScrollTo(target, 500), 100);
+        }
+        return;
+      }
+
+      // 3. Anchor hash support
+      if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) setTimeout(() => smoothScrollTo(target, 500), 100);
+        return;
+      }
+
+      // 4. Default home
+      if (path === '/' || path === '') {
+        setSelectedService(null);
+      }
+    };
+
+    handleLocationChange();
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
   }, []);
 
   // ESC key & body scroll lock for modals
@@ -207,10 +246,9 @@ function App() {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
         if (selectedImage) setSelectedImage(null);
-        if (selectedService) setSelectedService(null);
       }
     };
-    if (selectedImage || selectedService) {
+    if (selectedImage) {
       document.addEventListener('keydown', handleEscape);
       document.body.style.overflow = 'hidden';
     } else {
@@ -220,7 +258,7 @@ function App() {
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = '';
     };
-  }, [selectedImage, selectedService]);
+  }, [selectedImage]);
 
   // Intersection observer for stats count-up
   useEffect(() => {
@@ -236,12 +274,48 @@ function App() {
 
   const handleServiceClick = (serviceTitle) => {
     const data = getServiceData(activeCategory, serviceTitle);
-    if (data && (data.examples?.length > 0 || data.videoShowcase?.length > 0 || data.webPreview?.length > 0)) {
-      setSelectedService(data);
+    if (data) {
+      const slug = slugify(serviceTitle);
+      window.history.pushState({ service: serviceTitle }, '', `/services/${slug}`);
+      setSelectedService({ ...data, category: activeCategory });
     }
   };
 
-  const closeModal = () => { setSelectedService(null); setSelectedImage(null); };
+  const handleBackToHome = () => {
+    window.history.pushState({}, '', '/');
+    setSelectedService(null);
+  };
+
+  // If a dedicated service page is active, render the ServicePage component!
+  if (selectedService) {
+    return (
+      <>
+        <ServicePage
+          service={selectedService}
+          category={selectedService.category || activeCategory}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          onBack={handleBackToHome}
+          onImageClick={(img) => setSelectedImage(img)}
+        />
+
+        {/* Image Lightbox */}
+        {selectedImage && (
+          <div
+            className="lightbox-overlay is-open"
+            onClick={() => setSelectedImage(null)}
+            role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-describedby="lightbox-desc"
+          >
+            <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+              <button onClick={() => setSelectedImage(null)} className="lightbox-close" aria-label="Close image viewer (Press Escape)" autoFocus>×</button>
+              <img src={selectedImage.src} alt={selectedImage.alt} className="lightbox-image" id="lightbox-title" />
+              <span id="lightbox-desc" className="sr-only">Press Escape or click outside to close</span>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
 
   return (
     <div
@@ -274,156 +348,7 @@ function App() {
         </div>
       )}
 
-      {/* Service Modal */}
-      {selectedService && (
-        <div
-          className="fixed inset-0 z-50 overflow-y-auto backdrop-blur-xl"
-          style={{ backgroundColor: 'var(--modal-bg)' }}
-          onClick={closeModal}
-          role="dialog" aria-modal="true" aria-labelledby="service-modal-title" aria-describedby="service-modal-desc"
-        >
-          <div className="min-h-screen px-4 py-8">
-            <div className="max-w-7xl mx-auto" onClick={(e) => e.stopPropagation()}>
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <p className="eyebrow mb-2">{selectedService.tag}</p>
-                  <h2 id="service-modal-title" className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                    {selectedService.title}
-                  </h2>
-                </div>
-                <button
-                  onClick={closeModal}
-                  className="text-2xl transition-all hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-full w-10 h-10 flex items-center justify-center border"
-                  style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-                  aria-label="Close service details (Press Escape)"
-                  autoFocus
-                >✕</button>
-              </div>
-              <p id="service-modal-desc" className="sr-only">{selectedService.desc}. Press Escape or click outside to close.</p>
 
-              {/* Website Previews */}
-              {selectedService.webPreview?.length > 0 && (
-                <div className="mb-12">
-                  <h3 className="text-xl font-bold mb-6 text-yellow-400" style={{ fontFamily: 'var(--font-display)' }}>Website Previews</h3>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {selectedService.webPreview.map((item, idx) => (
-                      <article key={`preview-${idx}`} className="bento-card overflow-hidden"
-                        onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(255,209,0,0.5)'}
-                        onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}
-                      >
-                        <div className="aspect-[16/10] w-full bg-black/20">
-                          <iframe src={item.link} title={`Preview of ${item.title}`} className="w-full h-full border-0"
-                            loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                            aria-label={`Website preview: ${item.title}`} />
-                        </div>
-                        <div className="p-4" style={{ backgroundColor: 'var(--bg-overlay)' }}>
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <h4 className="text-base font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{item.title}</h4>
-                              {item.desc && <p className="text-xs mb-2" style={{ color: 'var(--text-secondary)' }}>{item.desc}</p>}
-                            </div>
-                            <a href={item.link} target="_blank" rel="noopener noreferrer"
-                              className="shrink-0 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-400 text-black text-[10px] tracking-[0.15em] uppercase font-semibold hover:bg-yellow-300 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                              aria-label={`Visit ${item.title} website`}>
-                              Visit →
-                            </a>
-                          </div>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Image Gallery */}
-              {selectedService.examples?.length > 0 && (
-                <div className="mb-12">
-                  <h3 className="text-xl font-bold mb-6 text-yellow-400" id="gallery-heading" style={{ fontFamily: 'var(--font-display)' }}>Gallery</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-labelledby="gallery-heading">
-                    {selectedService.examples.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="group relative overflow-hidden rounded-xl border cursor-pointer transition-all duration-300 focus-within:ring-2 focus-within:ring-yellow-400"
-                        style={{ borderColor: 'var(--border-color)' }}
-                        onClick={() => setSelectedImage({ src: item.image, alt: item.title || selectedService.title })}
-                        onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(255,209,0,0.5)'}
-                        onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}
-                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedImage({ src: item.image, alt: item.title || selectedService.title }); } }}
-                        tabIndex={0} role="button"
-                        aria-label={`View ${item.title || selectedService.title} - Image ${idx + 1}`}
-                      >
-                        <img src={item.image} alt={item.title || `${selectedService.title} example ${idx + 1}`}
-                          className="w-full h-auto object-cover transition-transform duration-400 group-hover:scale-105"
-                          loading="lazy" />
-                        {item.title && (
-                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition flex items-end p-2"
-                            style={{ background: `linear-gradient(to top, var(--bg-primary), transparent)` }}>
-                            <p className="text-xs" style={{ color: 'var(--text-primary)' }}>{item.title}</p>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Video Showcase */}
-              {selectedService.videoShowcase?.length > 0 && (() => {
-                const instagramVideos = selectedService.videoShowcase.filter(v => v.type === 'instagram');
-                const otherVideos = selectedService.videoShowcase.filter(v => v.type !== 'instagram');
-                return (
-                  <div className="mb-12">
-                    <h3 className="text-xl font-bold mb-6 text-yellow-400" style={{ fontFamily: 'var(--font-display)' }}>Video Showcase</h3>
-                    {instagramVideos.length > 0 && (
-                      <div className="mb-8">
-                        <p className="eyebrow mb-4">Instagram Reels</p>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                          {instagramVideos.map((video, idx) => (
-                            <div key={`ig-${idx}`} className="rounded-xl overflow-hidden" style={{ aspectRatio: '9/16' }}>
-                              <VideoEmbed video={video} serviceTitle={selectedService.title} index={idx} />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {otherVideos.length > 0 && (
-                      <div>
-                        {instagramVideos.length > 0 && <p className="eyebrow mb-4">Video Edits</p>}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          {otherVideos.map((video, idx) => (
-                            <div key={`vid-${idx}`} className="rounded-xl overflow-hidden border transition-all duration-300"
-                              style={{ borderColor: 'var(--border-color)' }}
-                              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(255,209,0,0.5)'}
-                              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}
-                            >
-                              <VideoEmbed video={video} serviceTitle={selectedService.title} index={idx} />
-                              {(video.title || video.description) && (
-                                <div className="p-4" style={{ backgroundColor: 'var(--bg-overlay)' }}>
-                                  {video.title && <h4 className="font-semibold text-yellow-400 mb-1">{video.title}</h4>}
-                                  {video.description && <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{video.description}</p>}
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
-
-              {/* CTA */}
-              <div className="text-center pt-8 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                <p className="mb-4 text-sm" style={{ color: 'var(--text-secondary)' }}>Ready to get started with {selectedService.title}?</p>
-                <a href="#contact" onClick={closeModal}
-                  className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-yellow-400 text-black font-semibold hover:bg-yellow-300 hover:scale-105 transition-all duration-300 text-sm tracking-wide">
-                  Contact Us Today →
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ── HEADER ── */}
       <header

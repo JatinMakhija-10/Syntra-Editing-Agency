@@ -22,11 +22,15 @@ export function smoothScrollTo(elem, duration = 500) {
   requestAnimationFrame(step);
 }
 
-// Handle anchor link clicks
+// Handle anchor link clicks with clean shareable URLs
 export function handleSmoothScroll(e) {
   const href = e.currentTarget.getAttribute('href');
   if (href && href.startsWith('#')) {
     e.preventDefault();
+    const sectionName = href.replace(/^#/, '');
+    if (sectionName && window.location.pathname !== `/${sectionName}`) {
+      window.history.pushState({}, '', `/${sectionName}`);
+    }
     const target = document.querySelector(href);
     if (target) {
       smoothScrollTo(target, 500);
