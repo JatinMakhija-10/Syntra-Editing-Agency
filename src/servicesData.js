@@ -142,6 +142,14 @@ export const servicesData = {
         { type: 'drive', src: 'https://drive.google.com/file/d/1z2NVxVkWIZk_1aDz4Bvocns057PLeRLv/preview', title: '', description: '' },
       ],
     },
+    'AI UGC & Performance Ads': {
+      title: 'AI UGC & Performance Ads',
+      desc: 'High-converting, creator-style video ads engineered with hyper-realistic AI avatars, natural voiceovers, and scroll-stopping hooks — built for scale.',
+      tag: 'AI & Ads',
+      videoShowcase: [],
+      examples: [],
+      webPreview: [],
+    },
     'Motion Graphics & Animated Visuals': {
       title: 'Motion Graphics & Animated Visuals',
       desc: 'Animated titles, HUDs and effects that give your content kinetic energy.',

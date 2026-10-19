@@ -314,6 +314,51 @@ export function ServicePage({
           </section>
         )}
 
+        {/* ── SHOWCASE: CAPABILITIES SPOTLIGHT (when no media attached yet) ── */}
+        {(!service.examples?.length && !service.videoShowcase?.length && !service.webPreview?.length) && (
+          <section className="mb-16">
+            <div className="mb-8">
+              <p className="eyebrow mb-2">Capabilities</p>
+              <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                Engineered for Direct-Response ROI
+              </h2>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  step: '01',
+                  title: 'Hyper-Realistic AI Avatars',
+                  desc: 'Photorealistic digital creators with authentic micro-expressions, eye contact, and natural body language tailored to your target demographic.'
+                },
+                {
+                  step: '02',
+                  title: 'Hook-First Scripting & Voice',
+                  desc: 'Direct-response scripts with 3-second pattern interrupts, natural voice cloning, and audio mastering optimized for TikTok & Meta algorithms.'
+                },
+                {
+                  step: '03',
+                  title: 'Rapid Creative Testing & Scale',
+                  desc: 'Generate 10–20 creative variations in days to rapidly test angles, hooks, and CTAs without high studio and influencer shoot fees.'
+                }
+              ].map((item, idx) => (
+                <div key={idx} className="bento-card p-6 flex flex-col justify-between">
+                  <div>
+                    <span className="text-xs font-bold tracking-widest text-yellow-400 uppercase mb-3 block">
+                      {item.step}
+                    </span>
+                    <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      {item.title}
+                    </h3>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ── BOTTOM CALL TO ACTION ── */}
         <section
           className="rounded-3xl border p-8 md:p-12 text-center relative overflow-hidden"

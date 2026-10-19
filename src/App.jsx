@@ -494,7 +494,7 @@ function App() {
           <div className="marquee-track">
             {[1, 2].map((rep) => (
               <div key={rep} className="flex items-center gap-10 pr-10">
-                {['Video Editing', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'Content Strategy', 'Logo Design', 'Reels & Shorts'].map((item) => (
+                {['Video Editing', 'AI UGC Video Ads', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'Content Strategy', 'Logo Design', 'Reels & Shorts'].map((item) => (
                   <span key={item} className="flex items-center gap-4 whitespace-nowrap">
                     <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0" />
                     <span className="text-[11px] tracking-[0.3em] uppercase font-semibold" style={{ color: 'var(--text-tertiary)' }}>
@@ -626,7 +626,7 @@ function App() {
             <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
               <p className="tracking-widest uppercase mb-1">Syntra Service Stack</p>
               <p className="leading-relaxed">
-                {activeCategory === 'VIDEO' && 'Gaming · Tech · Shorts · Motion · Variety'}
+                {activeCategory === 'VIDEO' && 'Gaming · Tech · Shorts · AI UGC · Motion · Variety'}
                 {activeCategory === 'GRAPHICS' && 'Logos · Banners · Merch · Menus'}
                 {activeCategory === 'THUMBNAILS' && 'Elite · Premium · Standard tiers'}
                 {activeCategory === 'CONTENT' && 'Instagram · Scripts · Social flows'}
@@ -654,9 +654,7 @@ function App() {
               return (
                 <article
                   key={s.title}
-                  className={`bento-card group relative p-6 flex flex-col justify-between ${
-                    activeCategory === 'VIDEO' && idx === 0 ? 'md:row-span-2' : ''
-                  } cursor-pointer`}
+                  className="bento-card group relative p-6 flex flex-col justify-between cursor-pointer"
                   onClick={() => handleServiceClick(s.title)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleServiceClick(s.title); } }}
                   tabIndex={0}
