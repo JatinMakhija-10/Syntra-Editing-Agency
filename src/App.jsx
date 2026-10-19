@@ -432,9 +432,9 @@ function App() {
                 {[
                   { val: '150', suffix: '+', label: 'Projects' },
                   { val: '60', suffix: '+', label: 'Happy Clients' },
-                  { val: '5', suffix: '', label: 'Countries' },
+                  { val: '5', suffix: '+', label: 'Countries' },
                   { val: '100', suffix: '%', label: 'Delivery Rate' },
-                  { val: '2023', suffix: ' !!', label: 'Founded' },
+                  { val: '2023', suffix: '', label: 'Founded' },
                 ].map((s) => (
                   <div key={s.label} className="flex flex-col">
                     <span className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--brand-yellow)' }}>
@@ -727,7 +727,7 @@ function App() {
                 Every project is a collaboration — fast, transparent, handcrafted. Here's where we stand.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
               <div className="bento-card p-6">
                 <StatCard value={150} suffix="+" label="Projects" trigger={statsTrigger} />
               </div>
@@ -735,13 +735,13 @@ function App() {
                 <StatCard value={60} suffix="+" label="Happy Clients" trigger={statsTrigger} />
               </div>
               <div className="bento-card p-6">
-                <StatCard value={5} suffix="" label="Countries" trigger={statsTrigger} />
+                <StatCard value={5} suffix="+" label="Countries" trigger={statsTrigger} />
               </div>
               <div className="bento-card p-6">
                 <StatCard value={100} suffix="%" label="Delivery Rate" trigger={statsTrigger} />
               </div>
-              <div className="bento-card p-6 col-span-2 md:col-span-1">
-                <StatCard value={2023} suffix=" !!" label="Founded" trigger={statsTrigger} />
+              <div className="bento-card p-6 col-span-2">
+                <StatCard value={2023} suffix="" label="Founded" trigger={statsTrigger} />
               </div>
             </div>
           </div>
