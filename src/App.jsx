@@ -115,7 +115,12 @@ function App() {
           examples: [...(s.examples || [])],
           videoShowcase: [...(s.videoShowcase || [])],
           webPreview: [...(s.webPreview || [])],
-          clientShowcases: s.clientShowcases ? [...s.clientShowcases] : undefined,
+          clientShowcases: s.clientShowcases
+            ? s.clientShowcases.map(c => ({
+                ...c,
+                examples: [...(c.examples || [])],
+              }))
+            : undefined,
         };
       });
     });
@@ -942,16 +947,43 @@ function App() {
                         <h4 className="text-2xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Anohga Yoga Studio</h4>
                         <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Wellness Brand · Static Ad Creatives</p>
                       </div>
+                      <a href="https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6" target="_blank" rel="noopener noreferrer"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
+                        Drive Folder ↗
+                      </a>
                     </div>
                     <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                       Calm, atmospheric AI-generated static ads for yoga studio marketing — crafted for serenity, premium brand resonance and high click-through engagement.
                     </p>
-                    <div className="rounded-2xl flex items-center justify-center p-6 border transition-colors group-hover:border-yellow-400/30"
-                      style={{ background: 'var(--bg-overlay)', borderColor: 'var(--border-color)' }}>
-                      <div className="text-center py-4 px-4">
-                        <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-yellow-400 mb-1">Ad Campaign Showcase</p>
-                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Atmospheric static ad creatives active</p>
-                      </div>
+
+                    {/* Creative Posters Grid from Drive Folder */}
+                    <div className="grid grid-cols-3 gap-3">
+                      {[
+                        { title: 'Hormonal Balance Yoga Workshop', src: '/assets/anohga/hormonal-balance-yoga-workshop.webp' },
+                        { title: 'The Human Axis: Yoga Movement Study', src: '/assets/anohga/human-axis-yoga-movement-study.webp' },
+                        { title: 'Anohga Yoga Studio Mobility Pack Poster', src: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp' },
+                      ].map((img, i) => (
+                        <div
+                          key={i}
+                          onClick={() => setSelectedImage({ src: img.src, alt: img.title })}
+                          className="group/img relative aspect-[3/4] rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:border-yellow-400/60 shadow-sm"
+                          style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                          title={`Click to view full image: ${img.title}`}
+                        >
+                          <img
+                            src={img.src}
+                            alt={img.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
+                            <span className="text-[10px] font-semibold text-white leading-tight">
+                              {img.title}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>

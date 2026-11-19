@@ -569,7 +569,20 @@ export const servicesData = {
       title: 'AI UGC Static Ads',
       desc: 'Hyper-realistic AI-generated static ad creatives — scroll-stopping visuals engineered for performance across Meta, Google, and social platforms.',
       tag: 'AI Static',
-      examples: [],
+      examples: [
+        {
+          title: 'Anohga Yoga Studio — Hormonal Balance Workshop',
+          image: '/assets/anohga/hormonal-balance-yoga-workshop.webp',
+        },
+        {
+          title: 'Anohga Yoga Studio — The Human Axis Movement Study',
+          image: '/assets/anohga/human-axis-yoga-movement-study.webp',
+        },
+        {
+          title: 'Anohga Yoga Studio — Mobility Pack Poster',
+          image: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp',
+        },
+      ],
       videoShowcase: [],
       webPreview: [],
       clientShowcases: [
@@ -582,8 +595,21 @@ export const servicesData = {
         {
           client: 'Anohga Yoga Studio',
           clientDesc: 'Wellness brand — Calm, atmospheric static ad creatives for yoga studio marketing.',
-          clientLink: null,
-          examples: [],
+          clientLink: 'https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6',
+          examples: [
+            {
+              title: 'Hormonal Balance Yoga Workshop',
+              image: '/assets/anohga/hormonal-balance-yoga-workshop.webp',
+            },
+            {
+              title: 'The Human Axis: Yoga Movement Study',
+              image: '/assets/anohga/human-axis-yoga-movement-study.webp',
+            },
+            {
+              title: 'Anohga Yoga Studio Mobility Pack Poster',
+              image: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp',
+            },
+          ],
         },
       ],
     },

@@ -183,17 +183,23 @@ export function ServicePage({
                       <a href={showcase.clientLink} target="_blank" rel="noopener noreferrer"
                         className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        Visit site ↗
+                        {showcase.clientLink.includes('drive.google.com') ? 'View Drive ↗' : 'Visit site ↗'}
                       </a>
                     )}
                   </div>
                   {showcase.examples?.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {showcase.examples.map((ex, exIdx) => (
-                        <div key={exIdx} className="rounded-xl overflow-hidden aspect-square cursor-pointer border"
-                          style={{ borderColor: 'var(--border-color)' }}
-                          onClick={() => onImageClick && onImageClick({ src: ex.image, alt: ex.title || showcase.client })}>
-                          <img src={ex.image} alt={ex.title || showcase.client} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <div key={exIdx} className="group/item relative rounded-xl overflow-hidden aspect-[3/4] cursor-pointer border transition-all duration-300 hover:border-yellow-400/60 hover:scale-[1.03]"
+                          style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                          onClick={() => onImageClick && onImageClick({ src: ex.image, alt: ex.title || showcase.client })}
+                          title={`Click to view: ${ex.title || showcase.client}`}>
+                          <img src={ex.image} alt={ex.title || showcase.client} className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" loading="lazy" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity flex items-end p-2.5">
+                            <span className="text-[10px] font-semibold text-white leading-tight">
+                              {ex.title}
+                            </span>
+                          </div>
                         </div>
                       ))}
                     </div>
