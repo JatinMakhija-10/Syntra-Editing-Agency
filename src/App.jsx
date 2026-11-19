@@ -14,7 +14,7 @@ import { subscribeToAdditions, subscribeToNewServices } from './lib/contentStore
 import { ServicePage } from './components/ServicePage';
 import { slugify, findServiceBySlug } from './utils/slug';
 
-const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB'];
+const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB', 'AI_UGC'];
 
 // ── Live Clock ────────────────────────────────────────────────
 function LiveClock() {
@@ -103,7 +103,8 @@ function App() {
           tag: s.tag,
           examples: [...(s.examples || [])],
           videoShowcase: [...(s.videoShowcase || [])],
-          webPreview: [...(s.webPreview || [])]
+          webPreview: [...(s.webPreview || [])],
+          clientShowcases: s.clientShowcases ? [...s.clientShowcases] : undefined,
         };
       });
     });
@@ -494,10 +495,11 @@ function App() {
           <div className="marquee-track">
             {[1, 2].map((rep) => (
               <div key={rep} className="flex items-center gap-10 pr-10">
-                {['Video Editing', 'AI UGC Video Ads', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'Content Strategy', 'Logo Design', 'Reels & Shorts'].map((item) => (
+                {['Video Editing', '✦ AI UGC Ads', 'Static Ad Creatives', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'AI Avatars', 'Content Strategy', 'Logo Design', 'Reels & Shorts', '✦ AI Video Ads'].map((item) => (
                   <span key={item} className="flex items-center gap-4 whitespace-nowrap">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0" />
-                    <span className="text-[11px] tracking-[0.3em] uppercase font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.startsWith('✦') ? 'bg-purple-400' : 'bg-yellow-400'}`} />
+                    <span className={`text-[11px] tracking-[0.3em] uppercase font-semibold ${item.startsWith('✦') ? 'text-purple-400/70' : ''}`}
+                      style={item.startsWith('✦') ? {} : { color: 'var(--text-tertiary)' }}>
                       {item}
                     </span>
                   </span>
@@ -564,22 +566,28 @@ function App() {
 
         {/* ── SERVICES ── */}
         <section id="services" className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          {/* Section header */}
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
             <div>
               <div className="pill-label mb-4 inline-flex">Services</div>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                A complete editing &amp; design ecosystem.
+              <h2 className="text-4xl md:text-5xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                A complete editing &amp;<br className="hidden md:block" /> design ecosystem.
               </h2>
-              <p className="mt-3 text-sm max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              <p className="mt-4 text-base max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 From gaming montages to logos, thumbnails, social posts and full websites — Syntra handles the entire funnel.
               </p>
             </div>
+            <a href="#contact" onClick={handleSmoothScroll}
+              className="shrink-0 btn-shimmer inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
+              Start a project →
+            </a>
           </div>
 
           {/* Tab switcher */}
           <div className="flex flex-wrap gap-2 mb-10" role="tablist" aria-label="Service categories">
             {categories.map((cat) => {
               const active = cat === activeCategory;
+              const isAI = cat === 'AI_UGC';
               return (
                 <button
                   key={cat}
@@ -591,56 +599,175 @@ function App() {
                   onClick={() => setActiveCategory(cat)}
                   className={`relative px-5 py-2.5 rounded-full text-[10px] tracking-[0.25em] uppercase font-semibold transition-all border focus:outline-none focus:ring-2 focus:ring-yellow-400 ${
                     active
-                      ? 'border-yellow-400/70 bg-yellow-400/10 text-yellow-400 shadow-[0_0_28px_rgba(255,209,0,0.2)]'
-                      : 'hover:border-yellow-300/50 hover:text-yellow-300'
+                      ? isAI
+                        ? 'border-purple-400/70 bg-purple-400/10 text-purple-400 shadow-[0_0_28px_rgba(167,139,250,0.25)]'
+                        : 'border-yellow-400/70 bg-yellow-400/10 text-yellow-400 shadow-[0_0_28px_rgba(255,209,0,0.2)]'
+                      : isAI
+                        ? 'hover:border-purple-400/50 hover:text-purple-300'
+                        : 'hover:border-yellow-300/50 hover:text-yellow-300'
                   }`}
-                  style={{ borderColor: active ? undefined : 'var(--border-color)', color: active ? undefined : 'var(--text-tertiary)' }}
+                  style={{ borderColor: active ? undefined : 'var(--border-color)', color: active ? undefined : isAI ? 'rgba(167,139,250,0.7)' : 'var(--text-tertiary)' }}
                 >
-                  {cat}
-                  {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/8 rounded-full" aria-hidden="true" />}
+                  {isAI ? '✦ AI UGC' : cat}
+                  {active && <span className={`absolute inset-0 -z-10 blur-xl ${isAI ? 'bg-purple-400/8' : 'bg-yellow-400/8'} rounded-full`} aria-hidden="true" />}
                 </button>
               );
             })}
           </div>
 
           {/* Category banner */}
-          <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-            style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-            <div>
-              <p className="eyebrow mb-2">
-                {activeCategory === 'VIDEO' && 'Video Production & Editing'}
-                {activeCategory === 'GRAPHICS' && 'Graphic Design & Branding'}
-                {activeCategory === 'THUMBNAILS' && 'Thumbnail Design Suite'}
-                {activeCategory === 'CONTENT' && 'Social Content & Copywriting'}
-                {activeCategory === 'WEB' && 'Web Design & Digital Presence'}
-              </p>
-              <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                {activeCategory === 'VIDEO' && 'High-impact visual storytelling in every format.'}
-                {activeCategory === 'GRAPHICS' && 'Visual systems that make your brand unforgettable.'}
-                {activeCategory === 'THUMBNAILS' && 'Thumbnails engineered for clicks — not guesswork.'}
-                {activeCategory === 'CONTENT' && 'Words and visuals working together for attention.'}
-                {activeCategory === 'WEB' && 'Web experiences tuned for speed, clarity and conversion.'}
-              </h3>
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Click any service card to explore galleries, videos, and examples.</p>
+          {activeCategory === 'AI_UGC' ? (
+            /* ── AI UGC Special Showcase Banner ── */
+            <div className="mb-10 rounded-3xl border p-7 md:p-10 relative overflow-hidden"
+              style={{ borderColor: 'rgba(167,139,250,0.3)', background: 'linear-gradient(135deg, rgba(88,28,135,0.08) 0%, rgba(167,139,250,0.06) 50%, rgba(255,209,0,0.05) 100%)' }}>
+              {/* Decorative glow */}
+              <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" aria-hidden="true"
+                style={{ background: 'radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%)', filter: 'blur(40px)', transform: 'translate(30%, -30%)' }} />
+              <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full pointer-events-none" aria-hidden="true"
+                style={{ background: 'radial-gradient(circle, rgba(255,209,0,0.1) 0%, transparent 70%)', filter: 'blur(40px)', transform: 'translate(-30%, 30%)' }} />
+              <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[9px] tracking-[0.3em] uppercase font-bold mb-4"
+                    style={{ background: 'rgba(167,139,250,0.15)', color: 'rgba(167,139,250,0.9)', border: '1px solid rgba(167,139,250,0.3)' }}>
+                    <span>✦</span> AI-Powered Advertising
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    AI UGC Ads — the future of<br className="hidden md:block" /> performance creative.
+                  </h3>
+                  <p className="text-sm max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    We build hyper-realistic AI avatar ads, static ad creatives, and video UGC that convert — no actors, no studios. Built for Meta, TikTok, YouTube &amp; Google.
+                  </p>
+                  <div className="flex flex-wrap gap-3 mt-5">
+                    {['AI Avatars', 'Video Ads', 'Static Creatives', 'Hook-First Scripts', 'Multi-Platform'].map((tag) => (
+                      <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-full"
+                        style={{ background: 'rgba(167,139,250,0.1)', color: 'rgba(167,139,250,0.8)', border: '1px solid rgba(167,139,250,0.2)' }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3 shrink-0 md:text-right">
+                  <p className="text-[9px] tracking-[0.3em] uppercase" style={{ color: 'var(--text-muted)' }}>Syntra AI Stack</p>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Static · Video · Avatars · Voiceover<br />Hooks · Scripts · Multi-platform</p>
+                </div>
+              </div>
             </div>
-            <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
-              <p className="tracking-widest uppercase mb-1">Syntra Service Stack</p>
-              <p className="leading-relaxed">
-                {activeCategory === 'VIDEO' && 'Gaming · Tech · Shorts · AI UGC · Motion · Variety'}
-                {activeCategory === 'GRAPHICS' && 'Logos · Banners · Merch · Menus'}
-                {activeCategory === 'THUMBNAILS' && 'Elite · Premium · Standard tiers'}
-                {activeCategory === 'CONTENT' && 'Instagram · Scripts · Social flows'}
-                {activeCategory === 'WEB' && 'Responsive · Conversion-focused · SEO-ready'}
-              </p>
+          ) : (
+            <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+              style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+              <div>
+                <p className="eyebrow mb-2">
+                  {activeCategory === 'VIDEO' && 'Video Production & Editing'}
+                  {activeCategory === 'GRAPHICS' && 'Graphic Design & Branding'}
+                  {activeCategory === 'THUMBNAILS' && 'Thumbnail Design Suite'}
+                  {activeCategory === 'CONTENT' && 'Social Content & Copywriting'}
+                  {activeCategory === 'WEB' && 'Web Design & Digital Presence'}
+                </p>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                  {activeCategory === 'VIDEO' && 'High-impact visual storytelling in every format.'}
+                  {activeCategory === 'GRAPHICS' && 'Visual systems that make your brand unforgettable.'}
+                  {activeCategory === 'THUMBNAILS' && 'Thumbnails engineered for clicks — not guesswork.'}
+                  {activeCategory === 'CONTENT' && 'Words and visuals working together for attention.'}
+                  {activeCategory === 'WEB' && 'Web experiences tuned for speed, clarity and conversion.'}
+                </h3>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Click any service card to explore galleries, videos, and examples.</p>
+              </div>
+              <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
+                <p className="tracking-widest uppercase mb-1">Syntra Service Stack</p>
+                <p className="leading-relaxed">
+                  {activeCategory === 'VIDEO' && 'Gaming · Tech · Shorts · AI UGC · Motion · Variety'}
+                  {activeCategory === 'GRAPHICS' && 'Logos · Banners · Merch · Menus'}
+                  {activeCategory === 'THUMBNAILS' && 'Elite · Premium · Standard tiers'}
+                  {activeCategory === 'CONTENT' && 'Instagram · Scripts · Social flows'}
+                  {activeCategory === 'WEB' && 'Responsive · Conversion-focused · SEO-ready'}
+                </p>
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* ── AI UGC Client Showcases (only for AI_UGC category, Static Ads service) ── */}
+          {activeCategory === 'AI_UGC' && (
+            <div className="mb-10">
+              {/* Sub-header for client showcases */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(167,139,250,0.4), transparent)' }} />
+                <span className="text-[9px] tracking-[0.35em] uppercase font-semibold" style={{ color: 'rgba(167,139,250,0.7)' }}>UI UGC Static Ad Showcases</span>
+                <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(167,139,250,0.4), transparent)' }} />
+              </div>
+              <div className="grid md:grid-cols-2 gap-5 mb-10">
+                {/* Arovia.ai Client Card */}
+                <div className="rounded-3xl border p-6 md:p-8 relative overflow-hidden group"
+                  style={{ borderColor: 'rgba(167,139,250,0.25)', background: 'linear-gradient(135deg, rgba(88,28,135,0.07) 0%, rgba(14,14,14,0.6) 100%)' }}>
+                  <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none" aria-hidden="true"
+                    style={{ background: 'radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%)', filter: 'blur(20px)' }} />
+                  <div className="relative">
+                    <div className="flex items-start justify-between mb-5">
+                      <div>
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] tracking-[0.25em] uppercase font-bold mb-3"
+                          style={{ background: 'rgba(167,139,250,0.15)', color: 'rgba(167,139,250,0.9)', border: '1px solid rgba(167,139,250,0.25)' }}>
+                          AI Static Ads
+                        </div>
+                        <h4 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Arovia.ai</h4>
+                        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>AI Platform · Static Ad Creatives</p>
+                      </div>
+                      <a href="https://aroviaai.com/" target="_blank" rel="noopener noreferrer"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 hover:scale-105"
+                        style={{ background: 'rgba(167,139,250,0.15)', color: 'rgba(167,139,250,0.9)', border: '1px solid rgba(167,139,250,0.3)' }}>
+                        Visit site ↗
+                      </a>
+                    </div>
+                    <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      Hyper-realistic AI avatar visuals and product ad creatives for performance campaigns — engineered for Meta &amp; Google.
+                    </p>
+                    <div className="rounded-2xl flex items-center justify-center min-h-[120px]"
+                      style={{ background: 'rgba(167,139,250,0.06)', border: '1px dashed rgba(167,139,250,0.2)' }}>
+                      <div className="text-center py-8 px-4">
+                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'rgba(167,139,250,0.5)' }}>Ad creatives coming soon</p>
+                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Anohga Yoga Studio Client Card */}
+                <div className="rounded-3xl border p-6 md:p-8 relative overflow-hidden group"
+                  style={{ borderColor: 'rgba(167,139,250,0.25)', background: 'linear-gradient(135deg, rgba(20,83,45,0.07) 0%, rgba(14,14,14,0.6) 100%)' }}>
+                  <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none" aria-hidden="true"
+                    style={{ background: 'radial-gradient(circle, rgba(74,222,128,0.1) 0%, transparent 70%)', filter: 'blur(20px)' }} />
+                  <div className="relative">
+                    <div className="flex items-start justify-between mb-5">
+                      <div>
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] tracking-[0.25em] uppercase font-bold mb-3"
+                          style={{ background: 'rgba(74,222,128,0.12)', color: 'rgba(74,222,128,0.9)', border: '1px solid rgba(74,222,128,0.2)' }}>
+                          AI Static Ads
+                        </div>
+                        <h4 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Anohga Yoga Studio</h4>
+                        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Wellness Brand · Static Ad Creatives</p>
+                      </div>
+                    </div>
+                    <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      Calm, atmospheric AI-generated static ads for yoga studio marketing — crafted for serenity, brand resonance and conversion.
+                    </p>
+                    <div className="rounded-2xl flex items-center justify-center min-h-[120px]"
+                      style={{ background: 'rgba(74,222,128,0.04)', border: '1px dashed rgba(74,222,128,0.18)' }}>
+                      <div className="text-center py-8 px-4">
+                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'rgba(74,222,128,0.5)' }}>Ad creatives coming soon</p>
+                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Service Bento Grid */}
           <div
-            className={`grid gap-4 ${
+            className={`grid gap-5 ${
               activeCategory === 'VIDEO' ? 'md:grid-cols-3'
               : activeCategory === 'GRAPHICS' ? 'md:grid-cols-2 lg:grid-cols-4'
               : activeCategory === 'THUMBNAILS' ? 'md:grid-cols-3'
+              : activeCategory === 'AI_UGC' ? 'md:grid-cols-2'
               : 'md:grid-cols-2'
             }`}
             role="tabpanel"
@@ -650,11 +777,13 @@ function App() {
             {getServicesForCategory(activeCategory).map((s, idx) => {
               const serviceData = getServiceData(activeCategory, s.title);
               const hasContent = serviceData && (serviceData.examples?.length > 0 || serviceData.videoShowcase?.length > 0 || serviceData.webPreview?.length > 0);
+              const isAICategory = activeCategory === 'AI_UGC';
 
               return (
                 <article
                   key={s.title}
-                  className="bento-card group relative p-6 flex flex-col justify-between cursor-pointer"
+                  className={`bento-card group relative p-7 flex flex-col justify-between cursor-pointer ${isAICategory ? 'min-h-[200px]' : ''}`}
+                  style={isAICategory ? { borderColor: 'rgba(167,139,250,0.2)', background: 'linear-gradient(135deg, rgba(88,28,135,0.05) 0%, var(--bg-card) 100%)' } : {}}
                   onClick={() => handleServiceClick(s.title)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleServiceClick(s.title); } }}
                   tabIndex={0}
@@ -662,22 +791,22 @@ function App() {
                   aria-label={`View details for ${s.title}`}
                 >
                   {/* Hover gradient fill */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 bg-gradient-to-br from-yellow-400/8 via-transparent to-yellow-500/12 pointer-events-none rounded-[20px]" aria-hidden="true" />
+                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ${isAICategory ? 'bg-gradient-to-br from-purple-400/8 via-transparent to-purple-500/12' : 'bg-gradient-to-br from-yellow-400/8 via-transparent to-yellow-500/12'} pointer-events-none rounded-[20px]`} aria-hidden="true" />
 
                   <div className="relative">
-                    <p className="eyebrow mb-3">{s.tag}</p>
-                    <h4 className="text-base md:text-lg font-bold mb-2 leading-snug" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{s.title}</h4>
-                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{s.desc}</p>
+                    <p className={`eyebrow mb-3 ${isAICategory ? 'text-purple-400/80' : ''}`}>{s.tag}</p>
+                    <h4 className="text-lg md:text-xl font-bold mb-3 leading-snug" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{s.title}</h4>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{s.desc}</p>
                   </div>
 
-                  <div className="relative mt-6 text-[10px] tracking-[0.25em] uppercase flex items-center gap-2 font-semibold transition-all duration-300 group-hover:gap-3"
-                    style={{ color: 'var(--text-tertiary)' }}
+                  <div className={`relative mt-7 text-[10px] tracking-[0.25em] uppercase flex items-center gap-2 font-semibold transition-all duration-300 group-hover:gap-3 ${isAICategory ? 'text-purple-400/60' : ''}`}
+                    style={isAICategory ? {} : { color: 'var(--text-tertiary)' }}
                     aria-hidden="true">
-                    <span>Learn more</span><span className="transition-transform group-hover:translate-x-1">→</span>
+                    <span>Explore</span><span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
 
                   {/* Decorative corner */}
-                  <div className="absolute -right-4 -bottom-4 w-16 h-16 border border-yellow-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-400" aria-hidden="true" />
+                  <div className={`absolute -right-4 -bottom-4 w-16 h-16 border ${isAICategory ? 'border-purple-400/20' : 'border-yellow-400/20'} rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-400`} aria-hidden="true" />
                 </article>
               );
             })}

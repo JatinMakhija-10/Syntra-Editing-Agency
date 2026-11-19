@@ -150,6 +150,7 @@ export const servicesData = {
       examples: [],
       webPreview: [],
     },
+
     'Motion Graphics & Animated Visuals': {
       title: 'Motion Graphics & Animated Visuals',
       desc: 'Animated titles, HUDs and effects that give your content kinetic energy.',
@@ -561,6 +562,38 @@ export const servicesData = {
         { title: 'Arovia AI', desc: 'AI Platform', link: 'https://aroviaai.com/' },
         { title: 'LimitLens', desc: 'Antigravity Limits Checker Tool', link: 'https://limitlens.netlify.app/' },
       ],
+    },
+  },
+  AI_UGC: {
+    'AI UGC Static Ads': {
+      title: 'AI UGC Static Ads',
+      desc: 'Hyper-realistic AI-generated static ad creatives — scroll-stopping visuals engineered for performance across Meta, Google, and social platforms.',
+      tag: 'AI Static',
+      examples: [],
+      videoShowcase: [],
+      webPreview: [],
+      clientShowcases: [
+        {
+          client: 'Arovia.ai',
+          clientDesc: 'AI Platform — Hyper-realistic avatars & product visuals for performance ad campaigns.',
+          clientLink: 'https://aroviaai.com/',
+          examples: [],
+        },
+        {
+          client: 'Anohga Yoga Studio',
+          clientDesc: 'Wellness brand — Calm, atmospheric static ad creatives for yoga studio marketing.',
+          clientLink: null,
+          examples: [],
+        },
+      ],
+    },
+    'AI UGC Video Ads': {
+      title: 'AI UGC Video Ads',
+      desc: 'Creator-style performance video ads powered by AI avatars, authentic voiceovers, and hook-first storytelling — built for Facebook, Instagram, TikTok, and YouTube.',
+      tag: 'AI Video',
+      examples: [],
+      videoShowcase: [],
+      webPreview: [],
     },
   },
 };
