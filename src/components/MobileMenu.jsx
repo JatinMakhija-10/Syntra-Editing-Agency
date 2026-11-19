@@ -55,10 +55,13 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate }) => {
             onNavigate(e);
             onClose();
           }}
-          className="text-base tracking-[0.15em] uppercase py-3 hover:text-yellow-400 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded px-2"
+          className="text-base tracking-[0.15em] uppercase py-3 hover:text-yellow-400 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded px-2 flex items-center justify-between"
           style={{ color: 'var(--text-primary)' }}
         >
-          Services
+          <span>Services</span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-yellow-400 text-black">
+            6 Disciplines
+          </span>
         </a>
         <a
           href="#testimonials"

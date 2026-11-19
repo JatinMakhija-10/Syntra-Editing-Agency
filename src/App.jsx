@@ -16,6 +16,16 @@ import { slugify, findServiceBySlug } from './utils/slug';
 
 const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB', 'AI_UGC'];
 
+const categoryTabs = [
+  { id: 'ALL', label: 'All Services', icon: '⚡' },
+  { id: 'AI_UGC', label: 'AI UGC Ads', icon: '✦', isHighlight: true },
+  { id: 'VIDEO', label: 'Video Editing', icon: '🎬' },
+  { id: 'GRAPHICS', label: 'Graphic Design', icon: '🎨' },
+  { id: 'THUMBNAILS', label: 'Thumbnails', icon: '🖼️' },
+  { id: 'CONTENT', label: 'Content & Copy', icon: '✍️' },
+  { id: 'WEB', label: 'Web Design', icon: '🌐' },
+];
+
 // ── Live Clock ────────────────────────────────────────────────
 function LiveClock() {
   const [time, setTime] = useState('');
@@ -66,6 +76,7 @@ function App() {
   }
 
   const [activeCategory, setActiveCategory] = useState('VIDEO');
+  const [serviceSearch, setServiceSearch] = useState('');
   const [selectedService, setSelectedService] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -169,8 +180,32 @@ function App() {
 
   // Dynamic getters in component scope
   const getServiceData = (category, title) => mergedData[category]?.[title] || null;
-  const getServicesForCategory = (category) =>
-    Object.values(mergedData[category] || {}).map((s) => ({ title: s.title, desc: s.desc, tag: s.tag }));
+
+  const getServicesForCategory = (category) => {
+    if (category === 'ALL') {
+      const allServices = [];
+      categories.forEach((cat) => {
+        const catServices = mergedData[cat] || {};
+        Object.keys(catServices).forEach((title) => {
+          allServices.push({ ...catServices[title], category: cat });
+        });
+      });
+      return allServices;
+    }
+    return Object.values(mergedData[category] || {}).map((s) => ({ ...s, category }));
+  };
+
+  const getCategoryCount = (catId) => {
+    if (catId === 'ALL') {
+      return categories.reduce((total, cat) => total + Object.keys(mergedData[cat] || {}).length, 0);
+    }
+    return Object.keys(mergedData[catId] || {}).length;
+  };
+
+  const totalServicesCount = categories.reduce(
+    (total, cat) => total + Object.keys(mergedData[cat] || {}).length,
+    0
+  );
 
   // Contact form state
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -289,12 +324,21 @@ function App() {
     return () => obs.disconnect();
   }, []);
 
-  const handleServiceClick = (serviceTitle) => {
-    const data = getServiceData(activeCategory, serviceTitle);
+  const handleServiceClick = (serviceTitle, serviceCategory) => {
+    let cat = serviceCategory || activeCategory;
+    if (cat === 'ALL') {
+      for (const c of categories) {
+        if (mergedData[c]?.[serviceTitle]) {
+          cat = c;
+          break;
+        }
+      }
+    }
+    const data = getServiceData(cat, serviceTitle);
     if (data) {
       const slug = slugify(serviceTitle);
       window.history.pushState({ service: serviceTitle }, '', `/services/${slug}`);
-      setSelectedService({ ...data, category: activeCategory });
+      setSelectedService({ ...data, category: cat });
     }
   };
 
@@ -385,9 +429,14 @@ function App() {
             style={{ fontFamily: 'var(--font-body)', color: 'var(--text-tertiary)' }} aria-label="Main navigation">
             {['about', 'services', 'testimonials', 'process', 'contact'].map((link) => (
               <a key={link} href={`#${link}`} onClick={handleSmoothScroll}
-                className="hover:text-yellow-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded px-1 py-1"
+                className="hover:text-yellow-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded px-1 py-1 inline-flex items-center gap-1.5"
                 style={{ color: 'var(--text-tertiary)' }}>
-                {link.charAt(0).toUpperCase() + link.slice(1)}
+                <span>{link.charAt(0).toUpperCase() + link.slice(1)}</span>
+                {link === 'services' && (
+                  <span className="text-[9px] px-1.5 py-0.2 rounded-full font-bold bg-yellow-400 text-black shadow-xs">
+                    6
+                  </span>
+                )}
               </a>
             ))}
           </nav>
@@ -472,6 +521,34 @@ function App() {
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                   Start a project
                 </a>
+              </div>
+
+              {/* Quick Jump Category Chips */}
+              <div className="flex flex-wrap items-center gap-2 mt-6 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                <span className="text-[10px] tracking-widest uppercase font-semibold" style={{ color: 'var(--text-muted)' }}>
+                  Jump to:
+                </span>
+                {[
+                  { label: '✦ AI UGC Ads', cat: 'AI_UGC' },
+                  { label: '🎬 Video & Reels', cat: 'VIDEO' },
+                  { label: '🖼️ Thumbnails', cat: 'THUMBNAILS' },
+                  { label: '🎨 Brand Identity', cat: 'GRAPHICS' },
+                  { label: '🌐 Websites', cat: 'WEB' },
+                ].map((pill) => (
+                  <button
+                    key={pill.cat}
+                    onClick={() => {
+                      setActiveCategory(pill.cat);
+                      setServiceSearch('');
+                      const target = document.getElementById('services');
+                      if (target) smoothScrollTo(target, 500);
+                    }}
+                    className="text-[10px] tracking-wider uppercase font-semibold px-3 py-1.5 rounded-full border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105 cursor-pointer flex items-center gap-1.5"
+                    style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
+                  >
+                    {pill.label}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -581,17 +658,38 @@ function App() {
         </section>
 
         {/* ── SERVICES ── */}
-        <section id="services" className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
+        <section id="services" className="relative py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
+          {/* Ambient spotlight glow */}
+          <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-80 opacity-[0.06] rounded-full blur-3xl -z-10"
+            style={{ background: 'radial-gradient(ellipse, #FFD100 0%, transparent 70%)' }}
+            aria-hidden="true" />
+
           {/* Section header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
-              <div className="pill-label mb-4 inline-flex">Services</div>
-              <h2 className="text-4xl md:text-5xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+              <div className="pill-label mb-4 inline-flex">
+                ✦ Creative Capabilities · 6 Disciplines
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 A complete editing &amp;<br className="hidden md:block" /> design ecosystem.
               </h2>
               <p className="mt-4 text-base max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                From gaming montages to logos, thumbnails, social posts and full websites — Syntra handles the entire funnel.
+                From gaming montages to logos, thumbnails, social posts, AI UGC ads and full websites — Syntra handles the entire funnel with zero templates.
               </p>
+              {/* Metric badges strip */}
+              <div className="flex flex-wrap items-center gap-2 mt-5">
+                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                  ⚡ {totalServicesCount} Specialized Services
+                </span>
+                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border"
+                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
+                  🎬 100+ Video Edits
+                </span>
+                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border"
+                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
+                  ✦ Custom Brand Retainers
+                </span>
+              </div>
             </div>
             <a href="#contact" onClick={handleSmoothScroll}
               className="shrink-0 btn-shimmer inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
@@ -599,169 +697,261 @@ function App() {
             </a>
           </div>
 
-          {/* Tab switcher */}
-          <div className="flex flex-wrap gap-2 mb-10" role="tablist" aria-label="Service categories">
-            {categories.map((cat) => {
-              const active = cat === activeCategory;
-              return (
+          {/* Controls Bar: Category Tabs + Live Search Input */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-10 pb-6 border-b"
+            style={{ borderColor: 'var(--border-color)' }}>
+            {/* Category Tabs */}
+            <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Service categories">
+              {categoryTabs.map((tab) => {
+                const count = getCategoryCount(tab.id);
+                const active = activeCategory === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    aria-controls={`${tab.id}-panel`}
+                    id={`${tab.id}-tab`}
+                    onClick={() => {
+                      setActiveCategory(tab.id);
+                      setServiceSearch('');
+                      if (tab.id === 'AI_UGC') {
+                        window.history.pushState({}, '', '#ai-ugc');
+                      } else if (window.location.hash === '#ai-ugc') {
+                        window.history.pushState({}, '', '#services');
+                      }
+                    }}
+                    className={`relative px-4 py-2.5 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold transition-all border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
+                      active
+                        ? 'border-yellow-400/80 bg-yellow-400/15 text-yellow-400 shadow-[0_0_24px_rgba(255,209,0,0.22)]'
+                        : 'hover:border-yellow-300/50 hover:text-yellow-300'
+                    }`}
+                    style={{
+                      borderColor: active ? undefined : 'var(--border-color)',
+                      color: active ? undefined : 'var(--text-tertiary)',
+                      backgroundColor: active ? undefined : 'var(--bg-card)'
+                    }}
+                  >
+                    <span>{tab.icon}</span>
+                    <span>{tab.label}</span>
+                    <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold ml-0.5 ${
+                      active ? 'bg-yellow-400 text-black' : 'bg-[var(--bg-overlay)] text-[var(--text-muted)]'
+                    }`}>
+                      {count}
+                    </span>
+                    {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/10 rounded-full" aria-hidden="true" />}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Quick Search Input */}
+            <div className="relative w-full lg:w-72 shrink-0">
+              <input
+                type="text"
+                value={serviceSearch}
+                onChange={(e) => setServiceSearch(e.target.value)}
+                placeholder="Search services (e.g. reels, ai ads)..."
+                className="w-full pl-9 pr-9 py-2.5 rounded-full text-xs border outline-none transition-all duration-300 focus:ring-2 focus:ring-yellow-400/40"
+                style={{
+                  backgroundColor: 'var(--bg-card)',
+                  borderColor: serviceSearch ? 'var(--brand-yellow)' : 'var(--border-color)',
+                  color: 'var(--text-primary)',
+                }}
+              />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                🔍
+              </span>
+              {serviceSearch && (
                 <button
-                  key={cat}
-                  type="button"
-                  role="tab"
-                  aria-selected={active}
-                  aria-controls={`${cat}-panel`}
-                  id={`${cat}-tab`}
-                  onClick={() => {
-                    setActiveCategory(cat);
-                    if (cat === 'AI_UGC') {
-                      window.history.pushState({}, '', '#ai-ugc');
-                    } else if (window.location.hash === '#ai-ugc') {
-                      window.history.pushState({}, '', '#services');
-                    }
-                  }}
-                  className={`relative px-5 py-2.5 rounded-full text-[10px] tracking-[0.25em] uppercase font-semibold transition-all border focus:outline-none focus:ring-2 focus:ring-yellow-400 ${
-                    active
-                      ? 'border-yellow-400/70 bg-yellow-400/10 text-yellow-400 shadow-[0_0_28px_rgba(255,209,0,0.2)]'
-                      : 'hover:border-yellow-300/50 hover:text-yellow-300'
-                  }`}
-                  style={{ borderColor: active ? undefined : 'var(--border-color)', color: active ? undefined : 'var(--text-tertiary)' }}
+                  onClick={() => setServiceSearch('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs hover:text-yellow-400 transition-colors cursor-pointer px-1 py-0.5"
+                  style={{ color: 'var(--text-tertiary)' }}
+                  aria-label="Clear search"
                 >
-                  {cat === 'AI_UGC' ? '✦ AI UGC' : cat}
-                  {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/8 rounded-full" aria-hidden="true" />}
+                  ✕
                 </button>
-              );
-            })}
+              )}
+            </div>
           </div>
 
-          {/* Category banner */}
-          {activeCategory === 'AI_UGC' ? (
-            /* ── AI UGC Special Showcase Banner ── */
-            <div className="mb-10 rounded-3xl border p-7 md:p-10 relative overflow-hidden"
-              style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-              {/* Decorative brand yellow glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" aria-hidden="true"
-                style={{ background: 'radial-gradient(circle, rgba(255,209,0,0.12) 0%, transparent 70%)', filter: 'blur(40px)', transform: 'translate(30%, -30%)' }} />
-              <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                <div>
-                  <div className="pill-label mb-4 inline-flex">
-                    ✦ AI-Powered Advertising
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                    AI UGC Ads — the future of<br className="hidden md:block" /> performance creative.
-                  </h3>
-                  <p className="text-sm max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                    We build hyper-realistic AI avatar ads, static ad creatives, and video UGC that convert — no actors, no studios. Built for Meta, TikTok, YouTube &amp; Google.
-                  </p>
-                  <div className="flex flex-wrap gap-2.5 mt-5">
-                    {['AI Avatars', 'Video Ads', 'Static Creatives', 'Hook-First Scripts', 'Multi-Platform'].map((tag) => (
-                      <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-full border"
-                        style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3 shrink-0 md:text-right">
-                  <p className="eyebrow">Syntra AI Stack</p>
-                  <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Static · Video · Avatars · Voiceover<br />Hooks · Scripts · Multi-platform</p>
-                </div>
+          {/* Search match notice */}
+          {serviceSearch.trim() && (
+            <div className="flex items-center justify-between mb-8 p-4 rounded-2xl border"
+              style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-yellow-400 font-bold">🔍</span>
+                <span>
+                  Filtering all categories for <strong>"{serviceSearch}"</strong>
+                </span>
               </div>
-            </div>
-          ) : (
-            <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-              style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-              <div>
-                <p className="eyebrow mb-2">
-                  {activeCategory === 'VIDEO' && 'Video Production & Editing'}
-                  {activeCategory === 'GRAPHICS' && 'Graphic Design & Branding'}
-                  {activeCategory === 'THUMBNAILS' && 'Thumbnail Design Suite'}
-                  {activeCategory === 'CONTENT' && 'Social Content & Copywriting'}
-                  {activeCategory === 'WEB' && 'Web Design & Digital Presence'}
-                </p>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                  {activeCategory === 'VIDEO' && 'High-impact visual storytelling in every format.'}
-                  {activeCategory === 'GRAPHICS' && 'Visual systems that make your brand unforgettable.'}
-                  {activeCategory === 'THUMBNAILS' && 'Thumbnails engineered for clicks — not guesswork.'}
-                  {activeCategory === 'CONTENT' && 'Words and visuals working together for attention.'}
-                  {activeCategory === 'WEB' && 'Web experiences tuned for speed, clarity and conversion.'}
-                </h3>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Click any service card to explore galleries, videos, and examples.</p>
-              </div>
-              <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
-                <p className="tracking-widest uppercase mb-1">Syntra Service Stack</p>
-                <p className="leading-relaxed">
-                  {activeCategory === 'VIDEO' && 'Gaming · Tech · Shorts · AI UGC · Motion · Variety'}
-                  {activeCategory === 'GRAPHICS' && 'Logos · Banners · Merch · Menus'}
-                  {activeCategory === 'THUMBNAILS' && 'Elite · Premium · Standard tiers'}
-                  {activeCategory === 'CONTENT' && 'Instagram · Scripts · Social flows'}
-                  {activeCategory === 'WEB' && 'Responsive · Conversion-focused · SEO-ready'}
-                </p>
-              </div>
+              <button
+                onClick={() => setServiceSearch('')}
+                className="text-xs text-yellow-400 hover:underline uppercase tracking-wider font-semibold cursor-pointer"
+              >
+                Reset Search ✕
+              </button>
             </div>
           )}
 
-          {/* ── AI UGC Client Showcases (only for AI_UGC category, Static Ads service) ── */}
-          {activeCategory === 'AI_UGC' && (
-            <div className="mb-10">
-              {/* Sub-header for client showcases */}
+          {/* Category banner (only when not searching) */}
+          {!serviceSearch.trim() && (
+            <>
+              {activeCategory === 'AI_UGC' ? (
+                /* ── AI UGC Special Showcase Banner ── */
+                <div className="mb-10 rounded-3xl border p-7 md:p-10 relative overflow-hidden"
+                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+                  {/* Decorative brand yellow glow */}
+                  <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" aria-hidden="true"
+                    style={{ background: 'radial-gradient(circle, rgba(255,209,0,0.12) 0%, transparent 70%)', filter: 'blur(40px)', transform: 'translate(30%, -30%)' }} />
+                  <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                    <div>
+                      <div className="pill-label mb-4 inline-flex">
+                        ✦ AI-Powered Performance Advertising
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-bold mb-3 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                        AI UGC Ads — the future of performance creative.
+                      </h3>
+                      <p className="text-sm max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                        We engineer hyper-realistic AI avatar video ads, scroll-stopping static creatives, and hook-first UGC scripts — built to drive high ROAS across Meta, TikTok, YouTube &amp; Google Ads.
+                      </p>
+                      <div className="flex flex-wrap gap-2.5 mt-5">
+                        {['AI Avatars', 'Performance Video Ads', 'Static Creatives', 'Hook-First Scripts', 'Multi-Platform Formats'].map((tag) => (
+                          <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-full border"
+                            style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-3 shrink-0 md:text-right">
+                      <p className="eyebrow">Syntra AI Stack</p>
+                      <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+                        Static · Video · Avatars · Voiceover<br />Hooks · Scripts · Multi-platform
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : activeCategory === 'ALL' ? (
+                /* ── ALL Services Banner ── */
+                <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+                  <div>
+                    <p className="eyebrow mb-2">Comprehensive Production Matrix</p>
+                    <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      All {totalServicesCount} Creative Offerings Across 6 Disciplines.
+                    </h3>
+                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                      Click any service card to view complete video reels, portfolio galleries, and deliverables.
+                    </p>
+                  </div>
+                  <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="tracking-widest uppercase mb-1">Syntra Multi-Format Delivery</p>
+                    <p className="leading-relaxed">YouTube · Meta · TikTok · Web · Identity · Copy</p>
+                  </div>
+                </div>
+              ) : (
+                /* ── Category Specific Banner ── */
+                <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+                  <div>
+                    <p className="eyebrow mb-2">
+                      {activeCategory === 'VIDEO' && 'Video Production & Editing'}
+                      {activeCategory === 'GRAPHICS' && 'Graphic Design & Branding'}
+                      {activeCategory === 'THUMBNAILS' && 'Thumbnail Design Suite'}
+                      {activeCategory === 'CONTENT' && 'Social Content & Copywriting'}
+                      {activeCategory === 'WEB' && 'Web Design & Digital Presence'}
+                    </p>
+                    <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      {activeCategory === 'VIDEO' && 'High-impact visual storytelling in every format.'}
+                      {activeCategory === 'GRAPHICS' && 'Visual systems that make your brand unforgettable.'}
+                      {activeCategory === 'THUMBNAILS' && 'Thumbnails engineered for clicks — not guesswork.'}
+                      {activeCategory === 'CONTENT' && 'Words and visuals working together for attention.'}
+                      {activeCategory === 'WEB' && 'Web experiences tuned for speed, clarity and conversion.'}
+                    </h3>
+                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                      Click any service card to explore galleries, videos, and client examples.
+                    </p>
+                  </div>
+                  <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="tracking-widest uppercase mb-1">Syntra Service Stack</p>
+                    <p className="leading-relaxed">
+                      {activeCategory === 'VIDEO' && 'Gaming · Tech · Shorts · Motion · Variety'}
+                      {activeCategory === 'GRAPHICS' && 'Logos · Banners · Merch · Menus'}
+                      {activeCategory === 'THUMBNAILS' && 'Elite · Standard tiers · A/B testing'}
+                      {activeCategory === 'CONTENT' && 'Instagram · Scripts · Social flows'}
+                      {activeCategory === 'WEB' && 'Responsive · Conversion-focused · SEO-ready'}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* ── AI UGC Client Showcases (when AI_UGC tab is active or searched) ── */}
+          {(activeCategory === 'AI_UGC' || (serviceSearch.trim() && 'ai ugc static ads'.includes(serviceSearch.toLowerCase()))) && (
+            <div className="mb-12">
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,209,0,0.3), transparent)' }} />
-                <span className="text-[9px] tracking-[0.35em] uppercase font-semibold" style={{ color: 'var(--brand-yellow)' }}>UI UGC Static Ad Showcases</span>
+                <span className="text-[10px] tracking-[0.35em] uppercase font-bold text-yellow-400">
+                  ✦ Featured AI UGC Client Campaigns
+                </span>
                 <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
               </div>
-              <div className="grid md:grid-cols-2 gap-5 mb-10">
+              <div className="grid md:grid-cols-2 gap-6">
                 {/* Arovia.ai Client Card */}
-                <div className="rounded-3xl border p-6 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/40"
+                <div className="rounded-3xl border p-7 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.1)]"
                   style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
                   <div className="relative">
                     <div className="flex items-start justify-between mb-5">
                       <div>
                         <div className="pill-label mb-3 inline-flex">
-                          AI Static Ads
+                          ✦ Client Showcase
                         </div>
-                        <h4 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Arovia.ai</h4>
-                        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>AI Platform · Static Ad Creatives</p>
+                        <h4 className="text-2xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Arovia.ai</h4>
+                        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>AI Platform · Performance Static Ad Creatives</p>
                       </div>
                       <a href="https://aroviaai.com/" target="_blank" rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Visit site ↗
                       </a>
                     </div>
-                    <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      Hyper-realistic AI avatar visuals and product ad creatives for performance campaigns — engineered for Meta &amp; Google.
+                    <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      Hyper-realistic AI avatar visuals and product ad creatives engineered for conversion-focused performance campaigns across Meta &amp; Google Ads.
                     </p>
-                    <div className="rounded-2xl flex items-center justify-center min-h-[120px]"
-                      style={{ background: 'var(--bg-overlay)', border: '1px dashed var(--border-color)' }}>
-                      <div className="text-center py-8 px-4">
-                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'var(--text-tertiary)' }}>Ad creatives coming soon</p>
-                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
+                    <div className="rounded-2xl flex items-center justify-center p-6 border transition-colors group-hover:border-yellow-400/30"
+                      style={{ background: 'var(--bg-overlay)', borderColor: 'var(--border-color)' }}>
+                      <div className="text-center py-4 px-4">
+                        <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-yellow-400 mb-1">Ad Campaign Showcase</p>
+                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static creatives &amp; performance ad sets active</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Anohga Yoga Studio Client Card */}
-                <div className="rounded-3xl border p-6 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/40"
+                <div className="rounded-3xl border p-7 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.1)]"
                   style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
                   <div className="relative">
                     <div className="flex items-start justify-between mb-5">
                       <div>
                         <div className="pill-label mb-3 inline-flex">
-                          AI Static Ads
+                          ✦ Client Showcase
                         </div>
-                        <h4 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Anohga Yoga Studio</h4>
+                        <h4 className="text-2xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Anohga Yoga Studio</h4>
                         <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Wellness Brand · Static Ad Creatives</p>
                       </div>
                     </div>
-                    <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      Calm, atmospheric AI-generated static ads for yoga studio marketing — crafted for serenity, brand resonance and conversion.
+                    <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      Calm, atmospheric AI-generated static ads for yoga studio marketing — crafted for serenity, premium brand resonance and high click-through engagement.
                     </p>
-                    <div className="rounded-2xl flex items-center justify-center min-h-[120px]"
-                      style={{ background: 'var(--bg-overlay)', border: '1px dashed var(--border-color)' }}>
-                      <div className="text-center py-8 px-4">
-                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'var(--text-tertiary)' }}>Ad creatives coming soon</p>
-                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
+                    <div className="rounded-2xl flex items-center justify-center p-6 border transition-colors group-hover:border-yellow-400/30"
+                      style={{ background: 'var(--bg-overlay)', borderColor: 'var(--border-color)' }}>
+                      <div className="text-center py-4 px-4">
+                        <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-yellow-400 mb-1">Ad Campaign Showcase</p>
+                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Atmospheric static ad creatives active</p>
                       </div>
                     </div>
                   </div>
@@ -771,52 +961,213 @@ function App() {
           )}
 
           {/* Service Bento Grid */}
-          <div
-            className={`grid gap-5 ${
-              activeCategory === 'VIDEO' ? 'md:grid-cols-3'
-              : activeCategory === 'GRAPHICS' ? 'md:grid-cols-2 lg:grid-cols-4'
-              : activeCategory === 'THUMBNAILS' ? 'md:grid-cols-3'
-              : activeCategory === 'AI_UGC' ? 'md:grid-cols-2'
-              : 'md:grid-cols-2'
-            }`}
-            role="tabpanel"
-            id={`${activeCategory}-panel`}
-            aria-labelledby={`${activeCategory}-tab`}
-          >
-            {getServicesForCategory(activeCategory).map((s, idx) => {
-              const serviceData = getServiceData(activeCategory, s.title);
-              const hasContent = serviceData && (serviceData.examples?.length > 0 || serviceData.videoShowcase?.length > 0 || serviceData.webPreview?.length > 0);
+          {(() => {
+            const rawServices = serviceSearch.trim()
+              ? getServicesForCategory('ALL').filter(s =>
+                  s.title.toLowerCase().includes(serviceSearch.toLowerCase()) ||
+                  s.desc.toLowerCase().includes(serviceSearch.toLowerCase()) ||
+                  (s.tag && s.tag.toLowerCase().includes(serviceSearch.toLowerCase())) ||
+                  (s.category && s.category.toLowerCase().includes(serviceSearch.toLowerCase()))
+                )
+              : getServicesForCategory(activeCategory);
 
+            if (rawServices.length === 0) {
               return (
-                <article
-                  key={s.title}
-                  className="bento-card group relative p-7 flex flex-col justify-between cursor-pointer"
-                  onClick={() => handleServiceClick(s.title)}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleServiceClick(s.title); } }}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`View details for ${s.title}`}
-                >
-                  {/* Hover gradient fill */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 bg-gradient-to-br from-yellow-400/8 via-transparent to-yellow-500/12 pointer-events-none rounded-[20px]" aria-hidden="true" />
-
-                  <div className="relative">
-                    <p className="eyebrow mb-3">{s.tag}</p>
-                    <h4 className="text-lg md:text-xl font-bold mb-3 leading-snug" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{s.title}</h4>
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{s.desc}</p>
+                <div className="py-16 text-center rounded-3xl border p-8"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+                  <p className="text-3xl mb-3">🔍</p>
+                  <h4 className="text-lg font-bold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    No services found for "{serviceSearch}"
+                  </h4>
+                  <p className="text-sm max-w-md mx-auto mb-6" style={{ color: 'var(--text-secondary)' }}>
+                    We build custom creative solutions across video, design, code, and AI. Tell us about your project!
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <button
+                      onClick={() => setServiceSearch('')}
+                      className="px-5 py-2.5 rounded-full border text-xs font-semibold hover:border-yellow-400 transition-colors cursor-pointer"
+                      style={{ borderColor: 'var(--border-color)' }}>
+                      Reset Search
+                    </button>
+                    <a
+                      href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%20have%20a%20custom%20service%20inquiry."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-shimmer px-6 py-2.5 rounded-full text-xs font-bold"
+                    >
+                      Inquire on WhatsApp →
+                    </a>
                   </div>
-
-                  <div className="relative mt-7 text-[10px] tracking-[0.25em] uppercase flex items-center gap-2 font-semibold transition-all duration-300 group-hover:gap-3"
-                    style={{ color: 'var(--text-tertiary)' }}
-                    aria-hidden="true">
-                    <span>Explore</span><span className="transition-transform group-hover:translate-x-1">→</span>
-                  </div>
-
-                  {/* Decorative corner */}
-                  <div className="absolute -right-4 -bottom-4 w-16 h-16 border border-yellow-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-400" aria-hidden="true" />
-                </article>
+                </div>
               );
-            })}
+            }
+
+            const gridCols = serviceSearch.trim() || activeCategory === 'ALL'
+              ? 'md:grid-cols-2 lg:grid-cols-3'
+              : activeCategory === 'VIDEO'
+              ? 'md:grid-cols-3'
+              : activeCategory === 'GRAPHICS'
+              ? 'md:grid-cols-2 lg:grid-cols-4'
+              : activeCategory === 'AI_UGC'
+              ? 'md:grid-cols-2'
+              : 'md:grid-cols-2';
+
+            return (
+              <div
+                className={`grid gap-5 ${gridCols}`}
+                role="tabpanel"
+                id={`${activeCategory}-panel`}
+                aria-labelledby={`${activeCategory}-tab`}
+              >
+                {rawServices.map((s) => {
+                  const categoryName = s.category || activeCategory;
+                  const serviceData = getServiceData(categoryName, s.title);
+                  const videosCount = serviceData?.videoShowcase?.length || 0;
+                  const examplesCount = serviceData?.examples?.length || 0;
+                  const webCount = serviceData?.webPreview?.length || 0;
+                  const clientCount = serviceData?.clientShowcases?.length || 0;
+                  const sampleImages = (serviceData?.examples || []).slice(0, 3);
+
+                  return (
+                    <article
+                      key={s.title}
+                      className="bento-card group relative p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.12)] hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      style={{ background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)' }}
+                      onClick={() => handleServiceClick(s.title, categoryName)}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleServiceClick(s.title, categoryName); } }}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`View details and portfolio for ${s.title}`}
+                    >
+                      {/* Hover ambient lighting */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-yellow-400/10 via-transparent to-yellow-500/15 pointer-events-none rounded-[20px]" aria-hidden="true" />
+
+                      <div className="relative">
+                        {/* Card Top Pill strip: Category / Tag + Live asset counter */}
+                        <div className="flex items-center justify-between gap-2 mb-4">
+                          <span className="pill-label text-[9px] tracking-[0.2em]">{s.tag || categoryName}</span>
+
+                          {/* Dynamic Proof Metric Badges */}
+                          {videosCount > 0 && (
+                            <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400 flex items-center gap-1">
+                              <span>🎬</span> {videosCount} {videosCount === 1 ? 'Video' : 'Videos'}
+                            </span>
+                          )}
+                          {examplesCount > 0 && videosCount === 0 && (
+                            <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400 flex items-center gap-1">
+                              <span>🖼️</span> {examplesCount}+ Designs
+                            </span>
+                          )}
+                          {clientCount > 0 && (
+                            <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400 flex items-center gap-1">
+                              <span>✦</span> {clientCount} Client Cases
+                            </span>
+                          )}
+                          {webCount > 0 && (
+                            <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400 flex items-center gap-1">
+                              <span>🌐</span> Live Demos
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Title */}
+                        <h4 className="text-xl font-bold mb-2.5 leading-snug group-hover:text-yellow-400 transition-colors"
+                          style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                          {s.title}
+                        </h4>
+
+                        {/* Description */}
+                        <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
+                          {s.desc}
+                        </p>
+
+                        {/* Sample preview thumbnails if available */}
+                        {sampleImages.length > 0 && (
+                          <div className="flex items-center gap-2 mb-4 pt-1">
+                            <div className="flex -space-x-2">
+                              {sampleImages.map((ex, i) => (
+                                <img
+                                  key={i}
+                                  src={ex.image}
+                                  alt=""
+                                  className="w-8 h-8 rounded-full object-cover border-2 transition-transform group-hover:scale-105"
+                                  style={{ borderColor: 'var(--bg-card)' }}
+                                  loading="lazy"
+                                />
+                              ))}
+                            </div>
+                            <span className="text-[10px] font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                              Real client deliverables
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Client tags for AI UGC static ads */}
+                        {serviceData?.clientShowcases?.length > 0 && (
+                          <div className="flex flex-wrap items-center gap-1.5 mb-4 pt-1">
+                            {serviceData.clientShowcases.map((c, i) => (
+                              <span key={i} className="text-[9px] px-2.5 py-0.5 rounded-full font-semibold border"
+                                style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
+                                ✦ {c.client}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Interactive Bottom Bar */}
+                      <div className="relative pt-4 border-t flex items-center justify-between mt-4 transition-all duration-300"
+                        style={{ borderColor: 'var(--border-color)' }}>
+                        <span className="text-[11px] tracking-[0.2em] uppercase font-bold text-yellow-400 flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                          <span>View Portfolio &amp; Details</span>
+                        </span>
+                        <div className="w-8 h-8 rounded-full bg-yellow-400 text-black flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 group-hover:bg-yellow-300 transition-all">
+                          →
+                        </div>
+                      </div>
+
+                      {/* Decorative corner accent */}
+                      <div className="absolute -right-4 -bottom-4 w-16 h-16 border border-yellow-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-400 pointer-events-none" aria-hidden="true" />
+                    </article>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
+          {/* ── Client Custom Retainer / Instant Action Banner ── */}
+          <div className="mt-14 rounded-3xl border p-8 md:p-10 relative overflow-hidden text-center md:text-left flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+            style={{
+              borderColor: 'rgba(255, 209, 0, 0.3)',
+              background: 'linear-gradient(135deg, rgba(255, 209, 0, 0.06) 0%, var(--bg-card) 60%, rgba(255, 209, 0, 0.03) 100%)'
+            }}>
+            <div className="max-w-xl">
+              <div className="pill-label mb-3 inline-flex">Custom Retainers &amp; Fast Turnaround</div>
+              <h3 className="text-2xl md:text-3xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                Need a tailored creative package?
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                From monthly video editing pipelines to dedicated AI UGC ad campaigns and complete brand identities — we assemble flexible teams that scale with your volume.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 shrink-0">
+              <a
+                href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%20would%20like%20to%20discuss%20a%20custom%20service%20package."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[11px] tracking-[0.18em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
+              >
+                <span>💬</span> Chat on WhatsApp →
+              </a>
+              <a
+                href="#contact"
+                onClick={handleSmoothScroll}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[11px] tracking-[0.18em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-card)' }}
+              >
+                Book Discovery Call
+              </a>
+            </div>
           </div>
         </section>
 
