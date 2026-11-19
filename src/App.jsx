@@ -213,8 +213,17 @@ function App() {
         }
       }
 
-      // 2. Direct section routes: /about, /services, /testimonials, /process, /contact
+      // 2. Direct section routes: /about, /services, /testimonials, /process, /contact, /ai-ugc
       const cleanPath = path.replace(/^\//, '').toLowerCase();
+      if (cleanPath === 'ai-ugc' || cleanPath === 'aiugc' || cleanPath === 'ugc') {
+        setSelectedService(null);
+        setActiveCategory('AI_UGC');
+        const target = document.getElementById('services');
+        if (target) {
+          setTimeout(() => smoothScrollTo(target, 500), 100);
+        }
+        return;
+      }
       if (['about', 'services', 'testimonials', 'process', 'contact'].includes(cleanPath)) {
         setSelectedService(null);
         const target = document.getElementById(cleanPath);
@@ -226,6 +235,13 @@ function App() {
 
       // 3. Anchor hash support
       if (window.location.hash) {
+        if (window.location.hash.toLowerCase() === '#ai-ugc' || window.location.hash.toLowerCase() === '#aiugc') {
+          setSelectedService(null);
+          setActiveCategory('AI_UGC');
+          const target = document.getElementById('services');
+          if (target) setTimeout(() => smoothScrollTo(target, 500), 100);
+          return;
+        }
         const target = document.querySelector(window.location.hash);
         if (target) setTimeout(() => smoothScrollTo(target, 500), 100);
         return;
@@ -596,7 +612,14 @@ function App() {
                   aria-selected={active}
                   aria-controls={`${cat}-panel`}
                   id={`${cat}-tab`}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => {
+                    setActiveCategory(cat);
+                    if (cat === 'AI_UGC') {
+                      window.history.pushState({}, '', '#ai-ugc');
+                    } else if (window.location.hash === '#ai-ugc') {
+                      window.history.pushState({}, '', '#services');
+                    }
+                  }}
                   className={`relative px-5 py-2.5 rounded-full text-[10px] tracking-[0.25em] uppercase font-semibold transition-all border focus:outline-none focus:ring-2 focus:ring-yellow-400 ${
                     active
                       ? isAI
