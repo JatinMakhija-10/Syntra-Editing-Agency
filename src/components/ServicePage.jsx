@@ -73,7 +73,7 @@ export function ServicePage({
             </button>
             <div className="hidden sm:flex items-center gap-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>
               <span>/</span>
-              <span className={`text-[10px] tracking-widest uppercase font-semibold ${category === 'AI_UGC' ? 'text-purple-400' : 'text-yellow-400'}`}>{category === 'AI_UGC' ? '✦ AI UGC' : category}</span>
+              <span className="text-[10px] tracking-widest uppercase font-semibold text-yellow-400">{category === 'AI_UGC' ? '✦ AI UGC' : category}</span>
               <span>/</span>
               <span className="truncate max-w-[200px]" style={{ color: 'var(--text-primary)' }}>{service.title}</span>
             </div>
@@ -119,7 +119,7 @@ export function ServicePage({
       {/* ── HERO BANNER ── */}
       <main className="max-w-7xl mx-auto px-6 py-12 md:py-16 w-full flex-1">
         <div className="mb-14 border-b pb-12" style={{ borderColor: 'var(--border-color)' }}>
-          <div className={`pill-label mb-4 ${category === 'AI_UGC' ? 'border-purple-400/50 bg-purple-400/10 text-purple-400' : ''}`}>{service.tag || category}</div>
+          <div className="pill-label mb-4">{service.tag || category}</div>
           <h1
             className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-5 tracking-tight"
             style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
@@ -163,22 +163,17 @@ export function ServicePage({
         {service.clientShowcases?.length > 0 && (
           <section className="mb-16">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(167,139,250,0.4), transparent)' }} />
-              <p className="text-[9px] tracking-[0.35em] uppercase font-semibold" style={{ color: 'rgba(167,139,250,0.7)' }}>Client Showcases</p>
-              <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(167,139,250,0.4), transparent)' }} />
+              <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,209,0,0.3), transparent)' }} />
+              <p className="eyebrow" style={{ color: 'var(--brand-yellow)' }}>Client Showcases</p>
+              <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               {service.clientShowcases.map((showcase, idx) => (
-                <div key={idx} className="rounded-3xl border p-6 md:p-8 relative overflow-hidden"
-                  style={{ borderColor: 'rgba(167,139,250,0.25)', background: idx === 0
-                    ? 'linear-gradient(135deg, rgba(88,28,135,0.07) 0%, var(--bg-card) 100%)'
-                    : 'linear-gradient(135deg, rgba(20,83,45,0.07) 0%, var(--bg-card) 100%)' }}>
+                <div key={idx} className="rounded-3xl border p-6 md:p-8 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/40"
+                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
                   <div className="flex items-start justify-between mb-5">
                     <div>
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] tracking-[0.25em] uppercase font-bold mb-3"
-                        style={idx === 0
-                          ? { background: 'rgba(167,139,250,0.15)', color: 'rgba(167,139,250,0.9)', border: '1px solid rgba(167,139,250,0.25)' }
-                          : { background: 'rgba(74,222,128,0.12)', color: 'rgba(74,222,128,0.9)', border: '1px solid rgba(74,222,128,0.2)' }}>
+                      <div className="pill-label mb-3 inline-flex">
                         AI Static Ads
                       </div>
                       <h3 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{showcase.client}</h3>
@@ -186,17 +181,17 @@ export function ServicePage({
                     </div>
                     {showcase.clientLink && (
                       <a href={showcase.clientLink} target="_blank" rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold transition-all hover:scale-105"
-                        style={{ background: 'rgba(167,139,250,0.15)', color: 'rgba(167,139,250,0.9)', border: '1px solid rgba(167,139,250,0.3)' }}>
-                        Visit ↗
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
+                        Visit site ↗
                       </a>
                     )}
                   </div>
                   {showcase.examples?.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {showcase.examples.map((ex, exIdx) => (
-                        <div key={exIdx} className="rounded-xl overflow-hidden aspect-square cursor-pointer"
-                          style={{ border: '1px solid rgba(167,139,250,0.15)' }}
+                        <div key={exIdx} className="rounded-xl overflow-hidden aspect-square cursor-pointer border"
+                          style={{ borderColor: 'var(--border-color)' }}
                           onClick={() => onImageClick && onImageClick({ src: ex.image, alt: ex.title || showcase.client })}>
                           <img src={ex.image} alt={ex.title || showcase.client} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                         </div>
@@ -204,12 +199,9 @@ export function ServicePage({
                     </div>
                   ) : (
                     <div className="rounded-2xl flex items-center justify-center min-h-[100px]"
-                      style={idx === 0
-                        ? { background: 'rgba(167,139,250,0.06)', border: '1px dashed rgba(167,139,250,0.2)' }
-                        : { background: 'rgba(74,222,128,0.04)', border: '1px dashed rgba(74,222,128,0.18)' }}>
+                      style={{ background: 'var(--bg-overlay)', border: '1px dashed var(--border-color)' }}>
                       <div className="text-center py-6 px-4">
-                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1"
-                          style={{ color: idx === 0 ? 'rgba(167,139,250,0.5)' : 'rgba(74,222,128,0.5)' }}>Ad creatives coming soon</p>
+                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'var(--text-tertiary)' }}>Ad creatives coming soon</p>
                         <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
                       </div>
                     </div>

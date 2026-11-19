@@ -513,8 +513,8 @@ function App() {
               <div key={rep} className="flex items-center gap-10 pr-10">
                 {['Video Editing', '✦ AI UGC Ads', 'Static Ad Creatives', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'AI Avatars', 'Content Strategy', 'Logo Design', 'Reels & Shorts', '✦ AI Video Ads'].map((item) => (
                   <span key={item} className="flex items-center gap-4 whitespace-nowrap">
-                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.startsWith('✦') ? 'bg-purple-400' : 'bg-yellow-400'}`} />
-                    <span className={`text-[11px] tracking-[0.3em] uppercase font-semibold ${item.startsWith('✦') ? 'text-purple-400/70' : ''}`}
+                    <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-yellow-400" />
+                    <span className={`text-[11px] tracking-[0.3em] uppercase font-semibold ${item.startsWith('✦') ? 'text-yellow-400' : ''}`}
                       style={item.startsWith('✦') ? {} : { color: 'var(--text-tertiary)' }}>
                       {item}
                     </span>
@@ -603,7 +603,6 @@ function App() {
           <div className="flex flex-wrap gap-2 mb-10" role="tablist" aria-label="Service categories">
             {categories.map((cat) => {
               const active = cat === activeCategory;
-              const isAI = cat === 'AI_UGC';
               return (
                 <button
                   key={cat}
@@ -622,17 +621,13 @@ function App() {
                   }}
                   className={`relative px-5 py-2.5 rounded-full text-[10px] tracking-[0.25em] uppercase font-semibold transition-all border focus:outline-none focus:ring-2 focus:ring-yellow-400 ${
                     active
-                      ? isAI
-                        ? 'border-purple-400/70 bg-purple-400/10 text-purple-400 shadow-[0_0_28px_rgba(167,139,250,0.25)]'
-                        : 'border-yellow-400/70 bg-yellow-400/10 text-yellow-400 shadow-[0_0_28px_rgba(255,209,0,0.2)]'
-                      : isAI
-                        ? 'hover:border-purple-400/50 hover:text-purple-300'
-                        : 'hover:border-yellow-300/50 hover:text-yellow-300'
+                      ? 'border-yellow-400/70 bg-yellow-400/10 text-yellow-400 shadow-[0_0_28px_rgba(255,209,0,0.2)]'
+                      : 'hover:border-yellow-300/50 hover:text-yellow-300'
                   }`}
-                  style={{ borderColor: active ? undefined : 'var(--border-color)', color: active ? undefined : isAI ? 'rgba(167,139,250,0.7)' : 'var(--text-tertiary)' }}
+                  style={{ borderColor: active ? undefined : 'var(--border-color)', color: active ? undefined : 'var(--text-tertiary)' }}
                 >
-                  {isAI ? '✦ AI UGC' : cat}
-                  {active && <span className={`absolute inset-0 -z-10 blur-xl ${isAI ? 'bg-purple-400/8' : 'bg-yellow-400/8'} rounded-full`} aria-hidden="true" />}
+                  {cat === 'AI_UGC' ? '✦ AI UGC' : cat}
+                  {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/8 rounded-full" aria-hidden="true" />}
                 </button>
               );
             })}
@@ -642,17 +637,14 @@ function App() {
           {activeCategory === 'AI_UGC' ? (
             /* ── AI UGC Special Showcase Banner ── */
             <div className="mb-10 rounded-3xl border p-7 md:p-10 relative overflow-hidden"
-              style={{ borderColor: 'rgba(167,139,250,0.3)', background: 'linear-gradient(135deg, rgba(88,28,135,0.08) 0%, rgba(167,139,250,0.06) 50%, rgba(255,209,0,0.05) 100%)' }}>
-              {/* Decorative glow */}
+              style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+              {/* Decorative brand yellow glow */}
               <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" aria-hidden="true"
-                style={{ background: 'radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%)', filter: 'blur(40px)', transform: 'translate(30%, -30%)' }} />
-              <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full pointer-events-none" aria-hidden="true"
-                style={{ background: 'radial-gradient(circle, rgba(255,209,0,0.1) 0%, transparent 70%)', filter: 'blur(40px)', transform: 'translate(-30%, 30%)' }} />
+                style={{ background: 'radial-gradient(circle, rgba(255,209,0,0.12) 0%, transparent 70%)', filter: 'blur(40px)', transform: 'translate(30%, -30%)' }} />
               <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[9px] tracking-[0.3em] uppercase font-bold mb-4"
-                    style={{ background: 'rgba(167,139,250,0.15)', color: 'rgba(167,139,250,0.9)', border: '1px solid rgba(167,139,250,0.3)' }}>
-                    <span>✦</span> AI-Powered Advertising
+                  <div className="pill-label mb-4 inline-flex">
+                    ✦ AI-Powered Advertising
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold mb-3 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                     AI UGC Ads — the future of<br className="hidden md:block" /> performance creative.
@@ -660,17 +652,17 @@ function App() {
                   <p className="text-sm max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     We build hyper-realistic AI avatar ads, static ad creatives, and video UGC that convert — no actors, no studios. Built for Meta, TikTok, YouTube &amp; Google.
                   </p>
-                  <div className="flex flex-wrap gap-3 mt-5">
+                  <div className="flex flex-wrap gap-2.5 mt-5">
                     {['AI Avatars', 'Video Ads', 'Static Creatives', 'Hook-First Scripts', 'Multi-Platform'].map((tag) => (
-                      <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-full"
-                        style={{ background: 'rgba(167,139,250,0.1)', color: 'rgba(167,139,250,0.8)', border: '1px solid rgba(167,139,250,0.2)' }}>
+                      <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-full border"
+                        style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
                 <div className="flex flex-col gap-3 shrink-0 md:text-right">
-                  <p className="text-[9px] tracking-[0.3em] uppercase" style={{ color: 'var(--text-muted)' }}>Syntra AI Stack</p>
+                  <p className="eyebrow">Syntra AI Stack</p>
                   <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Static · Video · Avatars · Voiceover<br />Hooks · Scripts · Multi-platform</p>
                 </div>
               </div>
@@ -713,29 +705,26 @@ function App() {
             <div className="mb-10">
               {/* Sub-header for client showcases */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(167,139,250,0.4), transparent)' }} />
-                <span className="text-[9px] tracking-[0.35em] uppercase font-semibold" style={{ color: 'rgba(167,139,250,0.7)' }}>UI UGC Static Ad Showcases</span>
-                <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(167,139,250,0.4), transparent)' }} />
+                <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,209,0,0.3), transparent)' }} />
+                <span className="text-[9px] tracking-[0.35em] uppercase font-semibold" style={{ color: 'var(--brand-yellow)' }}>UI UGC Static Ad Showcases</span>
+                <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
               </div>
               <div className="grid md:grid-cols-2 gap-5 mb-10">
                 {/* Arovia.ai Client Card */}
-                <div className="rounded-3xl border p-6 md:p-8 relative overflow-hidden group"
-                  style={{ borderColor: 'rgba(167,139,250,0.25)', background: 'linear-gradient(135deg, rgba(88,28,135,0.07) 0%, rgba(14,14,14,0.6) 100%)' }}>
-                  <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none" aria-hidden="true"
-                    style={{ background: 'radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%)', filter: 'blur(20px)' }} />
+                <div className="rounded-3xl border p-6 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/40"
+                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
                   <div className="relative">
                     <div className="flex items-start justify-between mb-5">
                       <div>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] tracking-[0.25em] uppercase font-bold mb-3"
-                          style={{ background: 'rgba(167,139,250,0.15)', color: 'rgba(167,139,250,0.9)', border: '1px solid rgba(167,139,250,0.25)' }}>
+                        <div className="pill-label mb-3 inline-flex">
                           AI Static Ads
                         </div>
                         <h4 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Arovia.ai</h4>
                         <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>AI Platform · Static Ad Creatives</p>
                       </div>
                       <a href="https://aroviaai.com/" target="_blank" rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 hover:scale-105"
-                        style={{ background: 'rgba(167,139,250,0.15)', color: 'rgba(167,139,250,0.9)', border: '1px solid rgba(167,139,250,0.3)' }}>
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Visit site ↗
                       </a>
                     </div>
@@ -743,9 +732,9 @@ function App() {
                       Hyper-realistic AI avatar visuals and product ad creatives for performance campaigns — engineered for Meta &amp; Google.
                     </p>
                     <div className="rounded-2xl flex items-center justify-center min-h-[120px]"
-                      style={{ background: 'rgba(167,139,250,0.06)', border: '1px dashed rgba(167,139,250,0.2)' }}>
+                      style={{ background: 'var(--bg-overlay)', border: '1px dashed var(--border-color)' }}>
                       <div className="text-center py-8 px-4">
-                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'rgba(167,139,250,0.5)' }}>Ad creatives coming soon</p>
+                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'var(--text-tertiary)' }}>Ad creatives coming soon</p>
                         <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
                       </div>
                     </div>
@@ -753,15 +742,12 @@ function App() {
                 </div>
 
                 {/* Anohga Yoga Studio Client Card */}
-                <div className="rounded-3xl border p-6 md:p-8 relative overflow-hidden group"
-                  style={{ borderColor: 'rgba(167,139,250,0.25)', background: 'linear-gradient(135deg, rgba(20,83,45,0.07) 0%, rgba(14,14,14,0.6) 100%)' }}>
-                  <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none" aria-hidden="true"
-                    style={{ background: 'radial-gradient(circle, rgba(74,222,128,0.1) 0%, transparent 70%)', filter: 'blur(20px)' }} />
+                <div className="rounded-3xl border p-6 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/40"
+                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
                   <div className="relative">
                     <div className="flex items-start justify-between mb-5">
                       <div>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] tracking-[0.25em] uppercase font-bold mb-3"
-                          style={{ background: 'rgba(74,222,128,0.12)', color: 'rgba(74,222,128,0.9)', border: '1px solid rgba(74,222,128,0.2)' }}>
+                        <div className="pill-label mb-3 inline-flex">
                           AI Static Ads
                         </div>
                         <h4 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Anohga Yoga Studio</h4>
@@ -772,9 +758,9 @@ function App() {
                       Calm, atmospheric AI-generated static ads for yoga studio marketing — crafted for serenity, brand resonance and conversion.
                     </p>
                     <div className="rounded-2xl flex items-center justify-center min-h-[120px]"
-                      style={{ background: 'rgba(74,222,128,0.04)', border: '1px dashed rgba(74,222,128,0.18)' }}>
+                      style={{ background: 'var(--bg-overlay)', border: '1px dashed var(--border-color)' }}>
                       <div className="text-center py-8 px-4">
-                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'rgba(74,222,128,0.5)' }}>Ad creatives coming soon</p>
+                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'var(--text-tertiary)' }}>Ad creatives coming soon</p>
                         <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
                       </div>
                     </div>
@@ -800,13 +786,11 @@ function App() {
             {getServicesForCategory(activeCategory).map((s, idx) => {
               const serviceData = getServiceData(activeCategory, s.title);
               const hasContent = serviceData && (serviceData.examples?.length > 0 || serviceData.videoShowcase?.length > 0 || serviceData.webPreview?.length > 0);
-              const isAICategory = activeCategory === 'AI_UGC';
 
               return (
                 <article
                   key={s.title}
-                  className={`bento-card group relative p-7 flex flex-col justify-between cursor-pointer ${isAICategory ? 'min-h-[200px]' : ''}`}
-                  style={isAICategory ? { borderColor: 'rgba(167,139,250,0.2)', background: 'linear-gradient(135deg, rgba(88,28,135,0.05) 0%, var(--bg-card) 100%)' } : {}}
+                  className="bento-card group relative p-7 flex flex-col justify-between cursor-pointer"
                   onClick={() => handleServiceClick(s.title)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleServiceClick(s.title); } }}
                   tabIndex={0}
@@ -814,22 +798,22 @@ function App() {
                   aria-label={`View details for ${s.title}`}
                 >
                   {/* Hover gradient fill */}
-                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ${isAICategory ? 'bg-gradient-to-br from-purple-400/8 via-transparent to-purple-500/12' : 'bg-gradient-to-br from-yellow-400/8 via-transparent to-yellow-500/12'} pointer-events-none rounded-[20px]`} aria-hidden="true" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 bg-gradient-to-br from-yellow-400/8 via-transparent to-yellow-500/12 pointer-events-none rounded-[20px]" aria-hidden="true" />
 
                   <div className="relative">
-                    <p className={`eyebrow mb-3 ${isAICategory ? 'text-purple-400/80' : ''}`}>{s.tag}</p>
+                    <p className="eyebrow mb-3">{s.tag}</p>
                     <h4 className="text-lg md:text-xl font-bold mb-3 leading-snug" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{s.title}</h4>
                     <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{s.desc}</p>
                   </div>
 
-                  <div className={`relative mt-7 text-[10px] tracking-[0.25em] uppercase flex items-center gap-2 font-semibold transition-all duration-300 group-hover:gap-3 ${isAICategory ? 'text-purple-400/60' : ''}`}
-                    style={isAICategory ? {} : { color: 'var(--text-tertiary)' }}
+                  <div className="relative mt-7 text-[10px] tracking-[0.25em] uppercase flex items-center gap-2 font-semibold transition-all duration-300 group-hover:gap-3"
+                    style={{ color: 'var(--text-tertiary)' }}
                     aria-hidden="true">
                     <span>Explore</span><span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
 
                   {/* Decorative corner */}
-                  <div className={`absolute -right-4 -bottom-4 w-16 h-16 border ${isAICategory ? 'border-purple-400/20' : 'border-yellow-400/20'} rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-400`} aria-hidden="true" />
+                  <div className="absolute -right-4 -bottom-4 w-16 h-16 border border-yellow-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-400" aria-hidden="true" />
                 </article>
               );
             })}
