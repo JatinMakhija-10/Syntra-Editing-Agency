@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { VideoEmbed } from './VideoEmbed';
 import { ThemeSwitch } from './ThemeSwitch';
 import { slugify } from '../utils/slug';
+import SocialCarouselCard from './SocialCarouselCard';
 
 export function ServicePage({
   service,
@@ -213,6 +214,45 @@ export function ServicePage({
                     </div>
                   )}
                 </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── SHOWCASE: MULTI-SLIDE SOCIAL CAROUSELS ── */}
+        {service.carousels?.length > 0 && (
+          <section className="mb-16">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+              <div>
+                <div className="pill-label mb-2 inline-flex">
+                  ✦ Multi-Slide Narrative Creatives
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                  Interactive Social Carousels
+                </h2>
+                <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
+                  Swipe or use arrows to flip through multi-slide educational carousels engineered for high engagement and studio retention.
+                </p>
+              </div>
+              <a
+                href="https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
+              >
+                <span>View Drive Assets</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {service.carousels.map((carousel) => (
+                <SocialCarouselCard
+                  key={carousel.id}
+                  carousel={carousel}
+                  onImageClick={onImageClick}
+                />
               ))}
             </div>
           </section>

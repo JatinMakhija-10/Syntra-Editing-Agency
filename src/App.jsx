@@ -13,6 +13,7 @@ import Admin from './pages/Admin';
 import { subscribeToAdditions, subscribeToNewServices } from './lib/contentStore';
 import { ServicePage } from './components/ServicePage';
 import { slugify, findServiceBySlug } from './utils/slug';
+import SocialCarouselCard from './components/SocialCarouselCard';
 
 const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB', 'AI_UGC'];
 
@@ -79,6 +80,8 @@ function App() {
   const [serviceSearch, setServiceSearch] = useState('');
   const [selectedService, setSelectedService] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [anohgaViewMode, setAnohgaViewMode] = useState('carousels');
+  const [anohgaCarouselIdx, setAnohgaCarouselIdx] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [statsTrigger, setStatsTrigger] = useState(false);
   const statsRef = useRef(null);
@@ -115,10 +118,12 @@ function App() {
           examples: [...(s.examples || [])],
           videoShowcase: [...(s.videoShowcase || [])],
           webPreview: [...(s.webPreview || [])],
+          carousels: s.carousels ? [...s.carousels] : undefined,
           clientShowcases: s.clientShowcases
             ? s.clientShowcases.map(c => ({
                 ...c,
                 examples: [...(c.examples || [])],
+                carousels: c.carousels ? [...c.carousels] : undefined,
               }))
             : undefined,
         };
@@ -939,13 +944,13 @@ function App() {
                 <div className="rounded-3xl border p-7 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.1)]"
                   style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
                   <div className="relative">
-                    <div className="flex items-start justify-between mb-5">
+                    <div className="flex items-start justify-between mb-4">
                       <div>
-                        <div className="pill-label mb-3 inline-flex">
+                        <div className="pill-label mb-2.5 inline-flex">
                           ✦ Client Showcase
                         </div>
                         <h4 className="text-2xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Anohga Yoga Studio</h4>
-                        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Wellness Brand · Static Ad Creatives</p>
+                        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Wellness Brand · Static Ads &amp; Social Carousels</p>
                       </div>
                       <a href="https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6" target="_blank" rel="noopener noreferrer"
                         className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
@@ -953,38 +958,111 @@ function App() {
                         Drive Folder ↗
                       </a>
                     </div>
-                    <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      Calm, atmospheric AI-generated static ads for yoga studio marketing — crafted for serenity, premium brand resonance and high click-through engagement.
+                    <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      Calm, atmospheric AI-generated static ads &amp; high-retention multi-slide educational carousels engineered for yoga studio bookings.
                     </p>
 
-                    {/* Creative Posters Grid from Drive Folder */}
-                    <div className="grid grid-cols-3 gap-3">
-                      {[
-                        { title: 'Hormonal Balance Yoga Workshop', src: '/assets/anohga/hormonal-balance-yoga-workshop.webp' },
-                        { title: 'The Human Axis: Yoga Movement Study', src: '/assets/anohga/human-axis-yoga-movement-study.webp' },
-                        { title: 'Anohga Yoga Studio Mobility Pack Poster', src: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp' },
-                      ].map((img, i) => (
-                        <div
-                          key={i}
-                          onClick={() => setSelectedImage({ src: img.src, alt: img.title })}
-                          className="group/img relative aspect-[3/4] rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:border-yellow-400/60 shadow-sm"
-                          style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
-                          title={`Click to view full image: ${img.title}`}
-                        >
-                          <img
-                            src={img.src}
-                            alt={img.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
-                            <span className="text-[10px] font-semibold text-white leading-tight">
-                              {img.title}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
+                    {/* View Switcher: Carousels vs Posters */}
+                    <div className="flex items-center gap-2 mb-4 p-1 rounded-xl border"
+                      style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+                      <button
+                        type="button"
+                        onClick={() => setAnohgaViewMode('carousels')}
+                        className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                          anohgaViewMode === 'carousels'
+                            ? 'bg-yellow-400 text-black shadow-sm font-bold'
+                            : 'text-stone-400 hover:text-white'
+                        }`}
+                      >
+                        <span>✦</span>
+                        <span>Social Carousels (6)</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setAnohgaViewMode('posters')}
+                        className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                          anohgaViewMode === 'posters'
+                            ? 'bg-yellow-400 text-black shadow-sm font-bold'
+                            : 'text-stone-400 hover:text-white'
+                        }`}
+                      >
+                        <span>Creative Posters (3)</span>
+                      </button>
                     </div>
+
+                    {anohgaViewMode === 'carousels' ? (
+                      <div>
+                        {/* Carousel Selector Chips */}
+                        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-3 scrollbar-none">
+                          {(servicesData.AI_UGC['AI UGC Static Ads'].carousels || []).map((c, cIdx) => (
+                            <button
+                              key={c.id}
+                              type="button"
+                              onClick={() => setAnohgaCarouselIdx(cIdx)}
+                              className={`shrink-0 px-2.5 py-1 rounded-full text-[10px] tracking-wider font-semibold border transition-all ${
+                                anohgaCarouselIdx === cIdx
+                                  ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10'
+                                  : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
+                              }`}
+                            >
+                              {cIdx + 1}. {c.title.split('–')[0].split(':')[0].trim()}
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Interactive Carousel Card */}
+                        {servicesData.AI_UGC['AI UGC Static Ads'].carousels?.[anohgaCarouselIdx] && (
+                          <SocialCarouselCard
+                            carousel={servicesData.AI_UGC['AI UGC Static Ads'].carousels[anohgaCarouselIdx]}
+                            onImageClick={(img) => setSelectedImage(img)}
+                          />
+                        )}
+
+                        <div className="mt-4 flex items-center justify-between text-xs pt-3 border-t"
+                          style={{ borderColor: 'var(--border-color)' }}>
+                          <span style={{ color: 'var(--text-tertiary)' }}>
+                            Showing {anohgaCarouselIdx + 1} of {servicesData.AI_UGC['AI UGC Static Ads'].carousels?.length || 6} carousels
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedService('AI UGC Static Ads')}
+                            className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1"
+                          >
+                            <span>View all 6 carousels in detail</span>
+                            <span>→</span>
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      /* Creative Posters Grid from Drive Folder */
+                      <div className="grid grid-cols-3 gap-3">
+                        {[
+                          { title: 'Hormonal Balance Yoga Workshop', src: '/assets/anohga/hormonal-balance-yoga-workshop.webp' },
+                          { title: 'The Human Axis: Yoga Movement Study', src: '/assets/anohga/human-axis-yoga-movement-study.webp' },
+                          { title: 'Anohga Yoga Studio Mobility Pack Poster', src: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp' },
+                        ].map((img, i) => (
+                          <div
+                            key={i}
+                            onClick={() => setSelectedImage({ src: img.src, alt: img.title })}
+                            className="group/img relative aspect-[3/4] rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:border-yellow-400/60 shadow-sm"
+                            style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                            title={`Click to view full image: ${img.title}`}
+                          >
+                            <img
+                              src={img.src}
+                              alt={img.title}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
+                              <span className="text-[10px] font-semibold text-white leading-tight">
+                                {img.title}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

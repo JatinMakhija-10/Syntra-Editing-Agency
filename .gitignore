@@ -40,3 +40,6 @@ dist-ssr
 .jetro
 .windsurfrules
 
+# Local raw asset folders
+/Anohga/
+
