@@ -71,6 +71,90 @@ function StatCard({ value, suffix = '+', label, trigger }) {
   );
 }
 
+const aiUgcPosters = [
+  {
+    id: 'poster-arovia-dhanteras',
+    client: 'arovia',
+    clientName: 'Arovia.ai',
+    title: 'Arovia.ai — Dhanteras: The Greatest Wealth',
+    subtitle: 'Festive Health Intelligence Ad Creative',
+    src: '/assets/arovia/posters/dhanteras-greatest-wealth.webp',
+    badge: 'Festive Ad',
+  },
+  {
+    id: 'poster-arovia-dussehra',
+    client: 'arovia',
+    clientName: 'Arovia.ai',
+    title: 'Arovia.ai — Dussehra: Clarity Over Confusion',
+    subtitle: 'Brand Storytelling Key Visual',
+    src: '/assets/arovia/posters/dussehra-clarity-over-confusion.webp',
+    badge: 'Brand Story',
+  },
+  {
+    id: 'poster-arovia-diwali',
+    client: 'arovia',
+    clientName: 'Arovia.ai',
+    title: 'Arovia.ai — Diwali: Let Light Find Its Way Within',
+    subtitle: 'Festive Campaign Key Visual',
+    src: '/assets/arovia/posters/diwali-light-within.webp',
+    badge: 'Festive Ad',
+  },
+  {
+    id: 'poster-anohga-move-better',
+    client: 'anohga',
+    clientName: 'Anohga Yoga Studio',
+    title: 'Move Better — Flexibility & Mobility',
+    subtitle: 'Session Launch Ad Creative',
+    src: '/assets/anohga/anohga-move-better-flexibility.webp',
+    badge: 'Session Creative',
+  },
+  {
+    id: 'poster-anohga-pack-visual',
+    client: 'anohga',
+    clientName: 'Anohga Yoga Studio',
+    title: 'Anohga Yoga Studio — Flexibility & Mobility Pack',
+    subtitle: '6-Pillar Studio Launch Visual',
+    src: '/assets/anohga/anohga-flexibility-mobility-key-visual.webp',
+    badge: 'Key Visual',
+  },
+  {
+    id: 'poster-anohga-hormonal',
+    client: 'anohga',
+    clientName: 'Anohga Yoga Studio',
+    title: 'Hormonal Balance Yoga Workshop',
+    subtitle: 'Workshop Launch Poster',
+    src: '/assets/anohga/hormonal-balance-yoga-workshop.webp',
+    badge: 'Workshop Poster',
+  },
+  {
+    id: 'poster-anohga-axis',
+    client: 'anohga',
+    clientName: 'Anohga Yoga Studio',
+    title: 'The Human Axis: Yoga Movement Study',
+    subtitle: 'Movement & Alignment Key Visual',
+    src: '/assets/anohga/human-axis-yoga-movement-study.webp',
+    badge: 'Movement Study',
+  },
+  {
+    id: 'poster-anohga-mobility-pack',
+    client: 'anohga',
+    clientName: 'Anohga Yoga Studio',
+    title: 'Anohga Yoga Studio Mobility Pack Poster',
+    subtitle: 'Studio Pass Promotion Poster',
+    src: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp',
+    badge: 'Promotion Poster',
+  },
+  {
+    id: 'poster-shilpa-abs',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shilpa Pilates — ABS Workout Core Session',
+    subtitle: 'High-Energy Pilates Mat Ad Creative',
+    src: '/assets/shilpa-pilates/pilates-abs-workout.webp',
+    badge: 'Fitness UGC',
+  },
+];
+
 function App() {
   // If routing to admin page, bypass standard page loading immediately
   if (window.location.pathname === '/admin') {
@@ -81,7 +165,8 @@ function App() {
   const [serviceSearch, setServiceSearch] = useState('');
   const [selectedService, setSelectedService] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [anohgaFilter, setAnohgaFilter] = useState('all');
+  const [aiUgcClientFilter, setAiUgcClientFilter] = useState('all');
+  const [aiUgcFormatFilter, setAiUgcFormatFilter] = useState('all');
   const [clientFilter, setClientFilter] = useState('all');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [statsTrigger, setStatsTrigger] = useState(false);
@@ -918,7 +1003,7 @@ function App() {
                       Wellness Brand · Static Ads, Launch Posters &amp; Instagram Carousels
                     </p>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      Complete multi-format campaign for workshop promotions, studio passes, and alignment masterclasses. 3 key launch posters and 6 narrative multi-slide carousels (32 total slides) engineered for Meta &amp; Instagram performance.
+                      Complete multi-format campaign for workshop promotions, studio passes, and alignment masterclasses. 5 studio launch posters and 6 narrative multi-slide carousels (32 total slides) engineered for Meta &amp; Instagram performance.
                     </p>
                   </div>
 
@@ -927,7 +1012,7 @@ function App() {
                       6 Carousel Decks (32 Slides)
                     </span>
                     <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      3 Launch Posters
+                      5 Launch Posters
                     </span>
                     <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                       High-Intent Bookings
@@ -945,7 +1030,7 @@ function App() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                         <span>✦</span> AI Creative Partner
                       </span>
                       <a
@@ -963,19 +1048,19 @@ function App() {
                       Arovia.ai
                     </h3>
                     <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
-                      AI Platform · Performance Avatars &amp; Static Ad Creatives
+                      AI Platform · Health Intelligence Carousels &amp; Festive Key Visuals
                     </p>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      Conversion-engineered creative testing for SaaS and AI workflows. Realistic generative avatars, hook-driven value propositions, and dynamic ad variants across Meta &amp; Google Ads.
+                      Diagnostic storytelling and root-cause health intelligence campaign. 3 narrative multi-slide carousels (16 total slides) and 3 festive brand storytelling key visuals (Dhanteras, Dussehra &amp; Diwali) built for social conversion.
                     </p>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
                     <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      Generative Avatars
+                      3 Carousel Decks (16 Slides)
                     </span>
                     <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      High-CTR Hooks
+                      3 Festive Key Visuals
                     </span>
                     <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                       Performance Scaled
@@ -984,7 +1069,7 @@ function App() {
                 </div>
               </div>
 
-              {/* Full-Width Anohga Creative Deliverables Suite */}
+              {/* Full-Width Creative Deliverables Suite */}
               <div
                 className="rounded-3xl border p-6 md:p-8 relative overflow-hidden"
                 style={{
@@ -993,140 +1078,170 @@ function App() {
                 }}
               >
                 {/* Header & Filter Controls Bar */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
                   <div>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
                       <span>✦</span> Creative Deliverables Gallery
                     </span>
                     <h3 className="text-xl md:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                      Anohga Yoga Studio — Campaign Assets
+                      Featured AI UGC &amp; Performance Creatives
                     </h3>
-                    <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
-                      Swipe through multi-slide carousels or click any item to view in the fullscreen reader.
+                    <p className="text-xs md:text-sm mt-1 max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      Explore 18 studio deliverables across Arovia.ai, Anohga Yoga Studio &amp; Shilpa Pilates. Swipe through multi-slide carousels or click any item to view in the fullscreen reader.
                     </p>
                   </div>
 
-                  {/* Filter Segmented Control */}
-                  <div
-                    className="flex items-center gap-1 p-1 rounded-xl border self-start md:self-auto shrink-0"
-                    style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
-                  >
-                    {[
-                      { id: 'all', label: 'All Assets (9)' },
-                      { id: 'carousels', label: 'Carousels (6)' },
-                      { id: 'posters', label: 'Posters (3)' },
-                    ].map((f) => (
-                      <button
-                        key={f.id}
-                        type="button"
-                        onClick={() => setAnohgaFilter(f.id)}
-                        className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
-                          anohgaFilter === f.id
-                            ? 'bg-yellow-400 text-black font-bold shadow-sm'
-                            : 'text-stone-400 hover:text-white'
-                        }`}
-                      >
-                        {f.label}
-                      </button>
-                    ))}
+                  {/* Dual Filter Controls Bar */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 shrink-0">
+                    {/* Client Selector Pills */}
+                    <div
+                      className="flex items-center gap-1 p-1 rounded-xl border overflow-x-auto max-w-full scrollbar-none"
+                      style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                    >
+                      {[
+                        { id: 'all', label: 'All Clients (18)' },
+                        { id: 'arovia', label: 'Arovia.ai (6)' },
+                        { id: 'anohga', label: 'Anohga (11)' },
+                        { id: 'shilpa', label: 'Shilpa (1)' },
+                      ].map((f) => (
+                        <button
+                          key={f.id}
+                          type="button"
+                          onClick={() => setAiUgcClientFilter(f.id)}
+                          className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                            aiUgcClientFilter === f.id
+                              ? 'bg-yellow-400 text-black font-bold shadow-sm'
+                              : 'text-stone-400 hover:text-white'
+                          }`}
+                        >
+                          {f.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Format Selector Pills */}
+                    <div
+                      className="flex items-center gap-1 p-1 rounded-xl border shrink-0"
+                      style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                    >
+                      {[
+                        { id: 'all', label: 'All Formats' },
+                        { id: 'carousels', label: 'Carousels (9)' },
+                        { id: 'posters', label: 'Posters (9)' },
+                      ].map((f) => (
+                        <button
+                          key={f.id}
+                          type="button"
+                          onClick={() => setAiUgcFormatFilter(f.id)}
+                          className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                            aiUgcFormatFilter === f.id
+                              ? 'border border-yellow-400/50 text-yellow-400 bg-yellow-400/10 font-bold'
+                              : 'text-stone-400 hover:text-white'
+                          }`}
+                        >
+                          {f.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
                 {/* 3-Column Studio Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* Posters (shown if filter is 'all' or 'posters') */}
-                  {(anohgaFilter === 'all' || anohgaFilter === 'posters') &&
-                    [
-                      {
-                        title: 'Hormonal Balance Yoga Workshop',
-                        subtitle: 'Workshop Launch Poster',
-                        src: '/assets/anohga/hormonal-balance-yoga-workshop.webp',
-                      },
-                      {
-                        title: 'The Human Axis: Yoga Movement Study',
-                        subtitle: 'Movement & Alignment Key Visual',
-                        src: '/assets/anohga/human-axis-yoga-movement-study.webp',
-                      },
-                      {
-                        title: 'Anohga Yoga Studio Mobility Pack Poster',
-                        subtitle: 'Studio Pass Promotion Poster',
-                        src: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp',
-                      },
-                    ].map((poster, pIdx) => (
-                      <div
-                        key={`poster-${pIdx}`}
-                        className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/poster"
-                        style={{
-                          borderColor: 'var(--border-color)',
-                          background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
-                        }}
-                      >
-                        <div className="flex items-start justify-between gap-3 mb-4">
-                          <div>
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
-                              <span>✦</span> Launch Poster
-                            </span>
-                            <h4
-                              className="text-base md:text-lg font-bold leading-snug"
-                              style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
-                            >
-                              {poster.title}
-                            </h4>
-                          </div>
-                          <span
-                            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] tracking-wider uppercase font-semibold border"
-                            style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}
-                          >
-                            Static
-                          </span>
-                        </div>
+                  {/* Filtered Carousels */}
+                  {(aiUgcFormatFilter === 'all' || aiUgcFormatFilter === 'carousels') &&
+                    (servicesData.AI_UGC['AI UGC Static Ads'].carousels || [])
+                      .filter((c) => {
+                        if (aiUgcClientFilter === 'all') return true;
+                        if (aiUgcClientFilter === 'arovia') return c.client === 'Arovia.ai';
+                        if (aiUgcClientFilter === 'anohga') return c.client === 'Anohga Yoga Studio' || !c.client;
+                        return false;
+                      })
+                      .map((carousel) => (
+                        <SocialCarouselCard
+                          key={carousel.id}
+                          carousel={carousel}
+                          onImageClick={(img) => setSelectedImage(img)}
+                        />
+                      ))}
 
+                  {/* Filtered Posters */}
+                  {(aiUgcFormatFilter === 'all' || aiUgcFormatFilter === 'posters') &&
+                    aiUgcPosters
+                      .filter((poster) => {
+                        if (aiUgcClientFilter === 'all') return true;
+                        return poster.client === aiUgcClientFilter;
+                      })
+                      .map((poster) => (
                         <div
-                          className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border cursor-pointer select-none group/img"
-                          style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
-                          onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
+                          key={poster.id}
+                          className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/poster"
+                          style={{
+                            borderColor: 'var(--border-color)',
+                            background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                          }}
                         >
-                          <img
-                            src={poster.src}
-                            alt={poster.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-[1.03]"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-between p-4">
-                            <span className="text-xs font-semibold text-white leading-tight">
-                              {poster.subtitle}
-                            </span>
-                            <span className="p-2 rounded-full bg-yellow-400 text-black font-bold shadow-lg">
-                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
-                              </svg>
+                          <div className="flex items-start justify-between gap-3 mb-4">
+                            <div>
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                                  <span>✦</span> {poster.badge || 'Static Poster'}
+                                </span>
+                                <span className="text-[10px] font-semibold text-stone-400">
+                                  {poster.clientName}
+                                </span>
+                              </div>
+                              <h4
+                                className="text-base md:text-lg font-bold leading-snug line-clamp-2"
+                                style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
+                              >
+                                {poster.title}
+                              </h4>
+                            </div>
+                            <span
+                              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] tracking-wider uppercase font-semibold border"
+                              style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}
+                            >
+                              Static
                             </span>
                           </div>
-                        </div>
 
-                        <div className="mt-4 pt-3 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--border-color)' }}>
-                          <span style={{ color: 'var(--text-tertiary)' }}>Key Visual Poster</span>
-                          <button
-                            type="button"
+                          <div
+                            className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border cursor-pointer select-none group/img"
+                            style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                             onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
-                            className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1"
                           >
-                            <span>View Fullscreen</span>
-                            <span>↗</span>
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+                            <img
+                              src={poster.src}
+                              alt={poster.title}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-[1.03]"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-between p-4">
+                              <span className="text-xs font-semibold text-white leading-tight">
+                                {poster.subtitle}
+                              </span>
+                              <span className="p-2 rounded-full bg-yellow-400 text-black font-bold shadow-lg">
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
 
-                  {/* Carousels (shown if filter is 'all' or 'carousels') */}
-                  {(anohgaFilter === 'all' || anohgaFilter === 'carousels') &&
-                    (servicesData.AI_UGC['AI UGC Static Ads'].carousels || []).map((carousel) => (
-                      <SocialCarouselCard
-                        key={carousel.id}
-                        carousel={carousel}
-                        onImageClick={(img) => setSelectedImage(img)}
-                      />
-                    ))}
+                          <div className="mt-4 pt-3 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--border-color)' }}>
+                            <span style={{ color: 'var(--text-tertiary)' }}>{poster.clientName} Key Visual</span>
+                            <button
+                              type="button"
+                              onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
+                              className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1"
+                            >
+                              <span>View Fullscreen</span>
+                              <span>↗</span>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
                 </div>
               </div>
             </div>

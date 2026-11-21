@@ -582,15 +582,97 @@ export const servicesData = {
           title: 'Anohga Yoga Studio — Mobility Pack Poster',
           image: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp',
         },
+        {
+          title: 'Anohga Yoga Studio — Move Better (Flexibility & Mobility)',
+          image: '/assets/anohga/anohga-move-better-flexibility.webp',
+        },
+        {
+          title: 'Anohga Yoga Studio — Flexibility & Mobility Pack (Key Visual)',
+          image: '/assets/anohga/anohga-flexibility-mobility-key-visual.webp',
+        },
+        {
+          title: 'Arovia.ai — Dhanteras: The Greatest Wealth',
+          image: '/assets/arovia/posters/dhanteras-greatest-wealth.webp',
+        },
+        {
+          title: 'Arovia.ai — Dussehra: Clarity Over Confusion',
+          image: '/assets/arovia/posters/dussehra-clarity-over-confusion.webp',
+        },
+        {
+          title: 'Arovia.ai — Diwali: Let Light Find Its Way Within',
+          image: '/assets/arovia/posters/diwali-light-within.webp',
+        },
+        {
+          title: 'Shilpa Pilates — ABS Workout Core Session',
+          image: '/assets/shilpa-pilates/pilates-abs-workout.webp',
+        },
       ],
       videoShowcase: [],
       webPreview: [],
       clientShowcases: [
         {
           client: 'Arovia.ai',
-          clientDesc: 'AI Platform — Hyper-realistic avatars & product visuals for performance ad campaigns.',
+          clientDesc: 'AI Health Intelligence Platform — High-converting educational carousels & festive storytelling key visuals.',
           clientLink: 'https://aroviaai.com/',
-          examples: [],
+          examples: [
+            {
+              title: 'Arovia.ai — Dhanteras: The Greatest Wealth',
+              image: '/assets/arovia/posters/dhanteras-greatest-wealth.webp',
+            },
+            {
+              title: 'Arovia.ai — Dussehra: Clarity Over Confusion',
+              image: '/assets/arovia/posters/dussehra-clarity-over-confusion.webp',
+            },
+            {
+              title: 'Arovia.ai — Diwali: Let Light Find Its Way Within',
+              image: '/assets/arovia/posters/diwali-light-within.webp',
+            },
+          ],
+          carousels: [
+            {
+              id: 'arovia-google-search',
+              title: "Your Health Shouldn't Begin With A Google Search",
+              subtitle: '4-Slide AI Health Intelligence Carousel',
+              client: 'Arovia.ai',
+              slidesCount: 4,
+              slides: [
+                { slide: 1, image: '/assets/arovia/carousels/google-search/slide-1.webp', title: "Your Health Shouldn't Begin With A Google Search - Slide 1" },
+                { slide: 2, image: '/assets/arovia/carousels/google-search/slide-2.webp', title: "Search Gives Possibilities Not Answers - Slide 2" },
+                { slide: 3, image: '/assets/arovia/carousels/google-search/slide-3.webp', title: "Personalized Health Intelligence - Slide 3" },
+                { slide: 4, image: '/assets/arovia/carousels/google-search/slide-4.webp', title: "Ask Better Questions - Slide 4" },
+              ],
+            },
+            {
+              id: 'arovia-symptom-not-the-story',
+              title: "The Symptom Isn't The Story — It's Where It Starts",
+              subtitle: '6-Slide Diagnostic Pacing Carousel',
+              client: 'Arovia.ai',
+              slidesCount: 6,
+              slides: [
+                { slide: 1, image: '/assets/arovia/carousels/symptom-not-the-story/slide-1.webp', title: "The Symptom Isn't The Story - Slide 1" },
+                { slide: 2, image: '/assets/arovia/carousels/symptom-not-the-story/slide-2.webp', title: "My Head Hurts: The Symptom - Slide 2" },
+                { slide: 3, image: '/assets/arovia/carousels/symptom-not-the-story/slide-3.webp', title: "Sleep, Stress & Nutrition Triggers - Slide 3" },
+                { slide: 4, image: '/assets/arovia/carousels/symptom-not-the-story/slide-4.webp', title: "Symptoms Are Messages - Slide 4" },
+                { slide: 5, image: '/assets/arovia/carousels/symptom-not-the-story/slide-5.webp', title: "Connecting The Dots - Slide 5" },
+                { slide: 6, image: '/assets/arovia/carousels/symptom-not-the-story/slide-6.webp', title: "Understand The Full Story - Slide 6" },
+              ],
+            },
+            {
+              id: 'arovia-both-are-right',
+              title: "What If Both Are Right? Two Ways of Looking at Health",
+              subtitle: '6-Slide Medicine & Tradition Carousel',
+              client: 'Arovia.ai',
+              slidesCount: 6,
+              slides: [
+                { slide: 1, image: '/assets/arovia/carousels/both-are-right/slide-1.webp', title: "What If Both Are Right? - Slide 1" },
+                { slide: 2, image: '/assets/arovia/carousels/both-are-right/slide-2.webp', title: "Ayurveda Starts With The Person - Slide 2" },
+                { slide: 3, image: '/assets/arovia/carousels/both-are-right/slide-3.webp', title: "Modern Medicine Measures The Data - Slide 3" },
+                { slide: 4, image: '/assets/arovia/carousels/both-are-right/slide-4.webp', title: "Tradition Meets Precision - Slide 4" },
+                { slide: 5, image: '/assets/arovia/carousels/both-are-right/slide-5.webp', title: "Bridging Ancient Wisdom & Biomarkers - Slide 5" },
+                { slide: 6, image: '/assets/arovia/carousels/both-are-right/slide-6.webp', title: "Holistic Health Intelligence - Slide 6" },
+              ],
+            },
+          ],
         },
         {
           client: 'Anohga Yoga Studio',
@@ -607,6 +689,14 @@ export const servicesData = {
             {
               title: 'Anohga Yoga Studio Mobility Pack Poster',
               image: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp',
+            },
+            {
+              title: 'Anohga Yoga Studio Move Better Poster',
+              image: '/assets/anohga/anohga-move-better-flexibility.webp',
+            },
+            {
+              title: 'Anohga Yoga Studio Mobility Key Visual',
+              image: '/assets/anohga/anohga-flexibility-mobility-key-visual.webp',
             },
           ],
           carousels: [
@@ -692,12 +782,66 @@ export const servicesData = {
             },
           ],
         },
+        {
+          client: 'Shilpa Pilates Studio',
+          clientDesc: 'Fitness brand — High-energy core conditioning ad creatives & visual hooks for social conversion.',
+          examples: [
+            {
+              title: 'Shilpa Pilates — ABS Workout Core Session',
+              image: '/assets/shilpa-pilates/pilates-abs-workout.webp',
+            },
+          ],
+        },
       ],
       carousels: [
+        {
+          id: 'arovia-google-search',
+          title: "Your Health Shouldn't Begin With A Google Search",
+          subtitle: '4-Slide AI Health Intelligence Carousel',
+          client: 'Arovia.ai',
+          slidesCount: 4,
+          slides: [
+            { slide: 1, image: '/assets/arovia/carousels/google-search/slide-1.webp', title: "Your Health Shouldn't Begin With A Google Search - Slide 1" },
+            { slide: 2, image: '/assets/arovia/carousels/google-search/slide-2.webp', title: "Search Gives Possibilities Not Answers - Slide 2" },
+            { slide: 3, image: '/assets/arovia/carousels/google-search/slide-3.webp', title: "Personalized Health Intelligence - Slide 3" },
+            { slide: 4, image: '/assets/arovia/carousels/google-search/slide-4.webp', title: "Ask Better Questions - Slide 4" },
+          ],
+        },
+        {
+          id: 'arovia-symptom-not-the-story',
+          title: "The Symptom Isn't The Story — It's Where It Starts",
+          subtitle: '6-Slide Diagnostic Pacing Carousel',
+          client: 'Arovia.ai',
+          slidesCount: 6,
+          slides: [
+            { slide: 1, image: '/assets/arovia/carousels/symptom-not-the-story/slide-1.webp', title: "The Symptom Isn't The Story - Slide 1" },
+            { slide: 2, image: '/assets/arovia/carousels/symptom-not-the-story/slide-2.webp', title: "My Head Hurts: The Symptom - Slide 2" },
+            { slide: 3, image: '/assets/arovia/carousels/symptom-not-the-story/slide-3.webp', title: "Sleep, Stress & Nutrition Triggers - Slide 3" },
+            { slide: 4, image: '/assets/arovia/carousels/symptom-not-the-story/slide-4.webp', title: "Symptoms Are Messages - Slide 4" },
+            { slide: 5, image: '/assets/arovia/carousels/symptom-not-the-story/slide-5.webp', title: "Connecting The Dots - Slide 5" },
+            { slide: 6, image: '/assets/arovia/carousels/symptom-not-the-story/slide-6.webp', title: "Understand The Full Story - Slide 6" },
+          ],
+        },
+        {
+          id: 'arovia-both-are-right',
+          title: "What If Both Are Right? Two Ways of Looking at Health",
+          subtitle: '6-Slide Medicine & Tradition Carousel',
+          client: 'Arovia.ai',
+          slidesCount: 6,
+          slides: [
+            { slide: 1, image: '/assets/arovia/carousels/both-are-right/slide-1.webp', title: "What If Both Are Right? - Slide 1" },
+            { slide: 2, image: '/assets/arovia/carousels/both-are-right/slide-2.webp', title: "Ayurveda Starts With The Person - Slide 2" },
+            { slide: 3, image: '/assets/arovia/carousels/both-are-right/slide-3.webp', title: "Modern Medicine Measures The Data - Slide 3" },
+            { slide: 4, image: '/assets/arovia/carousels/both-are-right/slide-4.webp', title: "Tradition Meets Precision - Slide 4" },
+            { slide: 5, image: '/assets/arovia/carousels/both-are-right/slide-5.webp', title: "Bridging Ancient Wisdom & Biomarkers - Slide 5" },
+            { slide: 6, image: '/assets/arovia/carousels/both-are-right/slide-6.webp', title: "Holistic Health Intelligence - Slide 6" },
+          ],
+        },
         {
           id: 'flexibility-vs-mobility',
           title: "Flexibility vs Mobility – What's the difference?",
           subtitle: '5-Slide Educational Carousel',
+          client: 'Anohga Yoga Studio',
           slidesCount: 5,
           slides: [
             { slide: 1, image: '/assets/anohga/carousels/flexibility-vs-mobility/slide-1.webp', title: 'Flexibility vs Mobility - Slide 1' },
