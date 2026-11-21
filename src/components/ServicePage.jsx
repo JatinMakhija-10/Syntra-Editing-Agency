@@ -4,6 +4,70 @@ import { ThemeSwitch } from './ThemeSwitch';
 import { slugify } from '../utils/slug';
 import SocialCarouselCard from './SocialCarouselCard';
 
+function GalleryCard({ item, idx, serviceTitle, onImageClick, isThumbnails }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  return (
+    <div
+      className={`group relative overflow-hidden rounded-2xl border cursor-pointer select-none transition-all duration-300 hover:border-yellow-400/60 hover:shadow-[0_12px_28px_rgba(255,209,0,0.08)] ${
+        isThumbnails ? 'aspect-video' : 'aspect-[4/3]'
+      } bg-stone-900/50`}
+      style={{ borderColor: 'var(--border-color)' }}
+      onClick={() => onImageClick({ src: item.image, alt: item.title || serviceTitle, title: item.title || serviceTitle })}
+      tabIndex={0}
+      role="button"
+      aria-label={`View ${item.title || serviceTitle} - Image ${idx + 1}`}
+    >
+      {/* Shimmer skeleton while loading */}
+      {!loaded && !error && (
+        <div className="absolute inset-0 bg-white/[0.03] animate-pulse flex items-center justify-center">
+          <div className="w-5 h-5 rounded-full border border-yellow-400/20 border-t-yellow-400 animate-spin" />
+        </div>
+      )}
+
+      {/* Main Image */}
+      {!error ? (
+        <img
+          src={item.image}
+          alt={item.title || `${serviceTitle} example ${idx + 1}`}
+          className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.04] ${
+            loaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+          onError={() => setError(true)}
+        />
+      ) : (
+        /* Branded Fallback if image fails */
+        <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center bg-stone-950 border border-white/5">
+          <span className="text-yellow-400 text-lg mb-1 font-bold">✦</span>
+          <p className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+            {item.title || serviceTitle}
+          </p>
+          <span className="text-[10px] tracking-wider uppercase mt-1" style={{ color: 'var(--text-tertiary)' }}>
+            Syntra Deliverable
+          </span>
+        </div>
+      )}
+
+      {/* Hover Overlay */}
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-3.5"
+      >
+        <p className="text-xs font-semibold text-white leading-tight line-clamp-2">
+          {item.title || `${serviceTitle} Deliverable ${idx + 1}`}
+        </p>
+        <span className="shrink-0 p-1.5 rounded-full bg-yellow-400 text-black font-bold shadow-md ml-2">
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+          </svg>
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function ServicePage({
   service,
   category,
@@ -311,37 +375,24 @@ export function ServicePage({
               <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 Visual Gallery
               </h2>
+              <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
+                Explore {service.examples.length} studio deliverables. Click any item to inspect in high resolution.
+              </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {service.examples.map((item, idx) => (
-                <div
+                <GalleryCard
                   key={idx}
-                  className="group relative overflow-hidden rounded-xl border cursor-pointer transition-all duration-300 focus-within:ring-2 focus-within:ring-yellow-400"
-                  style={{ borderColor: 'var(--border-color)' }}
-                  onClick={() => onImageClick({ src: item.image, alt: item.title || service.title })}
-                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(255,209,0,0.5)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-color)')}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`View ${item.title || service.title} - Image ${idx + 1}`}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title || `${service.title} example ${idx + 1}`}
-                    className="w-full h-auto object-cover transition-transform duration-400 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  {item.title && (
-                    <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition flex items-end p-3"
-                      style={{ background: 'linear-gradient(to top, var(--bg-primary), transparent)' }}
-                    >
-                      <p className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>
-                        {item.title}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                  item={item}
+                  idx={idx}
+                  serviceTitle={service.title}
+                  onImageClick={onImageClick}
+                  isThumbnails={
+                    service.title?.toLowerCase().includes('thumbnail') ||
+                    service.tag?.toLowerCase().includes('thumbnail') ||
+                    service.tag?.toLowerCase().includes('elite')
+                  }
+                />
               ))}
             </div>
           </section>

@@ -2,7 +2,7 @@ export const clientsData = [
   {
     id: 'triggered-insaan',
     name: 'Triggered Insaan',
-    avatar: 'https://i.postimg.cc/PxNL2RB9/Triggered-Insaan.jpg',
+    avatar: '/assets/clients/triggered-insaan-pxnl2rb9.webp',
     category: 'YouTube Creator',
     stats: '22M+ Subscribers',
     scope: 'Long-form YouTube video editing, retention-focused storytelling, and pacing optimization.',
@@ -12,7 +12,7 @@ export const clientsData = [
   {
     id: 'beastboyshubh',
     name: 'BeastBoyShubh',
-    avatar: 'https://i.postimg.cc/MTrBwS7z/Beast-Boy-Shub.jpg',
+    avatar: '/assets/clients/beastboyshubh-mtrbws7z.webp',
     category: 'Gaming Creator',
     stats: '6M+ Subscribers',
     scope: 'Custom high-CTR gaming thumbnails and dynamic gameplay pacing edits.',
@@ -22,7 +22,7 @@ export const clientsData = [
   {
     id: 'armpower-gaming',
     name: 'Armpower Gaming',
-    avatar: 'https://i.postimg.cc/jjxnJ5vs/Armpower-Gaming.jpg',
+    avatar: '/assets/clients/armpower-gaming-jjxnj5vs.webp',
     category: 'Gaming Channel',
     stats: 'Gaming & Streams',
     scope: 'High-energy gameplay highlights, motion graphics packaging, and stream assets.',
@@ -32,7 +32,7 @@ export const clientsData = [
   {
     id: 'gigigonemad',
     name: 'GIGIGONEMAD',
-    avatar: 'https://i.postimg.cc/jqmfkRqX/GIGIGONEMAD.jpg',
+    avatar: '/assets/clients/gigigonemad-jqmfkrqx.webp',
     category: 'Content Creator',
     stats: 'Entertainment & Gaming',
     scope: 'Fast-paced entertainment edits, custom sound design, and viral short-form cuts.',
@@ -42,7 +42,7 @@ export const clientsData = [
   {
     id: 'for-streets',
     name: 'For Streets',
-    avatar: 'https://i.postimg.cc/c43npPrN/For-Streets.png',
+    avatar: '/assets/clients/for-streets-c43npprn.webp',
     category: 'Streetwear & Apparel',
     stats: 'Fashion Brand',
     scope: 'Streetwear merchandise mockups, brand visual identity, and social collection launch assets.',
@@ -52,7 +52,7 @@ export const clientsData = [
   {
     id: 'riri-playz',
     name: 'RIRI PLAYZ',
-    avatar: 'https://i.postimg.cc/brDtNBgk/RIRI-PLAYZ.jpg',
+    avatar: '/assets/clients/riri-playz-brdtnbgk.webp',
     category: 'Gaming Creator',
     stats: 'Gaming Channel',
     scope: 'High-energy gaming edits, custom thumbnail designs, and dynamic audio-synced cuts.',
@@ -62,7 +62,7 @@ export const clientsData = [
   {
     id: 'famberz-tech',
     name: 'Famberz Tech',
-    avatar: 'https://i.postimg.cc/dVKywnyZ/Famberz-Tech.jpg',
+    avatar: '/assets/clients/famberz-tech-dvkywnyz.webp',
     category: 'Tech Channel',
     stats: 'Tech & Hardware',
     scope: 'Clean tech explainer videos, animated spec callouts, and retention-tuned pacing.',
@@ -72,7 +72,7 @@ export const clientsData = [
   {
     id: 'sumo-me',
     name: "SUMO'ME!",
-    avatar: 'https://i.postimg.cc/cCnvN81c/SUMO-ME.jpg',
+    avatar: '/assets/clients/sumo-me-ccnvn81c.webp',
     category: 'Content Creator',
     stats: 'YouTube Channel',
     scope: 'Episodic creator video editing, custom thumbnail design systems, and channel identity.',
@@ -82,7 +82,7 @@ export const clientsData = [
   {
     id: 'tabaahi-dc',
     name: 'TabaahiDC',
-    avatar: 'https://i.postimg.cc/yNLghHr0/Tabaahi-DC.jpg',
+    avatar: '/assets/clients/tabaahi-dc-ynlghhr0.webp',
     category: 'Gaming Creator',
     stats: 'Gaming & Esports',
     scope: 'Tournament highlight cutting, quick-turnaround edits, and punchy visual overlays.',
@@ -92,7 +92,7 @@ export const clientsData = [
   {
     id: 'pappan-gaming',
     name: 'Pappan Gaming',
-    avatar: 'https://i.postimg.cc/Wtchpbhc/Pappan-Gaming.jpg',
+    avatar: '/assets/clients/pappan-gaming-wtchpbhc.webp',
     category: 'Gaming Channel',
     stats: 'Gaming Creator',
     scope: 'Action-packed gameplay montage editing, beat-synced audio, and vibrant thumbnails.',
@@ -102,7 +102,7 @@ export const clientsData = [
   {
     id: 'sehezer',
     name: 'Sehezer',
-    avatar: 'https://i.postimg.cc/9QtqMTd8/Sehezer.jpg',
+    avatar: '/assets/clients/sehezer-9qtqmtd8.webp',
     category: 'Digital Creator',
     stats: 'Social Creator',
     scope: 'Social media visual identity, custom static graphics, and audience-engaging vertical video.',
@@ -112,7 +112,7 @@ export const clientsData = [
   {
     id: 'caster-venom',
     name: 'Caster Venom',
-    avatar: 'https://i.postimg.cc/1XkNgr7T/Caster-Venom.jpg',
+    avatar: '/assets/clients/caster-venom-1xkngr7t.webp',
     category: 'Esports & Gaming',
     stats: 'Esports Caster',
     scope: 'Competitive tournament highlight reels, broadcast motion assets, and YouTube packaging.',
@@ -132,7 +132,7 @@ export const clientsData = [
   {
     id: 'arovia-ai',
     name: 'Arovia.ai',
-    avatar: 'https://i.postimg.cc/SNdGN4xH/9249bd173533561-64a585ef85a8d.jpg',
+    avatar: '/assets/clients/9249bd173533561-64a585ef85a8d-sndgn4xh.webp',
     category: 'AI & SaaS Platform',
     stats: 'Performance Ad Retainer',
     scope: 'Generative AI avatar video ads, hook scripting, and multi-variant static ad sets for Meta campaigns.',
@@ -142,7 +142,7 @@ export const clientsData = [
   {
     id: 'pilates-coach-shilpa',
     name: 'Shilpa Kanodia (Shilpa Pilates)',
-    avatar: 'https://i.postimg.cc/D09B2srf/img30.jpg',
+    avatar: '/assets/clients/img30-d09b2srf.webp',
     category: 'Fitness & Face Yoga',
     stats: '15 Deliverables',
     scope: '15 ad creatives: Radisson Blu luxury aqua wellness campaign, at-home mat routines, anatomical posture studies, and face yoga brochures.',
@@ -152,7 +152,7 @@ export const clientsData = [
   {
     id: 'dr-preeti-gyne',
     name: 'Dr. Preeti Nitsure Deshpande',
-    avatar: 'https://i.postimg.cc/4NwDg4yD/img15.jpg',
+    avatar: '/assets/clients/img15-4nwdg4yd.webp',
     category: 'Healthcare & Wellness',
     stats: '@drpreetigyne',
     scope: 'Medical awareness reels, clinical explainer pacing, and educational video editing.',

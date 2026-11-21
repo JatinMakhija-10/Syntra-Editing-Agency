@@ -24,10 +24,22 @@ export function ClientCard({ client, delay = 0 }) {
             <img
               src={client.avatar}
               alt={client.name}
-              className="rounded-xl object-cover border border-white/10 shrink-0 group-hover:border-yellow-400/60 transition-all duration-300 shadow-sm"
+              className="rounded-xl object-cover border border-white/10 shrink-0 group-hover:border-yellow-400/60 transition-all duration-300 shadow-sm bg-stone-900"
               style={{ width: '46px', height: '46px' }}
               loading="lazy"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                if (e.currentTarget.nextSibling) {
+                  e.currentTarget.nextSibling.style.display = 'flex';
+                }
+              }}
             />
+            <div
+              className="rounded-xl border border-yellow-400/30 items-center justify-center font-bold text-xs text-yellow-400 bg-yellow-400/10 shrink-0 hidden"
+              style={{ width: '46px', height: '46px' }}
+            >
+              {client.name.slice(0, 2).toUpperCase()}
+            </div>
             <div className="min-w-0">
               <h4
                 className="text-sm md:text-base font-bold leading-snug truncate"
