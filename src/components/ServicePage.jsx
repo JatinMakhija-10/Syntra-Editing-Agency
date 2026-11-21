@@ -180,11 +180,11 @@ export function ServicePage({
                       <h3 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{showcase.client}</h3>
                       <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{showcase.clientDesc}</p>
                     </div>
-                    {showcase.clientLink && (
+                    {showcase.clientLink && !showcase.clientLink.includes('drive.google.com') && (
                       <a href={showcase.clientLink} target="_blank" rel="noopener noreferrer"
                         className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        {showcase.clientLink.includes('drive.google.com') ? 'View Drive ↗' : 'Visit site ↗'}
+                        Visit site ↗
                       </a>
                     )}
                   </div>
@@ -222,28 +222,16 @@ export function ServicePage({
         {/* ── SHOWCASE: MULTI-SLIDE SOCIAL CAROUSELS ── */}
         {service.carousels?.length > 0 && (
           <section className="mb-16">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-              <div>
-                <div className="pill-label mb-2 inline-flex">
-                  ✦ Multi-Slide Narrative Creatives
-                </div>
-                <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                  Interactive Social Carousels
-                </h2>
-                <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
-                  Swipe or use arrows to flip through multi-slide educational carousels engineered for high engagement and studio retention.
-                </p>
+            <div className="mb-8">
+              <div className="pill-label mb-2 inline-flex">
+                ✦ Multi-Slide Narrative Creatives
               </div>
-              <a
-                href="https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
-                style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
-              >
-                <span>View Drive Assets</span>
-                <span>↗</span>
-              </a>
+              <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                Interactive Social Carousels
+              </h2>
+              <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
+                Swipe or use arrows to flip through multi-slide educational carousels engineered for high engagement and studio retention.
+              </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -72,17 +72,6 @@ export default function LightboxModal({ item, onClose }) {
         </div>
 
         <div className="flex items-center gap-2">
-          {item.folderLink && (
-            <a
-              href={item.folderLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] tracking-wider uppercase font-bold text-stone-300 hover:text-yellow-400 border border-white/10 hover:border-yellow-400/50 bg-white/5 transition-all"
-            >
-              <span>Drive Folder</span>
-              <span>↗</span>
-            </a>
-          )}
           <button
             onClick={onClose}
             className="w-9 h-9 rounded-full flex items-center justify-center text-white/80 hover:text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all hover:scale-105"

@@ -905,16 +905,10 @@ function App() {
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                         <span>✦</span> Featured Production
                       </span>
-                      <a
-                        href="https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
-                      >
-                        <span>Drive Folder</span>
-                        <span>↗</span>
-                      </a>
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-full border"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
+                        Performance Ads
+                      </span>
                     </div>
                     <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       Anohga Yoga Studio

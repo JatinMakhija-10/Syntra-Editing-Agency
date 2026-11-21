@@ -48,7 +48,6 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
         slides: carousel.slides,
         initialIndex: currentIdx,
         title: carousel.title,
-        folderLink: carousel.folderLink,
       });
     }
   };
@@ -62,36 +61,16 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
       }}
     >
       {/* Top Header */}
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
-            <span>✦</span> {carousel.subtitle || `${slides.length}-Slide Deck`}
-          </span>
-          <h4
-            className="text-base md:text-lg font-bold leading-snug"
-            style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
-          >
-            {carousel.title}
-          </h4>
-        </div>
-
-        {carousel.folderLink && (
-          <a
-            href={carousel.folderLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[9px] tracking-[0.15em] uppercase font-semibold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
-            style={{
-              borderColor: 'var(--border-color)',
-              color: 'var(--text-secondary)',
-              backgroundColor: 'var(--bg-overlay)',
-            }}
-            title="Open folder in Google Drive"
-          >
-            <span>Drive</span>
-            <span>↗</span>
-          </a>
-        )}
+      <div className="mb-4">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
+          <span>✦</span> {carousel.subtitle || `${slides.length}-Slide Deck`}
+        </span>
+        <h4
+          className="text-base md:text-lg font-bold leading-snug"
+          style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
+        >
+          {carousel.title}
+        </h4>
       </div>
 
       {/* Slide Container (Aspect 3/4) */}

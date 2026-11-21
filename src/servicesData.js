@@ -595,7 +595,6 @@ export const servicesData = {
         {
           client: 'Anohga Yoga Studio',
           clientDesc: 'Wellness brand — Calm, atmospheric static ad creatives & multi-slide educational carousels for studio marketing.',
-          clientLink: 'https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6',
           examples: [
             {
               title: 'Hormonal Balance Yoga Workshop',
@@ -616,7 +615,6 @@ export const servicesData = {
               title: "Flexibility vs Mobility – What's the difference?",
               subtitle: '5-Slide Educational Carousel',
               slidesCount: 5,
-              folderLink: 'https://drive.google.com/drive/folders/1CRR0EguUwg9TUFXwi3Pt2GoBrT9231Hx',
               slides: [
                 { slide: 1, image: '/assets/anohga/carousels/flexibility-vs-mobility/slide-1.webp', title: 'Flexibility vs Mobility - Slide 1' },
                 { slide: 2, image: '/assets/anohga/carousels/flexibility-vs-mobility/slide-2.webp', title: 'Flexibility vs Mobility - Slide 2' },
@@ -630,7 +628,6 @@ export const servicesData = {
               title: 'First Aerial Yoga Class',
               subtitle: '5-Slide Beginner Guide Carousel',
               slidesCount: 5,
-              folderLink: 'https://drive.google.com/drive/folders/147kdSGkOhfuQMBBpx7lUSXkAP47Sj2q8',
               slides: [
                 { slide: 1, image: '/assets/anohga/carousels/first-aerial-yoga-class/slide-1.webp', title: 'First Aerial Yoga Class - Slide 1' },
                 { slide: 2, image: '/assets/anohga/carousels/first-aerial-yoga-class/slide-2.webp', title: 'First Aerial Yoga Class - Slide 2' },
@@ -644,7 +641,6 @@ export const servicesData = {
               title: 'Yoga Is More Than Just Stretching!',
               subtitle: '5-Slide Mind & Body Carousel',
               slidesCount: 5,
-              folderLink: 'https://drive.google.com/drive/folders/1ZPCeTZ7iqdwuDW3DWTbK2qNioMHCJwut',
               slides: [
                 { slide: 1, image: '/assets/anohga/carousels/more-than-just-stretching/slide-1.webp', title: 'Yoga Is More Than Just Stretching - Slide 1' },
                 { slide: 2, image: '/assets/anohga/carousels/more-than-just-stretching/slide-2.webp', title: 'Yoga Is More Than Just Stretching - Slide 2' },
@@ -658,7 +654,6 @@ export const servicesData = {
               title: 'Are You Doing These 5 Yoga Poses Wrong?',
               subtitle: '6-Slide Form & Alignment Carousel',
               slidesCount: 6,
-              folderLink: 'https://drive.google.com/drive/folders/14HldX40xoZGIa-4wltH3JWt-1jvVls11',
               slides: [
                 { slide: 1, image: '/assets/anohga/carousels/5-yoga-poses-wrong/slide-1.webp', title: '5 Yoga Poses Done Wrong - Slide 1' },
                 { slide: 2, image: '/assets/anohga/carousels/5-yoga-poses-wrong/slide-2.webp', title: '5 Yoga Poses Done Wrong - Slide 2' },
@@ -673,7 +668,6 @@ export const servicesData = {
               title: 'Aerial Yoga – Myth vs Reality',
               subtitle: '6-Slide Mythbuster Carousel',
               slidesCount: 6,
-              folderLink: 'https://drive.google.com/drive/folders/1-LQNY4cfjLZHqHn9s_mQHS5kJds17SHN',
               slides: [
                 { slide: 1, image: '/assets/anohga/carousels/aerial-yoga-myth-vs-reality/slide-1.webp', title: 'Aerial Yoga Myth vs Reality - Slide 1' },
                 { slide: 2, image: '/assets/anohga/carousels/aerial-yoga-myth-vs-reality/slide-2.webp', title: 'Aerial Yoga Myth vs Reality - Slide 2' },
@@ -688,7 +682,6 @@ export const servicesData = {
               title: 'What Does Aerial Yoga Actually Do to Your Body?',
               subtitle: '5-Slide Anatomy & Science Carousel',
               slidesCount: 5,
-              folderLink: 'https://drive.google.com/drive/folders/1DUqEP2NCcfvNxb2vtKVrRMvlgFTzM9Yp',
               slides: [
                 { slide: 1, image: '/assets/anohga/carousels/aerial-yoga-body-effects/slide-1.webp', title: 'Aerial Yoga Body Effects - Slide 1' },
                 { slide: 2, image: '/assets/anohga/carousels/aerial-yoga-body-effects/slide-2.webp', title: 'Aerial Yoga Body Effects - Slide 2' },
@@ -706,7 +699,6 @@ export const servicesData = {
           title: "Flexibility vs Mobility – What's the difference?",
           subtitle: '5-Slide Educational Carousel',
           slidesCount: 5,
-          folderLink: 'https://drive.google.com/drive/folders/1CRR0EguUwg9TUFXwi3Pt2GoBrT9231Hx',
           slides: [
             { slide: 1, image: '/assets/anohga/carousels/flexibility-vs-mobility/slide-1.webp', title: 'Flexibility vs Mobility - Slide 1' },
             { slide: 2, image: '/assets/anohga/carousels/flexibility-vs-mobility/slide-2.webp', title: 'Flexibility vs Mobility - Slide 2' },
@@ -720,7 +712,6 @@ export const servicesData = {
           title: 'First Aerial Yoga Class',
           subtitle: '5-Slide Beginner Guide Carousel',
           slidesCount: 5,
-          folderLink: 'https://drive.google.com/drive/folders/147kdSGkOhfuQMBBpx7lUSXkAP47Sj2q8',
           slides: [
             { slide: 1, image: '/assets/anohga/carousels/first-aerial-yoga-class/slide-1.webp', title: 'First Aerial Yoga Class - Slide 1' },
             { slide: 2, image: '/assets/anohga/carousels/first-aerial-yoga-class/slide-2.webp', title: 'First Aerial Yoga Class - Slide 2' },
@@ -734,7 +725,6 @@ export const servicesData = {
           title: 'Yoga Is More Than Just Stretching!',
           subtitle: '5-Slide Mind & Body Carousel',
           slidesCount: 5,
-          folderLink: 'https://drive.google.com/drive/folders/1ZPCeTZ7iqdwuDW3DWTbK2qNioMHCJwut',
           slides: [
             { slide: 1, image: '/assets/anohga/carousels/more-than-just-stretching/slide-1.webp', title: 'Yoga Is More Than Just Stretching - Slide 1' },
             { slide: 2, image: '/assets/anohga/carousels/more-than-just-stretching/slide-2.webp', title: 'Yoga Is More Than Just Stretching - Slide 2' },
@@ -748,7 +738,6 @@ export const servicesData = {
           title: 'Are You Doing These 5 Yoga Poses Wrong?',
           subtitle: '6-Slide Form & Alignment Carousel',
           slidesCount: 6,
-          folderLink: 'https://drive.google.com/drive/folders/14HldX40xoZGIa-4wltH3JWt-1jvVls11',
           slides: [
             { slide: 1, image: '/assets/anohga/carousels/5-yoga-poses-wrong/slide-1.webp', title: '5 Yoga Poses Done Wrong - Slide 1' },
             { slide: 2, image: '/assets/anohga/carousels/5-yoga-poses-wrong/slide-2.webp', title: '5 Yoga Poses Done Wrong - Slide 2' },
@@ -763,7 +752,6 @@ export const servicesData = {
           title: 'Aerial Yoga – Myth vs Reality',
           subtitle: '6-Slide Mythbuster Carousel',
           slidesCount: 6,
-          folderLink: 'https://drive.google.com/drive/folders/1-LQNY4cfjLZHqHn9s_mQHS5kJds17SHN',
           slides: [
             { slide: 1, image: '/assets/anohga/carousels/aerial-yoga-myth-vs-reality/slide-1.webp', title: 'Aerial Yoga Myth vs Reality - Slide 1' },
             { slide: 2, image: '/assets/anohga/carousels/aerial-yoga-myth-vs-reality/slide-2.webp', title: 'Aerial Yoga Myth vs Reality - Slide 2' },
@@ -778,7 +766,6 @@ export const servicesData = {
           title: 'What Does Aerial Yoga Actually Do to Your Body?',
           subtitle: '5-Slide Anatomy & Science Carousel',
           slidesCount: 5,
-          folderLink: 'https://drive.google.com/drive/folders/1DUqEP2NCcfvNxb2vtKVrRMvlgFTzM9Yp',
           slides: [
             { slide: 1, image: '/assets/anohga/carousels/aerial-yoga-body-effects/slide-1.webp', title: 'Aerial Yoga Body Effects - Slide 1' },
             { slide: 2, image: '/assets/anohga/carousels/aerial-yoga-body-effects/slide-2.webp', title: 'Aerial Yoga Body Effects - Slide 2' },
