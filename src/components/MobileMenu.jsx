@@ -64,7 +64,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate }) => {
           </span>
         </a>
         <a
-          href="#testimonials"
+          href="#clients"
           onClick={(e) => {
             onNavigate(e);
             onClose();
@@ -72,7 +72,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate }) => {
           className="text-base tracking-[0.15em] uppercase py-3 hover:text-yellow-400 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded px-2"
           style={{ color: 'var(--text-primary)' }}
         >
-          Testimonials
+          Clients
         </a>
         <a
           href="#process"

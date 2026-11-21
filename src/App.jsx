@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { servicesData } from './servicesData';
-import { testimonialsData } from './testimonialsData';
+import { clientsData } from './clientsData';
 import { useTheme } from './hooks/useTheme';
 import { handleSmoothScroll, smoothScrollTo } from './utils/smoothScroll';
 import { TeamCard } from './components/TeamCard';
-import { TestimonialCard } from './components/TestimonialCard';
+import { ClientCard } from './components/ClientCard';
 import { SectionWrapper } from './components/SectionWrapper';
 import { ThemeSwitch } from './components/ThemeSwitch';
 import { VideoEmbed } from './components/VideoEmbed';
@@ -82,6 +82,7 @@ function App() {
   const [selectedService, setSelectedService] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [anohgaFilter, setAnohgaFilter] = useState('all');
+  const [clientFilter, setClientFilter] = useState('all');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [statsTrigger, setStatsTrigger] = useState(false);
   const statsRef = useRef(null);
@@ -269,9 +270,9 @@ function App() {
         }
         return;
       }
-      if (['about', 'services', 'testimonials', 'process', 'contact'].includes(cleanPath)) {
+      if (['about', 'services', 'clients', 'testimonials', 'process', 'contact'].includes(cleanPath)) {
         setSelectedService(null);
-        const target = document.getElementById(cleanPath);
+        const target = document.getElementById(cleanPath === 'testimonials' ? 'clients' : cleanPath) || document.getElementById(cleanPath);
         if (target) {
           setTimeout(() => smoothScrollTo(target, 500), 100);
         }
@@ -417,7 +418,7 @@ function App() {
           </div>
           <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.18em] uppercase font-medium"
             style={{ fontFamily: 'var(--font-body)', color: 'var(--text-tertiary)' }} aria-label="Main navigation">
-            {['about', 'services', 'testimonials', 'process', 'contact'].map((link) => (
+            {['about', 'services', 'clients', 'process', 'contact'].map((link) => (
               <a key={link} href={`#${link}`} onClick={handleSmoothScroll}
                 className="hover:text-yellow-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded px-1 py-1 inline-flex items-center gap-1.5"
                 style={{ color: 'var(--text-tertiary)' }}>
@@ -1428,18 +1429,60 @@ function App() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ── */}
-        <section id="testimonials" className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
-          <div className="mb-12">
-            <div className="pill-label mb-4 inline-flex">Testimonials</div>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-              What our clients say.
-            </h2>
+        {/* ── SELECTED CLIENTS & COLLABORATIONS ── */}
+        <section id="clients" className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
+          <span id="testimonials" className="sr-only">Previous Clients</span>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+            <div>
+              <div className="pill-label mb-3 inline-flex">
+                ✦ Selected Clients &amp; Collaborations
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                Trusted by Leading Creators &amp; Brands.
+              </h2>
+              <p className="text-sm md:text-base mt-2 max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                From 22M+ YouTube creators and gaming channels to consumer brands and wellness studios — explore our creative deliverables and production scope.
+              </p>
+            </div>
+
+            {/* Quick Metrics Badge */}
+            <div className="flex items-center gap-3 self-start md:self-auto shrink-0">
+              <div className="px-4 py-2 rounded-2xl border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+                <span className="text-lg font-bold text-yellow-400 font-mono">60+</span>
+                <span className="text-[10px] tracking-wider uppercase ml-2 text-stone-400 font-semibold">Productions Delivered</span>
+              </div>
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {testimonialsData.map((testimonial, idx) => (
-              <TestimonialCard key={testimonial.name} testimonial={testimonial} delay={idx * 70} />
+
+          {/* Client Filter Tabs */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-8 scrollbar-none">
+            {[
+              { id: 'all', label: `All Clients (${clientsData.length})` },
+              { id: 'creator', label: 'YouTube Creators' },
+              { id: 'gaming', label: 'Gaming Channels' },
+              { id: 'brand', label: 'Brands & Studios' },
+            ].map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => setClientFilter(f.id)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+                  clientFilter === f.id
+                    ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10'
+                    : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
+                }`}
+              >
+                {f.label}
+              </button>
             ))}
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {clientsData
+              .filter((c) => clientFilter === 'all' || c.type === clientFilter)
+              .map((client, idx) => (
+                <ClientCard key={client.name} client={client} delay={idx * 50} />
+              ))}
           </div>
         </section>
 
@@ -1604,7 +1647,7 @@ function App() {
               <div>
                 <p className="eyebrow mb-4">Navigate</p>
                 <div className="flex flex-col gap-2.5">
-                  {['about', 'services', 'testimonials', 'process', 'contact'].map((link) => (
+                  {['about', 'services', 'clients', 'process', 'contact'].map((link) => (
                     <a key={link} href={`#${link}`} onClick={handleSmoothScroll}
                       className="text-sm hover:text-yellow-400 transition-colors duration-300 w-fit"
                       style={{ color: 'var(--text-tertiary)' }}>
