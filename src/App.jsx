@@ -145,13 +145,139 @@ const aiUgcPosters = [
     badge: 'Promotion Poster',
   },
   {
-    id: 'poster-shilpa-abs',
+    id: 'poster-shilpa-abs-1',
     client: 'shilpa',
     clientName: 'Shilpa Pilates Studio',
     title: 'Shilpa Pilates — ABS Workout Core Session',
     subtitle: 'High-Energy Pilates Mat Ad Creative',
     src: '/assets/shilpa-pilates/pilates-abs-workout.webp',
     badge: 'Fitness UGC',
+  },
+  {
+    id: 'poster-shilpa-face-yoga-massage',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shilpa Pilates — Post-Ganpati Face Yoga Massage (5 Steps)',
+    subtitle: 'Festive Detox & Facial Sculpting Ad Creative',
+    src: '/assets/shilpa-pilates/face-yoga-massage-5-simple.webp',
+    badge: 'Face Yoga',
+  },
+  {
+    id: 'poster-shilpa-aqua-pilates',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shilpa Pilates — Aqua Pilates & Sound Healing',
+    subtitle: 'Radisson Blu Rooftop Wellness Experience',
+    src: '/assets/shilpa-pilates/aqua-pilates-sound-healing.webp',
+    badge: 'Luxury Wellness',
+  },
+  {
+    id: 'poster-shilpa-float-flow-heal',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Float, Flow & Heal — Aqua Pilates & Sound Bath',
+    subtitle: 'Multi-Sensory Poolside Healing & Dining Event',
+    src: '/assets/shilpa-pilates/float-flow-heal-nov1.webp',
+    badge: 'Event Creative',
+  },
+  {
+    id: 'poster-shilpa-radisson-blu',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Float Flow & Heal — Radisson Blu Mumbai',
+    subtitle: 'Exclusive Poolside Wellness Masterclass Campaign',
+    src: '/assets/shilpa-pilates/radisson-blu-aqua-pilates.webp',
+    badge: 'Studio Event',
+  },
+  {
+    id: 'poster-shilpa-abs-home',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shilpa Pilates — Zero-Equipment At-Home ABS Workout',
+    subtitle: 'Stronger Core, Leaner You Performance Ad',
+    src: '/assets/shilpa-pilates/abs-workout-no-equipment.webp',
+    badge: 'Core Conditioning',
+  },
+  {
+    id: 'poster-shilpa-shoulder-hump-posture',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shoulder Hump Workout — Kyphosis Correction',
+    subtitle: 'Targeted Upper Back & Posture Alignment Routine',
+    src: '/assets/shilpa-pilates/shoulder-hump-workout-posture.webp',
+    badge: 'Posture Fix',
+  },
+  {
+    id: 'poster-shilpa-shoulder-hump-alignment',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shoulder Hump Workout — Anatomical Alignment Breakdown',
+    subtitle: 'Neck Alignment & Upper Back Visual Study',
+    src: '/assets/shilpa-pilates/shoulder-hump-workout-alignment.webp',
+    badge: 'Alignment Study',
+  },
+  {
+    id: 'poster-shilpa-radisson-sunset',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Radisson Blu Sunset Dining & Aqua Pilates',
+    subtitle: 'Gourmet Wellness & Float Session Promotional Creative',
+    src: '/assets/shilpa-pilates/radisson-blu-sunset-dining.webp',
+    badge: 'Lifestyle UGC',
+  },
+  {
+    id: 'poster-shilpa-barre',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shilpa Pilates — Barre Pilates Series (Balance & Control)',
+    subtitle: 'Isometric Conditioning & Tone Routine',
+    src: '/assets/shilpa-pilates/barre-pilates-balance-control.webp',
+    badge: 'Barre Pilates',
+  },
+  {
+    id: 'poster-shilpa-halloween',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shilpa Pilates — Halloween Themed Studio Session',
+    subtitle: 'Thematic Community Fitness & Core Celebration',
+    src: '/assets/shilpa-pilates/halloween-themed-pilates.webp',
+    badge: 'Seasonal Event',
+  },
+  {
+    id: 'poster-shilpa-face-yoga-classes',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Face Yoga Classes — Meet Shilpa Kanodia',
+    subtitle: 'Studio Equipment & Anti-Aging Workshop Brochure',
+    src: '/assets/shilpa-pilates/face-yoga-classes-workshop.webp',
+    badge: 'Studio Workshop',
+  },
+  {
+    id: 'poster-shilpa-dandiya-garba',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Shilpa Pilates — Studio Dandiya & Garba Workout',
+    subtitle: 'Festive Cardio & Core Rhythm Fitness Session',
+    src: '/assets/shilpa-pilates/studio-dandiya-garba-session.webp',
+    badge: 'Festive Fitness',
+  },
+  {
+    id: 'poster-shilpa-dandiya-dance',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Festive Dandiya Dance Fitness & Community Celebration',
+    subtitle: 'High-Energy Studio Dance & Core Campaign',
+    src: '/assets/shilpa-pilates/festive-dandiya-dance-fitness.webp',
+    badge: 'Community Event',
+  },
+  {
+    id: 'poster-shilpa-neck-exercises',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Botox-Free Neck Exercises — Non-Invasive Anti-Aging',
+    subtitle: 'Targeted Neck Sculpting, Double Chin & Jowl Lift',
+    src: '/assets/shilpa-pilates/botox-free-neck-exercises.webp',
+    badge: 'Anti-Aging Fix',
   },
 ];
 
@@ -976,8 +1102,8 @@ function App() {
                 <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
               </div>
 
-              {/* Dual Client Snapshot Cards (Balanced & Symmetrical) */}
-              <div className="grid md:grid-cols-2 gap-6 mb-10">
+              {/* Triple Client Snapshot Cards (Balanced & Symmetrical) */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                 {/* Anohga Highlight Card */}
                 <div
                   className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
@@ -1067,6 +1193,48 @@ function App() {
                     </span>
                   </div>
                 </div>
+
+                {/* Shilpa Pilates Studio Highlight Card */}
+                <div
+                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
+                  style={{
+                    borderColor: 'var(--border-color)',
+                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                  }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                        <span>✦</span> Fitness &amp; UGC Partner
+                      </span>
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-full border"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
+                        Performance Ads
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Shilpa Pilates Studio
+                    </h3>
+                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                      Boutique Fitness · Core Conditioning, Luxury Aqua Events &amp; Face Yoga
+                    </p>
+                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+                      15 high-converting ad creatives covering Radisson Blu luxury poolside aqua pilates &amp; sound healing, zero-equipment at-home mat routines, anatomical posture correction series, and non-invasive face yoga workshops.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      15 Ad Creatives
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      Luxury &amp; Posture Series
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                      High Conversion
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Full-Width Creative Deliverables Suite */}
@@ -1087,7 +1255,7 @@ function App() {
                       Featured AI UGC &amp; Performance Creatives
                     </h3>
                     <p className="text-xs md:text-sm mt-1 max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      Explore 18 studio deliverables across Arovia.ai, Anohga Yoga Studio &amp; Shilpa Pilates. Swipe through multi-slide carousels or click any item to view in the fullscreen reader.
+                      Explore 32 studio deliverables across Arovia.ai, Anohga Yoga Studio &amp; Shilpa Pilates Studio. Swipe through multi-slide carousels or click any item to view in the fullscreen reader.
                     </p>
                   </div>
 
@@ -1099,10 +1267,10 @@ function App() {
                       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                     >
                       {[
-                        { id: 'all', label: 'All Clients (18)' },
+                        { id: 'all', label: 'All Clients (32)' },
                         { id: 'arovia', label: 'Arovia.ai (6)' },
                         { id: 'anohga', label: 'Anohga (11)' },
-                        { id: 'shilpa', label: 'Shilpa (1)' },
+                        { id: 'shilpa', label: 'Shilpa Pilates (15)' },
                       ].map((f) => (
                         <button
                           key={f.id}
@@ -1125,9 +1293,9 @@ function App() {
                       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                     >
                       {[
-                        { id: 'all', label: 'All Formats' },
+                        { id: 'all', label: 'All Formats (32)' },
                         { id: 'carousels', label: 'Carousels (9)' },
-                        { id: 'posters', label: 'Posters (9)' },
+                        { id: 'posters', label: 'Posters (23)' },
                       ].map((f) => (
                         <button
                           key={f.id}

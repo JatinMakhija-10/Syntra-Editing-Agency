@@ -606,6 +606,62 @@ export const servicesData = {
           title: 'Shilpa Pilates — ABS Workout Core Session',
           image: '/assets/shilpa-pilates/pilates-abs-workout.webp',
         },
+        {
+          title: 'Shilpa Pilates — Post-Ganpati Face Yoga Massage (5 Steps)',
+          image: '/assets/shilpa-pilates/face-yoga-massage-5-simple.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Aqua Pilates & Sound Healing',
+          image: '/assets/shilpa-pilates/aqua-pilates-sound-healing.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Float, Flow & Heal (Aqua Pilates & Sound Bath)',
+          image: '/assets/shilpa-pilates/float-flow-heal-nov1.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Float Flow & Heal (Radisson Blu Mumbai)',
+          image: '/assets/shilpa-pilates/radisson-blu-aqua-pilates.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Zero-Equipment At-Home ABS Workout',
+          image: '/assets/shilpa-pilates/abs-workout-no-equipment.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Shoulder Hump Workout (Kyphosis Correction)',
+          image: '/assets/shilpa-pilates/shoulder-hump-workout-posture.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Shoulder Hump Workout (Anatomical Alignment Breakdown)',
+          image: '/assets/shilpa-pilates/shoulder-hump-workout-alignment.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Radisson Blu Sunset Dining & Aqua Pilates',
+          image: '/assets/shilpa-pilates/radisson-blu-sunset-dining.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Barre Pilates Series (Balance & Control)',
+          image: '/assets/shilpa-pilates/barre-pilates-balance-control.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Halloween Themed Studio Session',
+          image: '/assets/shilpa-pilates/halloween-themed-pilates.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Face Yoga Classes (Meet Shilpa Kanodia)',
+          image: '/assets/shilpa-pilates/face-yoga-classes-workshop.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Studio Dandiya & Garba Workout',
+          image: '/assets/shilpa-pilates/studio-dandiya-garba-session.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Festive Dandiya Dance Fitness & Celebration',
+          image: '/assets/shilpa-pilates/festive-dandiya-dance-fitness.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Botox-Free Neck Exercises (Anti-Aging)',
+          image: '/assets/shilpa-pilates/botox-free-neck-exercises.webp',
+        },
       ],
       videoShowcase: [],
       webPreview: [],
@@ -784,11 +840,67 @@ export const servicesData = {
         },
         {
           client: 'Shilpa Pilates Studio',
-          clientDesc: 'Fitness brand — High-energy core conditioning ad creatives & visual hooks for social conversion.',
+          clientDesc: 'Boutique Fitness & Face Yoga — 15 high-converting ad creatives covering Radisson Blu aqua events, at-home core workouts, posture fixes & face yoga workshops.',
           examples: [
             {
               title: 'Shilpa Pilates — ABS Workout Core Session',
               image: '/assets/shilpa-pilates/pilates-abs-workout.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Post-Ganpati Face Yoga Massage (5 Steps)',
+              image: '/assets/shilpa-pilates/face-yoga-massage-5-simple.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Aqua Pilates & Sound Healing',
+              image: '/assets/shilpa-pilates/aqua-pilates-sound-healing.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Float, Flow & Heal (Aqua Pilates & Sound Bath)',
+              image: '/assets/shilpa-pilates/float-flow-heal-nov1.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Float Flow & Heal (Radisson Blu Mumbai)',
+              image: '/assets/shilpa-pilates/radisson-blu-aqua-pilates.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Zero-Equipment At-Home ABS Workout',
+              image: '/assets/shilpa-pilates/abs-workout-no-equipment.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Shoulder Hump Workout (Kyphosis Correction)',
+              image: '/assets/shilpa-pilates/shoulder-hump-workout-posture.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Shoulder Hump Workout (Anatomical Alignment Breakdown)',
+              image: '/assets/shilpa-pilates/shoulder-hump-workout-alignment.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Radisson Blu Sunset Dining & Aqua Pilates',
+              image: '/assets/shilpa-pilates/radisson-blu-sunset-dining.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Barre Pilates Series (Balance & Control)',
+              image: '/assets/shilpa-pilates/barre-pilates-balance-control.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Halloween Themed Studio Session',
+              image: '/assets/shilpa-pilates/halloween-themed-pilates.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Face Yoga Classes (Meet Shilpa Kanodia)',
+              image: '/assets/shilpa-pilates/face-yoga-classes-workshop.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Studio Dandiya & Garba Workout',
+              image: '/assets/shilpa-pilates/studio-dandiya-garba-session.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Festive Dandiya Dance Fitness & Celebration',
+              image: '/assets/shilpa-pilates/festive-dandiya-dance-fitness.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Botox-Free Neck Exercises (Anti-Aging)',
+              image: '/assets/shilpa-pilates/botox-free-neck-exercises.webp',
             },
           ],
         },

@@ -141,13 +141,13 @@ export const clientsData = [
   },
   {
     id: 'pilates-coach-shilpa',
-    name: 'Shilpa Kanodia',
+    name: 'Shilpa Kanodia (Shilpa Pilates)',
     avatar: 'https://i.postimg.cc/D09B2srf/img30.jpg',
     category: 'Fitness & Face Yoga',
-    stats: '@pilatescoachshilpa',
-    scope: 'High-retention fitness reels, workout guides, and visual hook editing for Instagram growth.',
-    tags: ['Fitness Reels', 'Hook Editing', 'Short Form'],
-    type: 'creator',
+    stats: '15 Deliverables',
+    scope: '15 ad creatives: Radisson Blu luxury aqua wellness campaign, at-home mat routines, anatomical posture studies, and face yoga brochures.',
+    tags: ['Fitness UGC', 'AI Ad Creatives', 'Posture Series', 'Aqua Wellness'],
+    type: 'brand',
   },
   {
     id: 'dr-preeti-gyne',
