@@ -39,19 +39,33 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
     setTouchStartX(null);
   };
 
+  const openFullscreen = (e) => {
+    if (e) e.stopPropagation();
+    if (onImageClick) {
+      onImageClick({
+        src: currentSlide.image,
+        alt: `${carousel.title} - Slide ${currentIdx + 1}`,
+        slides: carousel.slides,
+        initialIndex: currentIdx,
+        title: carousel.title,
+        folderLink: carousel.folderLink,
+      });
+    }
+  };
+
   return (
     <div
-      className="rounded-2xl border p-4 md:p-5 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_12px_32px_rgba(255,209,0,0.08)] group/card"
+      className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/card"
       style={{
         borderColor: 'var(--border-color)',
         background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)`,
       }}
     >
       {/* Top Header */}
-      <div className="flex items-start justify-between gap-3 mb-3.5">
+      <div className="flex items-start justify-between gap-3 mb-4">
         <div>
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
-            <span>✦</span> {carousel.subtitle || `${slides.length}-Slide Carousel`}
+            <span>✦</span> {carousel.subtitle || `${slides.length}-Slide Deck`}
           </span>
           <h4
             className="text-base md:text-lg font-bold leading-snug"
@@ -66,7 +80,7 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
             href={carousel.folderLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[9px] tracking-[0.15em] uppercase font-semibold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+            className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[9px] tracking-[0.15em] uppercase font-semibold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
             style={{
               borderColor: 'var(--border-color)',
               color: 'var(--text-secondary)',
@@ -82,42 +96,29 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
 
       {/* Slide Container (Aspect 3/4) */}
       <div
-        className="relative aspect-[3/4] w-full rounded-xl overflow-hidden border cursor-pointer select-none group/slide"
+        className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border cursor-pointer select-none group/slide"
         style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        onClick={() =>
-          onImageClick &&
-          onImageClick({
-            src: currentSlide.image,
-            alt: `${carousel.title} - Slide ${currentIdx + 1}`,
-          })
-        }
+        onClick={openFullscreen}
       >
         <img
           src={currentSlide.image}
           alt={`${carousel.title} - Slide ${currentIdx + 1}`}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover/slide:scale-[1.02]"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover/slide:scale-[1.03]"
           loading="lazy"
         />
 
         {/* Top Badges: Slide counter & Expand */}
         <div className="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none">
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider text-white/90 bg-black/60 backdrop-blur-md border border-white/10">
-            {currentIdx + 1} / {slides.length}
+          <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider text-white bg-black/65 backdrop-blur-md border border-white/10 shadow-sm">
+            Slide {currentIdx + 1} of {slides.length}
           </span>
           <button
             type="button"
-            className="pointer-events-auto p-1.5 rounded-full text-white/80 hover:text-white bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/10 transition-transform hover:scale-110"
-            title="View full resolution"
-            onClick={(e) => {
-              e.stopPropagation();
-              onImageClick &&
-                onImageClick({
-                  src: currentSlide.image,
-                  alt: `${carousel.title} - Slide ${currentIdx + 1}`,
-                });
-            }}
+            className="pointer-events-auto p-2 rounded-full text-white/90 hover:text-yellow-400 bg-black/65 hover:bg-black/90 backdrop-blur-md border border-white/10 transition-transform hover:scale-110 shadow-sm"
+            title="Read in fullscreen viewer"
+            onClick={openFullscreen}
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
@@ -129,7 +130,7 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
         <button
           type="button"
           onClick={prevSlide}
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center text-white bg-black/60 hover:bg-yellow-400 hover:text-black border border-white/15 backdrop-blur-md transition-all duration-200 opacity-80 md:opacity-0 group-hover/slide:opacity-100 hover:scale-110 shadow-lg"
+          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-white bg-black/70 hover:bg-yellow-400 hover:text-black border border-white/15 backdrop-blur-md transition-all duration-200 opacity-90 md:opacity-0 group-hover/slide:opacity-100 hover:scale-110 shadow-xl"
           aria-label="Previous slide"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -140,7 +141,7 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
         <button
           type="button"
           onClick={nextSlide}
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center text-white bg-black/60 hover:bg-yellow-400 hover:text-black border border-white/15 backdrop-blur-md transition-all duration-200 opacity-80 md:opacity-0 group-hover/slide:opacity-100 hover:scale-110 shadow-lg"
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-white bg-black/70 hover:bg-yellow-400 hover:text-black border border-white/15 backdrop-blur-md transition-all duration-200 opacity-90 md:opacity-0 group-hover/slide:opacity-100 hover:scale-110 shadow-xl"
           aria-label="Next slide"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -150,7 +151,7 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
 
         {/* Bottom Slide Dots */}
         <div className="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 pointer-events-none">
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 pointer-events-auto">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 pointer-events-auto shadow-md">
             {slides.map((_, dotIdx) => (
               <button
                 key={dotIdx}
@@ -161,7 +162,7 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
                 }}
                 className={`transition-all duration-300 rounded-full ${
                   dotIdx === currentIdx
-                    ? 'w-5 h-1.5 bg-yellow-400'
+                    ? 'w-6 h-1.5 bg-yellow-400'
                     : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/80'
                 }`}
                 aria-label={`Go to slide ${dotIdx + 1}`}
@@ -171,30 +172,47 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
         </div>
       </div>
 
-      {/* Thumbnails Strip */}
-      <div className="mt-3.5 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-        {slides.map((slide, thumbIdx) => (
-          <button
-            key={thumbIdx}
-            type="button"
-            onClick={() => setCurrentIdx(thumbIdx)}
-            className={`relative shrink-0 w-12 aspect-[3/4] rounded-md overflow-hidden border transition-all duration-200 ${
-              thumbIdx === currentIdx
-                ? 'border-yellow-400 ring-2 ring-yellow-400/40 scale-105'
-                : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/40'
-            }`}
-          >
-            <img
-              src={slide.image}
-              alt={`Thumb ${thumbIdx + 1}`}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <span className="absolute bottom-0 inset-x-0 text-[8px] font-bold text-center bg-black/70 text-white/90 py-0.5">
-              {thumbIdx + 1}
-            </span>
-          </button>
-        ))}
+      {/* Bottom Thumbnail Strip */}
+      {!compact && (
+        <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+          {slides.map((slide, thumbIdx) => (
+            <button
+              key={thumbIdx}
+              type="button"
+              onClick={() => setCurrentIdx(thumbIdx)}
+              className={`relative shrink-0 w-11 md:w-12 aspect-[3/4] rounded-lg overflow-hidden border transition-all duration-200 ${
+                thumbIdx === currentIdx
+                  ? 'border-yellow-400 ring-2 ring-yellow-400/40 scale-105'
+                  : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/40'
+              }`}
+            >
+              <img
+                src={slide.image}
+                alt={`Thumb ${thumbIdx + 1}`}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <span className="absolute bottom-0 inset-x-0 text-[8px] font-bold text-center bg-black/75 text-white/90 py-0.5">
+                {thumbIdx + 1}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Action footer */}
+      <div className="mt-3.5 pt-3 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--border-color)' }}>
+        <span style={{ color: 'var(--text-tertiary)' }}>
+          {slides.length} slides in this deck
+        </span>
+        <button
+          type="button"
+          onClick={openFullscreen}
+          className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1 transition-all"
+        >
+          <span>Read Full Deck</span>
+          <span>↗</span>
+        </button>
       </div>
     </div>
   );

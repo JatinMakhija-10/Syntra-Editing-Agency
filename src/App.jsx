@@ -14,6 +14,7 @@ import { subscribeToAdditions, subscribeToNewServices } from './lib/contentStore
 import { ServicePage } from './components/ServicePage';
 import { slugify, findServiceBySlug } from './utils/slug';
 import SocialCarouselCard from './components/SocialCarouselCard';
+import LightboxModal from './components/LightboxModal';
 
 const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB', 'AI_UGC'];
 
@@ -80,8 +81,7 @@ function App() {
   const [serviceSearch, setServiceSearch] = useState('');
   const [selectedService, setSelectedService] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [anohgaViewMode, setAnohgaViewMode] = useState('carousels');
-  const [anohgaCarouselIdx, setAnohgaCarouselIdx] = useState(0);
+  const [anohgaFilter, setAnohgaFilter] = useState('all');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [statsTrigger, setStatsTrigger] = useState(false);
   const statsRef = useRef(null);
@@ -370,19 +370,9 @@ function App() {
           onImageClick={(img) => setSelectedImage(img)}
         />
 
-        {/* Image Lightbox */}
+        {/* Image Lightbox / Fullscreen Carousel Reader */}
         {selectedImage && (
-          <div
-            className="lightbox-overlay is-open"
-            onClick={() => setSelectedImage(null)}
-            role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-describedby="lightbox-desc"
-          >
-            <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-              <button onClick={() => setSelectedImage(null)} className="lightbox-close" aria-label="Close image viewer (Press Escape)" autoFocus>×</button>
-              <img src={selectedImage.src} alt={selectedImage.alt} className="lightbox-image" id="lightbox-title" />
-              <span id="lightbox-desc" className="sr-only">Press Escape or click outside to close</span>
-            </div>
-          </div>
+          <LightboxModal item={selectedImage} onClose={() => setSelectedImage(null)} />
         )}
       </>
     );
@@ -404,19 +394,9 @@ function App() {
       {/* Mobile Menu */}
       <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} onNavigate={handleSmoothScroll} />
 
-      {/* Image Lightbox */}
+      {/* Image Lightbox / Fullscreen Carousel Reader */}
       {selectedImage && (
-        <div
-          className="lightbox-overlay is-open"
-          onClick={() => setSelectedImage(null)}
-          role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-describedby="lightbox-desc"
-        >
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setSelectedImage(null)} className="lightbox-close" aria-label="Close image viewer (Press Escape)" autoFocus>×</button>
-            <img src={selectedImage.src} alt={selectedImage.alt} className="lightbox-image" id="lightbox-title" />
-            <span id="lightbox-desc" className="sr-only">Press Escape or click outside to close</span>
-          </div>
-        </div>
+        <LightboxModal item={selectedImage} onClose={() => setSelectedImage(null)} />
       )}
 
 
@@ -898,172 +878,260 @@ function App() {
             </>
           )}
 
-          {/* ── AI UGC Client Showcases (when AI_UGC tab is active or searched) ── */}
+          {/* ── AI UGC Production Showcase (when AI_UGC tab is active or searched) ── */}
           {(activeCategory === 'AI_UGC' || (serviceSearch.trim() && 'ai ugc static ads'.includes(serviceSearch.toLowerCase()))) && (
-            <div className="mb-12">
-              <div className="flex items-center gap-3 mb-6">
+            <div className="mb-14">
+              {/* Top Section Header */}
+              <div className="flex items-center gap-3 mb-8">
                 <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,209,0,0.3), transparent)' }} />
                 <span className="text-[10px] tracking-[0.35em] uppercase font-bold text-yellow-400">
                   ✦ Featured AI UGC Client Campaigns
                 </span>
                 <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
               </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Arovia.ai Client Card */}
-                <div className="rounded-3xl border p-7 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.1)]"
-                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-                  <div className="relative">
-                    <div className="flex items-start justify-between mb-5">
-                      <div>
-                        <div className="pill-label mb-3 inline-flex">
-                          ✦ Client Showcase
-                        </div>
-                        <h4 className="text-2xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Arovia.ai</h4>
-                        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>AI Platform · Performance Static Ad Creatives</p>
-                      </div>
-                      <a href="https://aroviaai.com/" target="_blank" rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        Visit site ↗
+
+              {/* Dual Client Snapshot Cards (Balanced & Symmetrical) */}
+              <div className="grid md:grid-cols-2 gap-6 mb-10">
+                {/* Anohga Highlight Card */}
+                <div
+                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
+                  style={{
+                    borderColor: 'var(--border-color)',
+                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                  }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                        <span>✦</span> Featured Production
+                      </span>
+                      <a
+                        href="https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
+                      >
+                        <span>Drive Folder</span>
+                        <span>↗</span>
                       </a>
                     </div>
-                    <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      Hyper-realistic AI avatar visuals and product ad creatives engineered for conversion-focused performance campaigns across Meta &amp; Google Ads.
+                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Anohga Yoga Studio
+                    </h3>
+                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                      Wellness Brand · Static Ads, Launch Posters &amp; Instagram Carousels
                     </p>
-                    <div className="rounded-2xl flex items-center justify-center p-6 border transition-colors group-hover:border-yellow-400/30"
-                      style={{ background: 'var(--bg-overlay)', borderColor: 'var(--border-color)' }}>
-                      <div className="text-center py-4 px-4">
-                        <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-yellow-400 mb-1">Ad Campaign Showcase</p>
-                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static creatives &amp; performance ad sets active</p>
-                      </div>
-                    </div>
+                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+                      Complete multi-format campaign for workshop promotions, studio passes, and alignment masterclasses. 3 key launch posters and 6 narrative multi-slide carousels (32 total slides) engineered for Meta &amp; Instagram performance.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      6 Carousel Decks (32 Slides)
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      3 Launch Posters
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                      High-Intent Bookings
+                    </span>
                   </div>
                 </div>
 
-                {/* Anohga Yoga Studio Client Card */}
-                <div className="rounded-3xl border p-7 md:p-8 relative overflow-hidden group transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.1)]"
-                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-                  <div className="relative">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <div className="pill-label mb-2.5 inline-flex">
-                          ✦ Client Showcase
-                        </div>
-                        <h4 className="text-2xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Anohga Yoga Studio</h4>
-                        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>Wellness Brand · Static Ads &amp; Social Carousels</p>
-                      </div>
-                      <a href="https://drive.google.com/drive/folders/15qcoSfisJ50X8DVX7Rv9ggKLPzqumfo6" target="_blank" rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        Drive Folder ↗
+                {/* Arovia.ai Highlight Card */}
+                <div
+                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
+                  style={{
+                    borderColor: 'var(--border-color)',
+                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                  }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
+                        <span>✦</span> AI Creative Partner
+                      </span>
+                      <a
+                        href="https://aroviaai.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
+                      >
+                        <span>Visit Site</span>
+                        <span>↗</span>
                       </a>
                     </div>
-                    <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      Calm, atmospheric AI-generated static ads &amp; high-retention multi-slide educational carousels engineered for yoga studio bookings.
+                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Arovia.ai
+                    </h3>
+                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                      AI Platform · Performance Avatars &amp; Static Ad Creatives
                     </p>
+                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+                      Conversion-engineered creative testing for SaaS and AI workflows. Realistic generative avatars, hook-driven value propositions, and dynamic ad variants across Meta &amp; Google Ads.
+                    </p>
+                  </div>
 
-                    {/* View Switcher: Carousels vs Posters */}
-                    <div className="flex items-center gap-2 mb-4 p-1 rounded-xl border"
-                      style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+                  <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      Generative Avatars
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      High-CTR Hooks
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                      Performance Scaled
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Full-Width Anohga Creative Deliverables Suite */}
+              <div
+                className="rounded-3xl border p-6 md:p-8 relative overflow-hidden"
+                style={{
+                  borderColor: 'var(--border-color)',
+                  background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                }}
+              >
+                {/* Header & Filter Controls Bar */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
+                      <span>✦</span> Creative Deliverables Gallery
+                    </span>
+                    <h3 className="text-xl md:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Anohga Yoga Studio — Campaign Assets
+                    </h3>
+                    <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
+                      Swipe through multi-slide carousels or click any item to view in the fullscreen reader.
+                    </p>
+                  </div>
+
+                  {/* Filter Segmented Control */}
+                  <div
+                    className="flex items-center gap-1 p-1 rounded-xl border self-start md:self-auto shrink-0"
+                    style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                  >
+                    {[
+                      { id: 'all', label: 'All Assets (9)' },
+                      { id: 'carousels', label: 'Carousels (6)' },
+                      { id: 'posters', label: 'Posters (3)' },
+                    ].map((f) => (
                       <button
+                        key={f.id}
                         type="button"
-                        onClick={() => setAnohgaViewMode('carousels')}
-                        className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 ${
-                          anohgaViewMode === 'carousels'
-                            ? 'bg-yellow-400 text-black shadow-sm font-bold'
+                        onClick={() => setAnohgaFilter(f.id)}
+                        className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                          anohgaFilter === f.id
+                            ? 'bg-yellow-400 text-black font-bold shadow-sm'
                             : 'text-stone-400 hover:text-white'
                         }`}
                       >
-                        <span>✦</span>
-                        <span>Social Carousels (6)</span>
+                        {f.label}
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => setAnohgaViewMode('posters')}
-                        className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 ${
-                          anohgaViewMode === 'posters'
-                            ? 'bg-yellow-400 text-black shadow-sm font-bold'
-                            : 'text-stone-400 hover:text-white'
-                        }`}
-                      >
-                        <span>Creative Posters (3)</span>
-                      </button>
-                    </div>
+                    ))}
+                  </div>
+                </div>
 
-                    {anohgaViewMode === 'carousels' ? (
-                      <div>
-                        {/* Carousel Selector Chips */}
-                        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-3 scrollbar-none">
-                          {(servicesData.AI_UGC['AI UGC Static Ads'].carousels || []).map((c, cIdx) => (
-                            <button
-                              key={c.id}
-                              type="button"
-                              onClick={() => setAnohgaCarouselIdx(cIdx)}
-                              className={`shrink-0 px-2.5 py-1 rounded-full text-[10px] tracking-wider font-semibold border transition-all ${
-                                anohgaCarouselIdx === cIdx
-                                  ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10'
-                                  : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
-                              }`}
+                {/* 3-Column Studio Grid */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Posters (shown if filter is 'all' or 'posters') */}
+                  {(anohgaFilter === 'all' || anohgaFilter === 'posters') &&
+                    [
+                      {
+                        title: 'Hormonal Balance Yoga Workshop',
+                        subtitle: 'Workshop Launch Poster',
+                        src: '/assets/anohga/hormonal-balance-yoga-workshop.webp',
+                      },
+                      {
+                        title: 'The Human Axis: Yoga Movement Study',
+                        subtitle: 'Movement & Alignment Key Visual',
+                        src: '/assets/anohga/human-axis-yoga-movement-study.webp',
+                      },
+                      {
+                        title: 'Anohga Yoga Studio Mobility Pack Poster',
+                        subtitle: 'Studio Pass Promotion Poster',
+                        src: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp',
+                      },
+                    ].map((poster, pIdx) => (
+                      <div
+                        key={`poster-${pIdx}`}
+                        className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/poster"
+                        style={{
+                          borderColor: 'var(--border-color)',
+                          background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-3 mb-4">
+                          <div>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
+                              <span>✦</span> Launch Poster
+                            </span>
+                            <h4
+                              className="text-base md:text-lg font-bold leading-snug"
+                              style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
                             >
-                              {cIdx + 1}. {c.title.split('–')[0].split(':')[0].trim()}
-                            </button>
-                          ))}
+                              {poster.title}
+                            </h4>
+                          </div>
+                          <span
+                            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] tracking-wider uppercase font-semibold border"
+                            style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}
+                          >
+                            Static
+                          </span>
                         </div>
 
-                        {/* Interactive Carousel Card */}
-                        {servicesData.AI_UGC['AI UGC Static Ads'].carousels?.[anohgaCarouselIdx] && (
-                          <SocialCarouselCard
-                            carousel={servicesData.AI_UGC['AI UGC Static Ads'].carousels[anohgaCarouselIdx]}
-                            onImageClick={(img) => setSelectedImage(img)}
+                        <div
+                          className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border cursor-pointer select-none group/img"
+                          style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                          onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
+                        >
+                          <img
+                            src={poster.src}
+                            alt={poster.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-[1.03]"
+                            loading="lazy"
                           />
-                        )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-between p-4">
+                            <span className="text-xs font-semibold text-white leading-tight">
+                              {poster.subtitle}
+                            </span>
+                            <span className="p-2 rounded-full bg-yellow-400 text-black font-bold shadow-lg">
+                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
 
-                        <div className="mt-4 flex items-center justify-between text-xs pt-3 border-t"
-                          style={{ borderColor: 'var(--border-color)' }}>
-                          <span style={{ color: 'var(--text-tertiary)' }}>
-                            Showing {anohgaCarouselIdx + 1} of {servicesData.AI_UGC['AI UGC Static Ads'].carousels?.length || 6} carousels
-                          </span>
+                        <div className="mt-4 pt-3 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--border-color)' }}>
+                          <span style={{ color: 'var(--text-tertiary)' }}>Key Visual Poster</span>
                           <button
                             type="button"
-                            onClick={() => setSelectedService('AI UGC Static Ads')}
+                            onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
                             className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1"
                           >
-                            <span>View all 6 carousels in detail</span>
-                            <span>→</span>
+                            <span>View Fullscreen</span>
+                            <span>↗</span>
                           </button>
                         </div>
                       </div>
-                    ) : (
-                      /* Creative Posters Grid from Drive Folder */
-                      <div className="grid grid-cols-3 gap-3">
-                        {[
-                          { title: 'Hormonal Balance Yoga Workshop', src: '/assets/anohga/hormonal-balance-yoga-workshop.webp' },
-                          { title: 'The Human Axis: Yoga Movement Study', src: '/assets/anohga/human-axis-yoga-movement-study.webp' },
-                          { title: 'Anohga Yoga Studio Mobility Pack Poster', src: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp' },
-                        ].map((img, i) => (
-                          <div
-                            key={i}
-                            onClick={() => setSelectedImage({ src: img.src, alt: img.title })}
-                            className="group/img relative aspect-[3/4] rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:border-yellow-400/60 shadow-sm"
-                            style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
-                            title={`Click to view full image: ${img.title}`}
-                          >
-                            <img
-                              src={img.src}
-                              alt={img.title}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110"
-                              loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
-                              <span className="text-[10px] font-semibold text-white leading-tight">
-                                {img.title}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                    ))}
+
+                  {/* Carousels (shown if filter is 'all' or 'carousels') */}
+                  {(anohgaFilter === 'all' || anohgaFilter === 'carousels') &&
+                    (servicesData.AI_UGC['AI UGC Static Ads'].carousels || []).map((carousel) => (
+                      <SocialCarouselCard
+                        key={carousel.id}
+                        carousel={carousel}
+                        onImageClick={(img) => setSelectedImage(img)}
+                      />
+                    ))}
                 </div>
               </div>
             </div>
