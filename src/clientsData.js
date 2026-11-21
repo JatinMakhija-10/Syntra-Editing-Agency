@@ -124,9 +124,9 @@ export const clientsData = [
     name: 'Anohga Yoga Studio',
     avatar: '/assets/anohga/anohga-yoga-studio-mobility-pack.webp',
     category: 'Wellness & Fitness',
-    stats: 'Studio Launch Campaign',
-    scope: 'Full-suite static ad creatives, 3 workshop launch posters & 6 multi-slide educational carousels.',
-    tags: ['AI UGC Ads', 'Instagram Carousels', 'Key Visuals'],
+    stats: 'Website & Launch Campaign',
+    scope: 'Custom responsive studio website (anohga-yoga-studio.netlify.app), full-suite static ad creatives, 5 workshop launch posters & 6 multi-slide educational carousels.',
+    tags: ['Website Design', 'AI UGC Ads', 'Instagram Carousels', 'Key Visuals'],
     type: 'brand',
   },
   {

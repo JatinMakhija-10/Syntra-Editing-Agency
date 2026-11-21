@@ -435,12 +435,13 @@ export const servicesData = {
   WEB: {
     'Modern Website Design': {
       title: 'Modern Website Design',
-      desc: 'Fast, responsive, conversion-focused web experiences.',
+      desc: 'Fast, responsive, conversion-focused web experiences engineered for boutique studios, platforms, and modern brands.',
       tag: 'Web',
       examples: [],
       webPreview: [
-        { title: 'Syntra Studio', desc: 'Creative studio portfolio website', link: 'https://syntrastudio.netlify.app/' },
-        { title: 'Arovia AI', desc: 'AI Platform', link: 'https://aroviaai.com/' },
+        { title: 'Anohga Yoga Studio', desc: 'Boutique yoga & movement studio website (ECR Chennai)', link: 'https://anohga-yoga-studio.netlify.app/' },
+        { title: 'Syntra Studio', desc: 'Creative studio portfolio & production agency website', link: 'https://syntrastudio.netlify.app/' },
+        { title: 'Arovia AI', desc: 'AI diagnostic health intelligence platform website', link: 'https://aroviaai.com/' },
         { title: 'LimitLens', desc: 'Antigravity Limits Checker Tool', link: 'https://limitlens.netlify.app/' },
       ],
     },
