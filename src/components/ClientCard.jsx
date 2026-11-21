@@ -8,7 +8,7 @@ export function ClientCard({ client, delay = 0 }) {
   return (
     <div
       ref={cardRef}
-      className="group relative rounded-3xl border reveal p-6 md:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:border-yellow-400/50 hover:shadow-[0_16px_36px_rgba(255,209,0,0.08)]"
+      className="group relative rounded-2xl border reveal p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:border-yellow-400/50 hover:shadow-[0_16px_36px_rgba(255,209,0,0.08)]"
       style={{
         borderColor: 'var(--border-color)',
         background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)`,
@@ -18,50 +18,48 @@ export function ClientCard({ client, delay = 0 }) {
       }}
     >
       <div>
-        {/* Top Header: Avatar + Identity + Category */}
-        <div className="flex items-start justify-between gap-3 mb-4">
-          <div className="flex items-center gap-3.5">
+        {/* Top Header: Avatar + Identity + Badge */}
+        <div className="flex items-start justify-between gap-3 mb-3.5">
+          <div className="flex items-center gap-3 min-w-0">
             <img
               src={client.avatar}
               alt={client.name}
-              className="w-13 h-13 rounded-2xl object-cover border border-white/10 shrink-0 group-hover:border-yellow-400/50 transition-colors shadow-sm"
-              style={{ width: '48px', height: '48px' }}
+              className="rounded-xl object-cover border border-white/10 shrink-0 group-hover:border-yellow-400/60 transition-all duration-300 shadow-sm"
+              style={{ width: '46px', height: '46px' }}
               loading="lazy"
             />
-            <div>
+            <div className="min-w-0">
               <h4
-                className="text-base font-bold leading-tight"
+                className="text-sm md:text-base font-bold leading-snug truncate"
                 style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
+                title={client.name}
               >
                 {client.name}
               </h4>
-              <p className="text-[11px] font-semibold mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
-                {client.category} {client.stats ? `· ${client.stats}` : ''}
+              <p className="text-[11px] font-semibold mt-0.5 truncate" style={{ color: 'var(--text-tertiary)' }}>
+                {client.category}
               </p>
             </div>
           </div>
 
-          <span
-            className="shrink-0 px-2.5 py-1 rounded-full text-[9px] tracking-wider uppercase font-bold border transition-colors group-hover:border-yellow-400/30 group-hover:text-yellow-400"
-            style={{
-              borderColor: 'var(--border-color)',
-              color: 'var(--text-muted)',
-              backgroundColor: 'var(--bg-overlay)',
-            }}
-          >
-            {client.type === 'creator' ? 'Creator' : client.type === 'gaming' ? 'Gaming' : 'Brand'}
-          </span>
+          {client.stats && (
+            <span
+              className="shrink-0 px-2 py-0.5 rounded-full text-[9px] tracking-wider uppercase font-bold border border-yellow-400/20 text-yellow-400 bg-yellow-400/5"
+            >
+              {client.stats}
+            </span>
+          )}
         </div>
 
         {/* Deliverables Scope Description */}
-        <p className="text-xs md:text-[13px] leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+        <p className="text-xs leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
           {client.scope || client.review}
         </p>
       </div>
 
       {/* Deliverable Tags */}
       {client.tags && client.tags.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5 pt-3.5 border-t" style={{ borderColor: 'var(--border-color)' }}>
+        <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
           {client.tags.map((tag, tIdx) => (
             <span
               key={tIdx}
@@ -82,3 +80,4 @@ export function ClientCard({ client, delay = 0 }) {
 }
 
 export const TestimonialCard = ClientCard;
+export default ClientCard;

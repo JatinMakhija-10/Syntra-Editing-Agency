@@ -1432,25 +1432,53 @@ function App() {
         {/* ── SELECTED CLIENTS & COLLABORATIONS ── */}
         <section id="clients" className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
           <span id="testimonials" className="sr-only">Previous Clients</span>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
             <div>
               <div className="pill-label mb-3 inline-flex">
-                ✦ Selected Clients &amp; Collaborations
+                ✦ Our Clients &amp; Collaborations
               </div>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 Trusted by Leading Creators &amp; Brands.
               </h2>
               <p className="text-sm md:text-base mt-2 max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                From 22M+ YouTube creators and gaming channels to consumer brands and wellness studios — explore our creative deliverables and production scope.
+                From 22M+ YouTube creators and gaming channels to wellness studios and emerging brands — explore our previous clients and creative collaborations.
               </p>
             </div>
 
             {/* Quick Metrics Badge */}
             <div className="flex items-center gap-3 self-start md:self-auto shrink-0">
               <div className="px-4 py-2 rounded-2xl border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
-                <span className="text-lg font-bold text-yellow-400 font-mono">60+</span>
-                <span className="text-[10px] tracking-wider uppercase ml-2 text-stone-400 font-semibold">Productions Delivered</span>
+                <span className="text-lg font-bold text-yellow-400 font-mono">{clientsData.length}+</span>
+                <span className="text-[10px] tracking-wider uppercase ml-2 text-stone-400 font-semibold">Featured Clients</span>
               </div>
+            </div>
+          </div>
+
+          {/* Client Avatar Ticker Ribbon */}
+          <div className="marquee-wrap mb-8 py-3.5 border-y" style={{ borderColor: 'var(--border-color)' }}>
+            <div className="marquee-track gap-4">
+              {[...clientsData, ...clientsData].map((c, i) => (
+                <div
+                  key={`${c.id}-${i}`}
+                  className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border shrink-0 transition-colors hover:border-yellow-400/40"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                >
+                  <img
+                    src={c.avatar}
+                    alt={c.name}
+                    className="w-5 h-5 rounded-full object-cover border border-yellow-400/40"
+                    loading="lazy"
+                  />
+                  <span className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    {c.name}
+                  </span>
+                  {c.stats && (
+                    <span className="text-[10px] text-yellow-400 font-mono">
+                      · {c.stats}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
 
@@ -1458,9 +1486,9 @@ function App() {
           <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-8 scrollbar-none">
             {[
               { id: 'all', label: `All Clients (${clientsData.length})` },
-              { id: 'creator', label: 'YouTube Creators' },
-              { id: 'gaming', label: 'Gaming Channels' },
-              { id: 'brand', label: 'Brands & Studios' },
+              { id: 'creator', label: `Creators (${clientsData.filter((c) => c.type === 'creator').length})` },
+              { id: 'gaming', label: `Gaming Channels (${clientsData.filter((c) => c.type === 'gaming').length})` },
+              { id: 'brand', label: `Brands & Studios (${clientsData.filter((c) => c.type === 'brand').length})` },
             ].map((f) => (
               <button
                 key={f.id}
@@ -1468,7 +1496,7 @@ function App() {
                 onClick={() => setClientFilter(f.id)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border ${
                   clientFilter === f.id
-                    ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10'
+                    ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10 shadow-sm'
                     : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
                 }`}
               >
@@ -1477,11 +1505,11 @@ function App() {
             ))}
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {clientsData
               .filter((c) => clientFilter === 'all' || c.type === clientFilter)
               .map((client, idx) => (
-                <ClientCard key={client.name} client={client} delay={idx * 50} />
+                <ClientCard key={client.name} client={client} delay={idx * 30} />
               ))}
           </div>
         </section>
