@@ -812,9 +812,9 @@ function App() {
                 {/* Program Monitor */}
                 <div className="relative aspect-[16/10] bg-black overflow-hidden group">
                   <img
-                    src="/assets/anohga/anohga-flexibility-mobility-key-visual.webp"
+                    src="/assets/hero-cinematic-cut.webp"
                     alt="Syntra Studio Master Cut Preview"
-                    className="w-full h-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="w-full h-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-[1.03]"
                     loading="eager"
                     fetchPriority="high"
                   />
@@ -828,7 +828,7 @@ function App() {
                     ProRes 422 HQ
                   </div>
                   <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 bg-black/70 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-md border border-white/10 font-mono text-[9px] sm:text-[10px] text-stone-300">
-                    Color Grade: Rec.709 Neutral
+                    Color Grade: Cinematic Teal &amp; Gold LUT
                   </div>
                 </div>
 
