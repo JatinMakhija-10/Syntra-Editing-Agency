@@ -126,22 +126,14 @@ export function ServicePage({
               <span className="hidden sm:inline">Back</span>
             </button>
 
-            {/* Syntra Logo + Brand Lockup */}
+            {/* Syntra Logo */}
             <button
               onClick={onBack}
-              className="flex items-center gap-2 focus:outline-none group cursor-pointer"
-              title="Return to Syntra Studio Home"
+              className="flex items-center focus:outline-none group cursor-pointer"
+              title="Return to Syntra Home"
+              aria-label="Return to Syntra Home"
             >
-              <img src="/assets/syntra-logo.png" alt="Syntra" className="h-6 sm:h-7 w-auto object-contain transition-opacity group-hover:opacity-85" />
-              <div className="flex items-center gap-1.5">
-                <span className="font-bold tracking-[0.16em] text-sm sm:text-base uppercase"
-                  style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                  SYNTRA
-                </span>
-                <span className="text-[10px] tracking-wider uppercase font-semibold text-yellow-400 border border-yellow-400/30 px-1.5 py-0.2 rounded-md hidden lg:inline-block bg-yellow-400/10">
-                  Studio
-                </span>
-              </div>
+              <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 sm:h-8 w-auto object-contain transition-opacity group-hover:opacity-85" />
             </button>
 
             <div className="hidden md:flex items-center gap-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>
@@ -671,10 +663,10 @@ export function ServicePage({
       {/* ── FOOTER ── */}
       <footer className="border-t py-6 sm:py-8 px-4 sm:px-6" style={{ borderColor: 'var(--border-color)' }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
-          <div className="flex items-center gap-2.5">
-            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-5 w-auto object-contain" />
-            <span className="font-bold tracking-[0.16em] uppercase text-xs" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>SYNTRA</span>
-            <span className="text-[10px] tracking-wider uppercase font-semibold text-yellow-400 border border-yellow-400/30 px-1.5 py-0.2 rounded-md bg-yellow-400/10 hidden sm:inline-block">Studio</span>
+          <div className="flex items-center gap-3">
+            <button onClick={onBack} className="focus:outline-none cursor-pointer" aria-label="Return to Syntra Home">
+              <img src="/assets/syntra-logo.png" alt="Syntra" className="h-6 w-auto object-contain opacity-90 transition-opacity hover:opacity-100" />
+            </button>
             <span className="text-stone-500 hidden md:inline">— Motion-first creative studio</span>
           </div>
           <div className="flex items-center gap-6">

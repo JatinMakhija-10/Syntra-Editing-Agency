@@ -646,17 +646,8 @@ function App() {
           Skip to main content
         </a>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-md p-0.5">
-            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85" />
-            <div className="flex items-center gap-2">
-              <span className="font-bold tracking-[0.16em] text-sm sm:text-base uppercase"
-                style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                SYNTRA
-              </span>
-              <span className="text-[10px] tracking-wider uppercase font-semibold text-yellow-400 border border-yellow-400/30 px-1.5 py-0.5 rounded-md hidden sm:inline-block bg-yellow-400/10">
-                Studio
-              </span>
-            </div>
+          <a href="#" className="flex items-center group focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-md p-0.5" aria-label="Syntra">
+            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-8 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85" />
           </a>
           <nav className="hidden md:flex items-center gap-7 text-xs font-medium"
             style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)' }} aria-label="Main navigation">
@@ -2127,16 +2118,9 @@ function App() {
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               {/* Brand */}
               <div>
-                <div className="flex items-center gap-2.5 mb-3">
-                  <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain" />
-                  <span className="font-bold tracking-[0.16em] text-base uppercase"
-                    style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                    SYNTRA
-                  </span>
-                  <span className="text-[10px] tracking-wider uppercase font-semibold text-yellow-400 border border-yellow-400/30 px-1.5 py-0.5 rounded-md bg-yellow-400/10">
-                    Studio
-                  </span>
-                </div>
+                <a href="#" className="inline-block mb-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-md" aria-label="Syntra">
+                  <img src="/assets/syntra-logo.png" alt="Syntra" className="h-8 w-auto object-contain opacity-90 transition-opacity hover:opacity-100" />
+                </a>
                 <p className="text-xs leading-relaxed max-w-xs" style={{ color: 'var(--text-tertiary)' }}>
                   A motion-first creative studio crafting stories that convert — based in India, working worldwide.
                 </p>

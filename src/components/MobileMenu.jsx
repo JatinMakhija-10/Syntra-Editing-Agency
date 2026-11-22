@@ -53,14 +53,8 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
       >
         {/* Top Bar with Logo & Close */}
         <div className="flex items-center justify-between pb-4 border-b" style={{ borderColor: 'var(--border-color)' }}>
-          <div className="flex items-center gap-2.5">
-            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain" />
-            <span className="font-extrabold tracking-[0.22em] text-base uppercase" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-              SYNTRA
-            </span>
-            <span className="text-[10px] tracking-wider uppercase font-semibold text-yellow-400 border border-yellow-400/30 px-1.5 py-0.5 rounded-md bg-yellow-400/10">
-              Studio
-            </span>
+          <div className="flex items-center">
+            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-8 w-auto object-contain" />
           </div>
           <button
             onClick={onClose}
