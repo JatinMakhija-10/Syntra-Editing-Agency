@@ -159,10 +159,10 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
               key={thumbIdx}
               type="button"
               onClick={() => setCurrentIdx(thumbIdx)}
-              className={`relative shrink-0 w-11 md:w-12 aspect-[3/4] rounded-lg overflow-hidden border transition-all duration-200 ${
+              className={`relative shrink-0 w-11 md:w-12 aspect-[3/4] rounded-lg overflow-hidden border transition-colors duration-150 ${
                 thumbIdx === currentIdx
-                  ? 'border-yellow-400 ring-2 ring-yellow-400/40 scale-105'
-                  : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/40'
+                  ? 'border-yellow-400 ring-1 ring-yellow-400/50'
+                  : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/30'
               }`}
             >
               <img
@@ -187,7 +187,7 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
         <button
           type="button"
           onClick={openFullscreen}
-          className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1 transition-all"
+          className="font-semibold text-yellow-400 hover:underline inline-flex items-center gap-1 transition-colors duration-150"
         >
           <span>Read Full Deck</span>
           <span>↗</span>

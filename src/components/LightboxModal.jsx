@@ -156,9 +156,9 @@ export default function LightboxModal({ item, onClose }) {
             <button
               key={idx}
               onClick={() => setActiveIdx(idx)}
-              className={`relative shrink-0 w-10 sm:w-12 md:w-14 aspect-[3/4] rounded-lg overflow-hidden border transition-all duration-200 ${
+              className={`relative shrink-0 w-10 sm:w-12 md:w-14 aspect-[3/4] rounded-lg overflow-hidden border transition-colors duration-150 ${
                 activeIdx === idx
-                  ? 'border-yellow-400 ring-2 ring-yellow-400/50 scale-105 opacity-100'
+                  ? 'border-yellow-400 ring-1 ring-yellow-400/50 opacity-100'
                   : 'border-white/10 opacity-50 hover:opacity-90 hover:border-white/30'
               }`}
             >

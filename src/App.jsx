@@ -657,8 +657,8 @@ function App() {
                 style={{ color: 'var(--text-secondary)' }}>
                 <span className="capitalize">{link}</span>
                 {link === 'services' && (
-                  <span className="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-yellow-400 text-black">
-                    {categoryTabs.length - 1}
+                  <span className="text-[11px] font-mono" style={{ color: 'var(--text-tertiary)' }}>
+                    ({categoryTabs.length - 1})
                   </span>
                 )}
               </a>
@@ -668,19 +668,19 @@ function App() {
             <ThemeSwitch theme={theme} onToggle={toggleTheme} />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center border transition-colors hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer"
+              className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center border transition-colors hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer"
               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen} aria-controls="mobile-menu"
             >
-              <svg className="w-5 h-5 text-yellow-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+              <svg className="w-4 h-4 text-yellow-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                 viewBox="0 0 24 24" stroke="currentColor">
                 {mobileMenuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
               </svg>
             </button>
             <a href="#contact" onClick={handleSmoothScroll}
               className="hidden md:inline-flex btn-primary px-4 py-2 text-xs font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
-              Start a project →
+              Start a project
             </a>
           </div>
         </div>
@@ -689,7 +689,7 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20" id="main-content" role="main">
 
         {/* ── HERO ── */}
-        <section className="relative pt-6 sm:pt-12 md:pt-20 pb-12 sm:pb-16 md:pb-20 border-b" style={{ borderColor: 'var(--border-color)' }}>
+        <section className="relative pt-8 sm:pt-12 md:pt-20 pb-12 sm:pb-16 md:pb-20 border-b" style={{ borderColor: 'var(--border-color)' }}>
           <div className="grid lg:grid-cols-[1.1fr,1fr] gap-10 md:gap-14 items-center">
             <div>
               <div className="pill-label mb-5 inline-flex">
@@ -697,14 +697,12 @@ function App() {
               </div>
 
               <div className="space-y-3 mb-6 sm:mb-8">
-                <h1 className="font-semibold leading-[1.08] tracking-tight" style={{
+                <h1 className="font-medium leading-[1.05] tracking-tight" style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2.3rem, 6.2vw, 4.8rem)',
+                  fontSize: 'clamp(2.4rem, 5.8vw, 4.4rem)',
                   color: 'var(--text-primary)'
                 }}>
-                  We craft stories
-                  <br />
-                  <span style={{ color: 'var(--brand-yellow)' }}>that convert</span>
+                  We craft stories that convert
                 </h1>
                 <p className="text-sm sm:text-base md:text-lg max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   Syntra is a motion-first editing agency. From raw footage to performance video ads, thumbnails, and web platforms — every cut is tuned for retention.
@@ -721,7 +719,7 @@ function App() {
                   { val: '2023', suffix: '', label: 'Founded' },
                 ].map((s) => (
                   <div key={s.label} className="flex flex-col">
-                    <span className="text-xl sm:text-2xl font-semibold tabular-nums" style={{ fontFamily: 'var(--font-display)', color: 'var(--brand-yellow)' }}>
+                    <span className="text-xl sm:text-2xl font-medium tabular-nums" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       {s.val}{s.suffix}
                     </span>
                     <span className="text-[11px] font-normal" style={{ color: 'var(--text-tertiary)' }}>{s.label}</span>
@@ -732,42 +730,12 @@ function App() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a href="#services" onClick={handleSmoothScroll}
                   className="btn-primary w-full sm:w-auto px-6 py-3 text-xs font-semibold text-center cursor-pointer">
-                  View Services →
+                  View services
                 </a>
                 <a href="#contact" onClick={handleSmoothScroll}
                   className="btn-secondary w-full sm:w-auto px-6 py-3 text-xs font-medium text-center cursor-pointer">
                   Start a project
                 </a>
-              </div>
-
-              {/* Quick Jump Category Chips */}
-              <div className="flex items-center gap-2 mt-6 pt-4 border-t overflow-x-auto pb-1.5 scrollbar-none flex-nowrap" style={{ borderColor: 'var(--border-color)' }}>
-                <span className="text-xs font-normal shrink-0" style={{ color: 'var(--text-tertiary)' }}>
-                  Jump to:
-                </span>
-                {[
-                  { label: 'AI UGC Ads', cat: 'AI_UGC' },
-                  { label: 'Automation & Bots', cat: 'AUTOMATION' },
-                  { label: 'Upcoming Labs', cat: 'UPCOMING' },
-                  { label: 'Video & Reels', cat: 'VIDEO' },
-                  { label: 'Thumbnails', cat: 'THUMBNAILS' },
-                  { label: 'Brand Identity', cat: 'GRAPHICS' },
-                  { label: 'Websites & SEO', cat: 'WEB' },
-                ].map((pill) => (
-                  <button
-                    key={pill.cat}
-                    onClick={() => {
-                      setActiveCategory(pill.cat);
-                      setServiceSearch('');
-                      const target = document.getElementById('services');
-                      if (target) smoothScrollTo(target, 500);
-                    }}
-                    className="text-xs font-medium px-3 py-1.5 rounded-md border transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer whitespace-nowrap"
-                    style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
-                  >
-                    {pill.label}
-                  </button>
-                ))}
               </div>
             </div>
 
@@ -802,7 +770,7 @@ function App() {
                   />
                   {/* Monitor HUD Overlay */}
                   <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded border border-white/10 font-mono text-[10px] text-white">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                     <span>REC</span>
                     <span className="text-yellow-400 ml-1">00:43:18:02</span>
                   </div>
@@ -917,9 +885,8 @@ function App() {
               {/* Left — main card */}
               <div className="relative rounded-3xl border p-8 md:p-10 overflow-hidden"
                 style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }}>
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent" aria-hidden="true" />
                 <div className="pill-label mb-6 inline-flex">We are Syntra</div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-5 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                <h2 className="text-2xl md:text-3xl font-medium mb-5 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                   A creative studio shaping digital experiences — frame by frame.
                 </h2>
                 <p className="text-sm md:text-base mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
@@ -928,7 +895,6 @@ function App() {
                 <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   Every frame, pixel and word is tuned for feeling, clarity and conversion. No templates. Only handcrafted work built around your story.
                 </p>
-                <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full border border-yellow-400/10" aria-hidden="true" />
               </div>
 
               {/* Right — focus + meta */}
@@ -1648,7 +1614,7 @@ function App() {
                       <div className="relative">
                         {/* Card Top Pill strip: Category / Tag + Live asset counter */}
                         <div className="flex items-center justify-between gap-2 mb-3">
-                          <span className="pill-label text-[9px] tracking-[0.16em]">{s.tag || categoryName}</span>
+                          <span className="pill-label text-[11px] font-mono">{s.tag || categoryName}</span>
 
                           {/* Upcoming Badge */}
                           {s.isUpcoming ? (

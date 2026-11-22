@@ -73,7 +73,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
           {[
             { href: '#about', label: 'About' },
             { href: '#services', label: 'Services', badge: '6 Disciplines' },
-            { href: '#clients', label: 'Previous Clients', badge: '16+' },
+            { href: '#clients', label: 'Clients', badge: '16+' },
             { href: '#process', label: 'Process' },
             { href: '#contact', label: 'Contact' },
           ].map((link) => (
@@ -81,12 +81,12 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="flex items-center justify-between py-3.5 px-4 rounded-xl text-lg font-bold tracking-wider uppercase transition-all hover:bg-yellow-400/10 hover:text-yellow-400 min-h-[50px]"
+              className="flex items-center justify-between py-3 px-4 rounded-xl text-base font-medium transition-colors hover:bg-white/5 hover:text-yellow-400 min-h-[44px]"
               style={{ color: 'var(--text-primary)' }}
             >
               <span>{link.label}</span>
               {link.badge && (
-                <span className="text-[10px] px-2 py-0.5 rounded-md font-mono font-semibold bg-yellow-400 text-black">
+                <span className="text-[11px] font-mono" style={{ color: 'var(--text-tertiary)' }}>
                   {link.badge}
                 </span>
               )}
@@ -95,8 +95,8 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
 
           {/* Quick Category Shortcuts */}
           <div className="pt-4 mt-2 border-t" style={{ borderColor: 'var(--border-color)' }}>
-            <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-yellow-400 mb-3 px-4">
-              Explore Disciplines
+            <p className="text-[11px] font-mono uppercase mb-3 px-4" style={{ color: 'var(--text-tertiary)' }}>
+              Explore disciplines
             </p>
             <div className="grid grid-cols-2 gap-2 px-1">
               {[

@@ -10,7 +10,7 @@ function GalleryCard({ item, idx, serviceTitle, onImageClick, isThumbnails }) {
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-2xl border cursor-pointer select-none transition-all duration-300 hover:border-yellow-400/60 hover:shadow-[0_12px_28px_rgba(255,209,0,0.08)] ${
+      className={`group relative overflow-hidden rounded-2xl border cursor-pointer select-none transition-colors duration-150 hover:border-yellow-400/50 ${
         isThumbnails ? 'aspect-video' : 'aspect-[4/3]'
       } bg-stone-900/50`}
       style={{ borderColor: 'var(--border-color)' }}
@@ -21,7 +21,7 @@ function GalleryCard({ item, idx, serviceTitle, onImageClick, isThumbnails }) {
     >
       {/* Shimmer skeleton while loading */}
       {!loaded && !error && (
-        <div className="absolute inset-0 bg-white/[0.03] animate-pulse flex items-center justify-center">
+        <div className="absolute inset-0 bg-white/[0.03] flex items-center justify-center">
           <div className="w-5 h-5 rounded-full border border-yellow-400/20 border-t-yellow-400 animate-spin" />
         </div>
       )}
@@ -31,7 +31,7 @@ function GalleryCard({ item, idx, serviceTitle, onImageClick, isThumbnails }) {
         <img
           src={item.image}
           alt={item.title || `${serviceTitle} example ${idx + 1}`}
-          className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.04] ${
+          className={`w-full h-full object-cover transition-opacity duration-200 ${
             loaded ? 'opacity-100' : 'opacity-0'
           }`}
           loading="lazy"
