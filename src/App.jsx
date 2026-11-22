@@ -20,8 +20,8 @@ const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB', 'AI_UGC
 
 const categoryTabs = [
   { id: 'ALL', label: 'All Services' },
-  { id: 'UPCOMING', label: '✦ Upcoming Labs', isHighlight: true },
-  { id: 'AUTOMATION', label: '✦ Automation & Bots', isHighlight: true },
+  { id: 'UPCOMING', label: 'Upcoming Labs', isHighlight: true },
+  { id: 'AUTOMATION', label: 'Automation & Bots', isHighlight: true },
   { id: 'AI_UGC', label: 'AI UGC Ads', isHighlight: true },
   { id: 'VIDEO', label: 'Video Editing' },
   { id: 'GRAPHICS', label: 'Graphic Design' },
@@ -617,14 +617,6 @@ function App() {
       className="min-h-screen overflow-x-hidden"
       style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
     >
-      {/* Ambient background blobs */}
-      <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.035]"
-          style={{ background: 'radial-gradient(circle, #FFD100 0%, transparent 70%)', filter: 'blur(60px)' }} />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.025]"
-          style={{ background: 'radial-gradient(circle, #FFD100 0%, transparent 70%)', filter: 'blur(80px)' }} />
-      </div>
-
       {/* Mobile Menu */}
       <MobileMenu
         isOpen={mobileMenuOpen}
@@ -645,47 +637,47 @@ function App() {
 
       {/* ── HEADER ── */}
       <header
-        className="fixed top-0 left-0 right-0 z-30 border-b backdrop-blur-2xl transition-colors duration-300"
+        className="fixed top-0 left-0 right-0 z-30 border-b backdrop-blur-xl transition-colors duration-200"
         style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--header-bg)' }}
         role="banner"
       >
         <a href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-yellow-400 focus:text-black focus:rounded focus:outline-none">
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-yellow-400 focus:text-black focus:rounded-md focus:outline-none">
           Skip to main content
         </a>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-lg p-0.5">
-            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 sm:h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+          <a href="#" className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-md p-0.5">
+            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85" />
             <div className="flex items-center gap-2">
-              <span className="font-extrabold tracking-[0.22em] text-base sm:text-lg uppercase transition-colors duration-300 group-hover:text-yellow-400"
+              <span className="font-bold tracking-[0.16em] text-sm sm:text-base uppercase"
                 style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 SYNTRA
               </span>
-              <span className="text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/40 px-1.5 py-0.5 rounded-full hidden sm:inline-block bg-yellow-400/10">
-                STUDIO
+              <span className="text-[10px] tracking-wider uppercase font-semibold text-yellow-400 border border-yellow-400/30 px-1.5 py-0.5 rounded-md hidden sm:inline-block bg-yellow-400/10">
+                Studio
               </span>
             </div>
           </a>
-          <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.18em] uppercase font-medium"
-            style={{ fontFamily: 'var(--font-body)', color: 'var(--text-tertiary)' }} aria-label="Main navigation">
+          <nav className="hidden md:flex items-center gap-7 text-xs font-medium"
+            style={{ fontFamily: 'var(--font-body)', color: 'var(--text-secondary)' }} aria-label="Main navigation">
             {['about', 'services', 'clients', 'process', 'contact'].map((link) => (
               <a key={link} href={`#${link}`} onClick={handleSmoothScroll}
-                className="hover:text-yellow-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded px-1 py-1 inline-flex items-center gap-1.5"
-                style={{ color: 'var(--text-tertiary)' }}>
-                <span>{link.charAt(0).toUpperCase() + link.slice(1)}</span>
+                className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded px-1.5 py-1 inline-flex items-center gap-1.5"
+                style={{ color: 'var(--text-secondary)' }}>
+                <span className="capitalize">{link}</span>
                 {link === 'services' && (
-                  <span className="text-[9px] px-1.5 py-0.2 rounded-full font-bold bg-yellow-400 text-black shadow-xs">
+                  <span className="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-yellow-400 text-black">
                     {categoryTabs.length - 1}
                   </span>
                 )}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-2.5 sm:gap-4">
+          <div className="flex items-center gap-3">
             <ThemeSwitch theme={theme} onToggle={toggleTheme} />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden w-10 h-10 rounded-full flex items-center justify-center border transition-colors hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center border transition-colors hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer"
               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen} aria-controls="mobile-menu"
@@ -696,8 +688,7 @@ function App() {
               </svg>
             </button>
             <a href="#contact" onClick={handleSmoothScroll}
-              className="hidden md:inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase font-semibold border px-5 py-2.5 rounded-full btn-shimmer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              style={{ borderColor: 'var(--brand-yellow)', color: '#080808' }}>
+              className="hidden md:inline-flex btn-primary px-4 py-2 text-xs font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
               Start a project →
             </a>
           </div>
@@ -707,73 +698,66 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20" id="main-content" role="main">
 
         {/* ── HERO ── */}
-        <section className="relative pt-6 sm:pt-12 md:pt-24 pb-12 sm:pb-16 md:pb-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
-          {/* Side labels */}
-          <div className="hidden lg:flex flex-col gap-4 absolute -left-4 top-1/2 -translate-y-1/2 text-[9px] tracking-[0.4em] uppercase rotate-180 [writing-mode:vertical-rl]" style={{ color: 'var(--text-muted)' }}>
-            <span>Experiential</span><span>Branding</span><span>Digital</span>
-          </div>
-          <div className="hidden lg:flex flex-col gap-4 absolute -right-4 top-1/2 -translate-y-1/2 text-[9px] tracking-[0.4em] uppercase [writing-mode:vertical-rl]" style={{ color: 'var(--text-muted)' }}>
-            <span>India</span><span>IST</span><span><LiveClock /></span>
-          </div>
-
-          <div className="grid md:grid-cols-[1.2fr,1fr] gap-8 md:gap-12 items-center">
+        <section className="relative pt-6 sm:pt-12 md:pt-20 pb-12 sm:pb-16 md:pb-20 border-b" style={{ borderColor: 'var(--border-color)' }}>
+          <div className="grid lg:grid-cols-[1.1fr,1fr] gap-10 md:gap-14 items-center">
             <div>
-              <div className="pill-label mb-6 sm:mb-8 inline-flex">Editing-first creative studio</div>
+              <div className="pill-label mb-5 inline-flex">
+                Editing &amp; motion studio
+              </div>
 
               <div className="space-y-3 mb-6 sm:mb-8">
-                <h1 className="font-bold leading-[1.08] tracking-tight" style={{
+                <h1 className="font-semibold leading-[1.08] tracking-tight" style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2.1rem, 7vw, 5.5rem)',
+                  fontSize: 'clamp(2.3rem, 6.2vw, 4.8rem)',
                   color: 'var(--text-primary)'
                 }}>
                   We craft stories
                   <br />
-                  <span style={{ color: 'var(--brand-yellow)' }}>that convert.</span>
+                  <span style={{ color: 'var(--brand-yellow)' }}>that convert</span>
                 </h1>
-                <p className="text-base sm:text-lg md:text-xl font-light max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  Syntra is a motion-first editing agency. From raw footage to thumbnails, logos to full websites — every frame is tuned for <em>impact</em>.
+                <p className="text-sm sm:text-base md:text-lg max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  Syntra is a motion-first editing agency. From raw footage to performance video ads, thumbnails, and web platforms — every cut is tuned for retention.
                 </p>
               </div>
 
               {/* Stats strip */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap gap-4 sm:gap-6 md:gap-8 mb-8 py-5 border-y" style={{ borderColor: 'var(--border-color)' }}>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap gap-4 sm:gap-6 md:gap-8 mb-8 py-4 border-y" style={{ borderColor: 'var(--border-color)' }}>
                 {[
-                  { val: '150', suffix: '+', label: 'Projects' },
-                  { val: '60', suffix: '+', label: 'Happy Clients' },
-                  { val: '5', suffix: '+', label: 'Countries' },
-                  { val: '100', suffix: '%', label: 'Delivery Rate' },
+                  { val: '150', suffix: '+', label: 'Projects completed' },
+                  { val: '60', suffix: '+', label: 'Brand clients' },
+                  { val: '5', suffix: '+', label: 'Global regions' },
+                  { val: '100', suffix: '%', label: 'Delivery rate' },
                   { val: '2023', suffix: '', label: 'Founded' },
                 ].map((s) => (
                   <div key={s.label} className="flex flex-col">
-                    <span className="text-xl sm:text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--brand-yellow)' }}>
+                    <span className="text-xl sm:text-2xl font-semibold tabular-nums" style={{ fontFamily: 'var(--font-display)', color: 'var(--brand-yellow)' }}>
                       {s.val}{s.suffix}
                     </span>
-                    <span className="text-[10px] tracking-widest uppercase" style={{ color: 'var(--text-tertiary)' }}>{s.label}</span>
+                    <span className="text-[11px] font-normal" style={{ color: 'var(--text-tertiary)' }}>{s.label}</span>
                   </div>
                 ))}
               </div>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a href="#services" onClick={handleSmoothScroll}
-                  className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
+                  className="btn-primary w-full sm:w-auto px-6 py-3 text-xs font-semibold text-center cursor-pointer">
                   View Services →
                 </a>
                 <a href="#contact" onClick={handleSmoothScroll}
-                  className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
-                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                  className="btn-secondary w-full sm:w-auto px-6 py-3 text-xs font-medium text-center cursor-pointer">
                   Start a project
                 </a>
               </div>
 
               {/* Quick Jump Category Chips */}
               <div className="flex items-center gap-2 mt-6 pt-4 border-t overflow-x-auto pb-1.5 scrollbar-none flex-nowrap" style={{ borderColor: 'var(--border-color)' }}>
-                <span className="text-[10px] tracking-widest uppercase font-semibold shrink-0" style={{ color: 'var(--text-muted)' }}>
+                <span className="text-xs font-normal shrink-0" style={{ color: 'var(--text-tertiary)' }}>
                   Jump to:
                 </span>
                 {[
-                  { label: '✦ AI UGC Ads', cat: 'AI_UGC' },
-                  { label: '✦ Automation & Bots', cat: 'AUTOMATION' },
-                  { label: '✦ Upcoming Labs', cat: 'UPCOMING' },
+                  { label: 'AI UGC Ads', cat: 'AI_UGC' },
+                  { label: 'Automation & Bots', cat: 'AUTOMATION' },
+                  { label: 'Upcoming Labs', cat: 'UPCOMING' },
                   { label: 'Video & Reels', cat: 'VIDEO' },
                   { label: 'Thumbnails', cat: 'THUMBNAILS' },
                   { label: 'Brand Identity', cat: 'GRAPHICS' },
@@ -787,7 +771,7 @@ function App() {
                       const target = document.getElementById('services');
                       if (target) smoothScrollTo(target, 500);
                     }}
-                    className="text-[10px] tracking-wider uppercase font-semibold px-3 py-1.5 rounded-full border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105 cursor-pointer flex items-center gap-1.5"
+                    className="text-xs font-medium px-3 py-1.5 rounded-md border transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer whitespace-nowrap"
                     style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
                   >
                     {pill.label}
@@ -796,32 +780,121 @@ function App() {
               </div>
             </div>
 
-            {/* Hero card */}
+            {/* Hero Studio Cutting Bay Preview */}
             <div className="relative">
-              <div className="absolute -top-4 -right-4 w-16 h-16 border border-yellow-400/40 rounded-2xl" aria-hidden="true" />
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 border rounded-full opacity-30" style={{ borderColor: 'var(--border-color)' }} aria-hidden="true" />
-              <div className="relative border rounded-3xl p-6 backdrop-blur-sm" style={{
-                background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)`,
-                borderColor: 'var(--border-color)'
-              }}>
-                <div className="aspect-[4/5] rounded-2xl border relative overflow-hidden"
-                  style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)' }}>
-                  <div className="absolute inset-6">
-                    <div className="absolute inset-y-2 left-1/2 w-px bg-gradient-to-b from-yellow-300/70 via-yellow-400/10 to-transparent" />
-                    <div className="absolute bottom-6 left-6 right-6 h-10 border border-yellow-500/50 rounded-xl flex items-center justify-between px-3 text-[10px] uppercase tracking-[0.25em]" style={{ color: 'rgba(255,209,0,0.7)' }}>
-                      <span>Timeline</span><span>00:43 / 02:17</span>
+              <div className="rounded-2xl border overflow-hidden"
+                style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }}>
+                {/* NLE Window Header */}
+                <div className="px-4 py-2.5 border-b flex items-center justify-between text-xs"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
                     </div>
-                    <div className="absolute top-6 left-6 w-20 h-20 rounded-full border border-yellow-400/50" />
-                    <div className="absolute top-14 right-8 w-24 h-24 border border-yellow-200/20 rotate-6" />
-                    <div className="absolute left-1/4 top-1/3 w-36 h-36 border border-yellow-300/20 rounded-[40%] rotate-[-18deg]" />
-                    <p className="absolute left-6 bottom-20 text-xs max-w-[9rem] leading-snug" style={{ color: 'var(--text-secondary)' }}>
-                      Editing · motion · sound · identity — choreographed together.
-                    </p>
+                    <span className="font-mono text-[11px] text-stone-400 ml-2 truncate">
+                      Syntra_Master_Cut_v3.prproj
+                    </span>
+                  </div>
+                  <span className="font-mono text-[10px] text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded border border-yellow-400/20">
+                    4K DCI · 60fps
+                  </span>
+                </div>
+
+                {/* Program Monitor */}
+                <div className="relative aspect-[16/10] bg-black overflow-hidden group">
+                  <img
+                    src="/assets/anohga/anohga-flexibility-mobility-key-visual.webp"
+                    alt="Syntra Studio Master Cut Preview"
+                    className="w-full h-full object-cover opacity-90"
+                  />
+                  {/* Monitor HUD Overlay */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded border border-white/10 font-mono text-[10px] text-white">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <span>REC</span>
+                    <span className="text-yellow-400 ml-1">00:43:18:02</span>
+                  </div>
+                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded border border-white/10 font-mono text-[10px] text-stone-300">
+                    ProRes 422 HQ
+                  </div>
+                  <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded border border-white/10 text-[10px] text-stone-300">
+                    Color Grade: Rec.709 Neutral
                   </div>
                 </div>
-                <p className="mt-4 text-[10px] uppercase tracking-[0.3em]" style={{ color: 'var(--text-tertiary)' }}>
-                  Experiential — Branding — Digital
-                </p>
+
+                {/* Multi-Track Editor Timeline */}
+                <div className="p-4 border-t space-y-2 font-mono text-[10px]"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
+                  {/* Time ruler */}
+                  <div className="flex justify-between text-[9px] text-stone-500 px-1 select-none">
+                    <span>00:00:00</span>
+                    <span>00:20:00</span>
+                    <span className="text-yellow-400 font-bold">00:43:18</span>
+                    <span>01:00:00</span>
+                    <span>01:20:00</span>
+                  </div>
+
+                  {/* Track V2 - Titles & Overlays */}
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 text-stone-400 text-right select-none font-semibold">V2</span>
+                    <div className="flex-1 h-6 bg-black/30 rounded border border-white/5 flex gap-1 p-0.5 relative">
+                      <div className="w-1/4 h-full bg-amber-500/30 border border-amber-500/50 rounded flex items-center px-2 text-[9px] text-amber-200 truncate">
+                        Title_Motion_In
+                      </div>
+                      <div className="w-1/3 h-full bg-amber-500/20 border border-amber-500/40 rounded flex items-center px-2 text-[9px] text-amber-200 truncate">
+                        LUT_FilmGrade_03
+                      </div>
+                      {/* Playhead needle */}
+                      <div className="absolute top-0 bottom-0 left-[45%] w-0.5 bg-yellow-400 z-10" />
+                    </div>
+                  </div>
+
+                  {/* Track V1 - Main Video Cuts */}
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 text-stone-400 text-right select-none font-semibold">V1</span>
+                    <div className="flex-1 h-6 bg-black/30 rounded border border-white/5 flex gap-1 p-0.5 relative">
+                      <div className="w-1/5 h-full bg-blue-500/30 border border-blue-500/50 rounded flex items-center px-2 text-[9px] text-blue-200 truncate">
+                        Scene_01_A-Roll
+                      </div>
+                      <div className="w-1/4 h-full bg-blue-500/40 border border-blue-500/60 rounded flex items-center px-2 text-[9px] text-blue-200 truncate">
+                        Multicam_CamB
+                      </div>
+                      <div className="w-1/3 h-full bg-blue-500/30 border border-blue-500/50 rounded flex items-center px-2 text-[9px] text-blue-200 truncate">
+                        B-Roll_Movement
+                      </div>
+                      {/* Playhead needle */}
+                      <div className="absolute top-0 bottom-0 left-[45%] w-0.5 bg-yellow-400 z-10" />
+                    </div>
+                  </div>
+
+                  {/* Track A1 - Dialog & Master Audio */}
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 text-stone-400 text-right select-none font-semibold">A1</span>
+                    <div className="flex-1 h-6 bg-black/30 rounded border border-white/5 flex gap-1 p-0.5 relative">
+                      <div className="w-2/3 h-full bg-emerald-500/30 border border-emerald-500/50 rounded flex items-center px-2 text-[9px] text-emerald-200 truncate">
+                        Dialog_VO_48kHz_Clean
+                      </div>
+                      <div className="w-1/4 h-full bg-emerald-500/20 border border-emerald-500/40 rounded flex items-center px-2 text-[9px] text-emerald-200 truncate">
+                        Sound_Design_Hit
+                      </div>
+                      {/* Playhead needle */}
+                      <div className="absolute top-0 bottom-0 left-[45%] w-0.5 bg-yellow-400 z-10" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Telemetry */}
+                <div className="px-4 py-2 border-t flex items-center justify-between text-[11px] text-stone-400"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                    Timeline in sync
+                  </span>
+                  <span className="font-mono text-[10px] text-stone-500">
+                    RAM preview 100% · 0 dropped frames
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -832,11 +905,11 @@ function App() {
           <div className="marquee-track">
             {[1, 2].map((rep) => (
               <div key={rep} className="flex items-center gap-10 pr-10">
-                {['Video Editing', '✦ AI UGC Ads', '✦ WhatsApp Bots', '✦ Instagram DM Funnels', '✦ Technical SEO', '✦ CRO Audits', 'Static Ad Creatives', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'AI Avatars', 'Content Strategy', 'Logo Design', 'Reels & Shorts'].map((item) => (
+                {['Video Editing', 'AI UGC Ads', 'WhatsApp Bots', 'Instagram DM Automation', 'Technical SEO', 'Website Audits', 'Static Ad Creatives', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'AI Avatars', 'Content Strategy', 'Logo Design', 'Reels & Shorts'].map((item) => (
                   <span key={item} className="flex items-center gap-4 whitespace-nowrap">
-                    <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-yellow-400" />
-                    <span className={`text-[11px] tracking-[0.3em] uppercase font-semibold ${item.startsWith('✦') ? 'text-yellow-400' : ''}`}
-                      style={item.startsWith('✦') ? {} : { color: 'var(--text-tertiary)' }}>
+                    <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-yellow-400/80" />
+                    <span className="text-xs tracking-wider uppercase font-medium"
+                      style={{ color: 'var(--text-tertiary)' }}>
                       {item}
                     </span>
                   </span>
@@ -902,50 +975,45 @@ function App() {
         </section>
 
         {/* ── SERVICES ── */}
-        <section id="services" className="relative py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
-          {/* Ambient spotlight glow */}
-          <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-80 opacity-[0.06] rounded-full blur-3xl -z-10"
-            style={{ background: 'radial-gradient(ellipse, #FFD100 0%, transparent 70%)' }}
-            aria-hidden="true" />
-
+        <section id="services" className="relative py-12 sm:py-16 md:py-20 border-b" style={{ borderColor: 'var(--border-color)' }}>
           {/* Section header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 sm:mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8 sm:mb-10">
             <div>
-              <div className="pill-label mb-4 inline-flex">
-                ✦ Creative Capabilities · 6 Disciplines
+              <div className="pill-label mb-3 inline-flex">
+                Production suite · 8 disciplines
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                A complete editing &amp;<br className="hidden md:block" /> design ecosystem.
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                Services and deliverables
               </h2>
-              <p className="mt-3 sm:mt-4 text-sm sm:text-base max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                From gaming montages to logos, thumbnails, social posts, AI UGC ads and full websites — Syntra handles the entire funnel with zero templates.
+              <p className="mt-2 text-sm sm:text-base max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                From gaming montages to brand identity, thumbnails, performance ad creatives, bots and web platforms — crafted with zero templates.
               </p>
               {/* Metric badges strip */}
-              <div className="flex flex-wrap items-center gap-2 mt-5">
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
-                  {totalServicesCount} Specialized Services
+              <div className="flex flex-wrap items-center gap-2 mt-4">
+                <span className="text-xs font-mono font-medium px-2.5 py-1 rounded-md border border-yellow-400/30 bg-yellow-400/10 text-yellow-400">
+                  {totalServicesCount} Services
                 </span>
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border"
+                <span className="text-xs font-medium px-2.5 py-1 rounded-md border"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                   100+ Video Edits
                 </span>
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border"
+                <span className="text-xs font-medium px-2.5 py-1 rounded-md border"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                  Custom Brand Retainers
+                  Custom Retainers
                 </span>
               </div>
             </div>
             <a href="#contact" onClick={handleSmoothScroll}
-              className="shrink-0 btn-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300 w-full sm:w-auto text-center">
+              className="shrink-0 btn-primary px-5 py-2.5 rounded-lg text-xs font-semibold text-center w-full sm:w-auto">
               Start a project →
             </a>
           </div>
 
           {/* Controls Bar: Category Tabs + Live Search Input */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8 sm:mb-10 pb-6 border-b"
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-8 pb-5 border-b"
             style={{ borderColor: 'var(--border-color)' }}>
-            {/* Category Tabs (Smooth touch scrolling on mobile) */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-1.5 scrollbar-none flex-nowrap" role="tablist" aria-label="Service categories">
+            {/* Category Tabs (Clean Segmented Style) */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none flex-nowrap" role="tablist" aria-label="Service categories">
               {categoryTabs.map((tab) => {
                 const count = getCategoryCount(tab.id);
                 const active = activeCategory === tab.id;
@@ -966,50 +1034,49 @@ function App() {
                         window.history.pushState({}, '', '#services');
                       }
                     }}
-                    className={`relative shrink-0 px-3.5 sm:px-4 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold transition-all border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
+                    className={`relative shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-colors border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
                       active
-                        ? 'border-yellow-400/80 bg-yellow-400/15 text-yellow-400 shadow-[0_0_24px_rgba(255,209,0,0.22)]'
-                        : 'hover:border-yellow-300/50 hover:text-yellow-300'
+                        ? 'border-yellow-400 bg-yellow-400 text-black font-semibold'
+                        : 'hover:border-stone-500'
                     }`}
                     style={{
                       borderColor: active ? undefined : 'var(--border-color)',
-                      color: active ? undefined : 'var(--text-tertiary)',
+                      color: active ? undefined : 'var(--text-secondary)',
                       backgroundColor: active ? undefined : 'var(--bg-card)'
                     }}
                   >
                     <span>{tab.label}</span>
-                    <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold ml-0.5 ${
-                      active ? 'bg-yellow-400 text-black' : 'bg-[var(--bg-overlay)] text-[var(--text-muted)]'
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono font-medium ml-0.5 ${
+                      active ? 'bg-black/20 text-black' : 'bg-[var(--bg-overlay)] text-[var(--text-muted)]'
                     }`}>
                       {count}
                     </span>
-                    {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/10 rounded-full" aria-hidden="true" />}
                   </button>
                 );
               })}
             </div>
 
             {/* Quick Search Input */}
-            <div className="relative w-full lg:w-72 shrink-0">
+            <div className="relative w-full lg:w-64 shrink-0">
               <input
                 type="text"
                 value={serviceSearch}
                 onChange={(e) => setServiceSearch(e.target.value)}
-                placeholder="Search services (e.g. reels, ai ads)..."
-                className="w-full pl-9 pr-9 py-2.5 rounded-full text-xs border outline-none transition-all duration-300 focus:ring-2 focus:ring-yellow-400/40"
+                placeholder="Search services..."
+                className="w-full pl-8 pr-8 py-2 rounded-lg text-xs border outline-none transition-colors focus:border-yellow-400"
                 style={{
                   backgroundColor: 'var(--bg-card)',
                   borderColor: serviceSearch ? 'var(--brand-yellow)' : 'var(--border-color)',
                   color: 'var(--text-primary)',
                 }}
               />
-              <svg className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--text-tertiary)' }}>
+              <svg className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--text-tertiary)' }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               {serviceSearch && (
                 <button
                   onClick={() => setServiceSearch('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs hover:text-yellow-400 transition-colors cursor-pointer px-1 py-0.5"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs hover:text-yellow-400 transition-colors cursor-pointer px-1 py-0.5"
                   style={{ color: 'var(--text-tertiary)' }}
                   aria-label="Clear search"
                 >
@@ -1043,32 +1110,29 @@ function App() {
             <>
               {activeCategory === 'AI_UGC' ? (
                 /* ── AI UGC Special Showcase Banner ── */
-                <div className="mb-10 rounded-3xl border p-7 md:p-10 relative overflow-hidden"
-                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-                  {/* Decorative brand yellow glow */}
-                  <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" aria-hidden="true"
-                    style={{ background: 'radial-gradient(circle, rgba(255,209,0,0.12) 0%, transparent 70%)', filter: 'blur(40px)', transform: 'translate(30%, -30%)' }} />
-                  <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div className="mb-8 rounded-xl border p-6 md:p-8"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}>
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                     <div>
-                      <div className="pill-label mb-4 inline-flex">
-                        ✦ AI-Powered Performance Advertising
+                      <div className="pill-label mb-3 inline-flex">
+                        AI-Powered Performance Advertising
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-3 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      <h3 className="text-xl md:text-2xl font-bold mb-2.5 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                         AI UGC Ads — the future of performance creative.
                       </h3>
                       <p className="text-sm max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                         We engineer hyper-realistic AI avatar video ads, scroll-stopping static creatives, and hook-first UGC scripts — built to drive high ROAS across Meta, TikTok, YouTube &amp; Google Ads.
                       </p>
-                      <div className="flex flex-wrap gap-2.5 mt-5">
+                      <div className="flex flex-wrap gap-2 mt-4">
                         {['AI Avatars', 'Performance Video Ads', 'Static Creatives', 'Hook-First Scripts', 'Multi-Platform Formats'].map((tag) => (
-                          <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-full border"
+                          <span key={tag} className="text-[10px] font-mono uppercase font-medium px-2.5 py-0.5 rounded-md border"
                             style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                             {tag}
                           </span>
                         ))}
                       </div>
                     </div>
-                    <div className="flex flex-col gap-3 shrink-0 md:text-right">
+                    <div className="flex flex-col gap-2 shrink-0 md:text-right">
                       <p className="eyebrow">Syntra AI Stack</p>
                       <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
                         Static · Video · Avatars · Voiceover<br />Hooks · Scripts · Multi-platform
@@ -1078,13 +1142,11 @@ function App() {
                 </div>
               ) : activeCategory === 'UPCOMING' ? (
                 /* ── UPCOMING Labs Showcase Banner ── */
-                <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative overflow-hidden"
-                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-                  <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" aria-hidden="true"
-                    style={{ background: 'radial-gradient(circle, rgba(255,209,0,0.14) 0%, transparent 70%)', filter: 'blur(45px)', transform: 'translate(20%, -20%)' }} />
-                  <div className="relative">
+                <div className="mb-8 rounded-xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}>
+                  <div>
                     <div className="pill-label mb-3 inline-flex">
-                      ✦ Syntra Innovation Labs · Early Access
+                      Syntra Innovation Labs · Early Access
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       Next-Gen Automation, Meta Bots &amp; Growth Disciplines.
@@ -1094,15 +1156,15 @@ function App() {
                     </p>
                     <div className="flex flex-wrap gap-2 mt-4">
                       {['WhatsApp Cloud API', 'Instagram DM Automation', 'Technical SEO', 'CRO Website Audits', 'Private Beta Open'].map(tag => (
-                        <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 rounded-full border"
+                        <span key={tag} className="text-[10px] font-mono uppercase font-medium px-2.5 py-0.5 rounded-md border"
                           style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                           {tag}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <div className="relative flex flex-col gap-2 shrink-0 md:text-right">
-                    <span className="text-[10px] tracking-widest uppercase font-bold text-yellow-400">Status: Private Beta</span>
+                  <div className="flex flex-col gap-2 shrink-0 md:text-right">
+                    <span className="text-[10px] font-mono tracking-wider uppercase font-semibold text-yellow-400">Status: Private Beta</span>
                     <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
                       Launch Target: Q1 2027<br />Pre-Book via WhatsApp
                     </p>
@@ -1110,11 +1172,11 @@ function App() {
                 </div>
               ) : activeCategory === 'AUTOMATION' ? (
                 /* ── AUTOMATION Category Banner ── */
-                <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative overflow-hidden"
-                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-                  <div className="relative">
+                <div className="mb-8 rounded-xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}>
+                  <div>
                     <div className="pill-label mb-3 inline-flex">
-                      ✦ Official Meta Graph &amp; Cloud API
+                      Official Meta Graph &amp; Cloud API
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       Conversational Automation &amp; Direct-Response Chatbots.
@@ -1124,14 +1186,14 @@ function App() {
                     </p>
                   </div>
                   <div className="text-xs shrink-0 md:text-right" style={{ color: 'var(--text-tertiary)' }}>
-                    <p className="tracking-widest uppercase mb-1 font-bold text-yellow-400">Meta Compliant</p>
+                    <p className="font-mono tracking-wider uppercase mb-1 font-semibold text-yellow-400">Meta Compliant</p>
                     <p className="leading-relaxed">WhatsApp Cloud API · Instagram DM Graph API · Webhook Sync</p>
                   </div>
                 </div>
               ) : activeCategory === 'ALL' ? (
                 /* ── ALL Services Banner ── */
-                <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+                <div className="mb-8 rounded-xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}>
                   <div>
                     <p className="eyebrow mb-2">Comprehensive Production Matrix</p>
                     <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
@@ -1142,14 +1204,14 @@ function App() {
                     </p>
                   </div>
                   <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
-                    <p className="tracking-widest uppercase mb-1">Syntra Multi-Format Delivery</p>
+                    <p className="font-mono tracking-wider uppercase mb-1">Syntra Multi-Format Delivery</p>
                     <p className="leading-relaxed">YouTube · Meta · TikTok · Web · Bots · Identity</p>
                   </div>
                 </div>
               ) : (
                 /* ── Category Specific Banner ── */
-                <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+                <div className="mb-8 rounded-xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}>
                   <div>
                     <p className="eyebrow mb-2">
                       {activeCategory === 'VIDEO' && 'Video Production & Editing'}
@@ -1170,7 +1232,7 @@ function App() {
                     </p>
                   </div>
                   <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
-                    <p className="tracking-widest uppercase mb-1">Syntra Service Stack</p>
+                    <p className="font-mono tracking-wider uppercase mb-1">Syntra Service Stack</p>
                     <p className="leading-relaxed">
                       {activeCategory === 'VIDEO' && 'Gaming · Tech · Shorts · Motion · Variety'}
                       {activeCategory === 'GRAPHICS' && 'Logos · Banners · Merch · Menus'}
@@ -1189,37 +1251,37 @@ function App() {
             <div className="mb-14">
               {/* Top Section Header */}
               <div className="flex items-center gap-3 mb-8">
-                <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,209,0,0.3), transparent)' }} />
-                <span className="text-[10px] tracking-[0.35em] uppercase font-bold text-yellow-400">
-                  ✦ Featured AI UGC Client Campaigns
+                <div className="h-px flex-1" style={{ background: 'var(--border-color)' }} />
+                <span className="text-[10px] font-mono tracking-widest uppercase font-semibold text-yellow-400">
+                  Featured AI UGC Client Campaigns
                 </span>
-                <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
+                <div className="h-px flex-1" style={{ background: 'var(--border-color)' }} />
               </div>
 
               {/* Triple Client Snapshot Cards (Balanced & Symmetrical) */}
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                 {/* Anohga Highlight Card */}
                 <div
-                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
+                  className="rounded-xl border p-5 md:p-6 flex flex-col justify-between transition-colors hover:border-stone-500"
                   style={{
                     borderColor: 'var(--border-color)',
-                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                    backgroundColor: 'var(--bg-card)',
                   }}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                        <span>✦</span> Featured Production
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase font-semibold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                        Featured Production
                       </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-full border"
+                      <span className="text-[10px] font-mono uppercase font-medium px-2 py-0.5 rounded-md border"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Performance Ads
                       </span>
                     </div>
-                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    <h3 className="text-xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       Anohga Yoga Studio
                     </h3>
-                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="text-xs mb-3 font-medium" style={{ color: 'var(--text-tertiary)' }}>
                       Wellness Brand · Static Ads, Launch Posters &amp; Instagram Carousels
                     </p>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
@@ -1228,13 +1290,13 @@ function App() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       6 Carousel Decks (32 Slides)
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       5 Launch Posters
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                       High-Intent Bookings
                     </span>
                   </div>
@@ -1242,32 +1304,32 @@ function App() {
 
                 {/* Arovia.ai Highlight Card */}
                 <div
-                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
+                  className="rounded-xl border p-5 md:p-6 flex flex-col justify-between transition-colors hover:border-stone-500"
                   style={{
                     borderColor: 'var(--border-color)',
-                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                    backgroundColor: 'var(--bg-card)',
                   }}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                        <span>✦</span> AI Creative Partner
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase font-semibold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                        AI Creative Partner
                       </span>
                       <a
                         href="https://aroviaai.com/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase font-semibold border transition-colors hover:border-yellow-400 hover:text-yellow-400"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
                       >
                         <span>Visit Site</span>
                         <span>↗</span>
                       </a>
                     </div>
-                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    <h3 className="text-xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       Arovia.ai
                     </h3>
-                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="text-xs mb-3 font-medium" style={{ color: 'var(--text-tertiary)' }}>
                       AI Platform · Health Intelligence Carousels &amp; Festive Key Visuals
                     </p>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
@@ -1276,13 +1338,13 @@ function App() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       3 Carousel Decks (16 Slides)
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       3 Festive Key Visuals
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                       Performance Scaled
                     </span>
                   </div>
@@ -1290,26 +1352,26 @@ function App() {
 
                 {/* Shilpa Pilates Studio Highlight Card */}
                 <div
-                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
+                  className="rounded-xl border p-5 md:p-6 flex flex-col justify-between transition-colors hover:border-stone-500"
                   style={{
                     borderColor: 'var(--border-color)',
-                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                    backgroundColor: 'var(--bg-card)',
                   }}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                        <span>✦</span> Fitness &amp; UGC Partner
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase font-semibold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                        Fitness &amp; UGC Partner
                       </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-full border"
+                      <span className="text-[10px] font-mono uppercase font-medium px-2 py-0.5 rounded-md border"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Performance Ads
                       </span>
                     </div>
-                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    <h3 className="text-xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       Shilpa Pilates Studio
                     </h3>
-                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="text-xs mb-3 font-medium" style={{ color: 'var(--text-tertiary)' }}>
                       Boutique Fitness · Core Conditioning, Luxury Aqua Events &amp; Face Yoga
                     </p>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
@@ -1318,13 +1380,13 @@ function App() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       15 Ad Creatives
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       Luxury &amp; Posture Series
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                       High Conversion
                     </span>
                   </div>
@@ -1333,19 +1395,19 @@ function App() {
 
               {/* Full-Width Creative Deliverables Suite */}
               <div
-                className="rounded-3xl border p-6 md:p-8 relative overflow-hidden"
+                className="rounded-xl border p-5 md:p-8"
                 style={{
                   borderColor: 'var(--border-color)',
-                  background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                  backgroundColor: 'var(--bg-card)',
                 }}
               >
                 {/* Header & Filter Controls Bar */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
                   <div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
-                      <span>✦</span> Creative Deliverables Gallery
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-[10px] font-mono uppercase font-semibold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
+                      Creative Deliverables Gallery
                     </span>
-                    <h3 className="text-xl md:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    <h3 className="text-xl md:text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       Featured AI UGC &amp; Performance Creatives
                     </h3>
                     <p className="text-xs md:text-sm mt-1 max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
@@ -1354,10 +1416,10 @@ function App() {
                   </div>
 
                   {/* Dual Filter Controls Bar */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 shrink-0">
-                    {/* Client Selector Pills */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 shrink-0">
+                    {/* Client Selector */}
                     <div
-                      className="flex items-center gap-1 p-1 rounded-xl border overflow-x-auto max-w-full scrollbar-none"
+                      className="flex items-center gap-1 p-1 rounded-lg border overflow-x-auto max-w-full scrollbar-none"
                       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                     >
                       {[
@@ -1370,9 +1432,9 @@ function App() {
                           key={f.id}
                           type="button"
                           onClick={() => setAiUgcClientFilter(f.id)}
-                          className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                          className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
                             aiUgcClientFilter === f.id
-                              ? 'bg-yellow-400 text-black font-bold shadow-sm'
+                              ? 'bg-yellow-400 text-black font-semibold'
                               : 'text-stone-400 hover:text-white'
                           }`}
                         >
@@ -1381,9 +1443,9 @@ function App() {
                       ))}
                     </div>
 
-                    {/* Format Selector Pills */}
+                    {/* Format Selector */}
                     <div
-                      className="flex items-center gap-1 p-1 rounded-xl border shrink-0"
+                      className="flex items-center gap-1 p-1 rounded-lg border shrink-0"
                       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                     >
                       {[
@@ -1395,9 +1457,9 @@ function App() {
                           key={f.id}
                           type="button"
                           onClick={() => setAiUgcFormatFilter(f.id)}
-                          className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                          className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
                             aiUgcFormatFilter === f.id
-                              ? 'border border-yellow-400/50 text-yellow-400 bg-yellow-400/10 font-bold'
+                              ? 'border border-yellow-400 text-yellow-400 bg-yellow-400/10 font-semibold'
                               : 'text-stone-400 hover:text-white'
                           }`}
                         >
@@ -1437,31 +1499,31 @@ function App() {
                       .map((poster) => (
                         <div
                           key={poster.id}
-                          className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/poster"
+                          className="rounded-xl border p-4 sm:p-5 flex flex-col justify-between transition-colors hover:border-stone-500 group/poster"
                           style={{
                             borderColor: 'var(--border-color)',
-                            background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                            backgroundColor: 'var(--bg-card)',
                           }}
                         >
-                          <div className="flex items-start justify-between gap-3 mb-4">
+                          <div className="flex items-start justify-between gap-3 mb-3">
                             <div>
-                              <div className="flex items-center gap-2 mb-2">
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                                  <span>✦</span> {poster.badge || 'Static Poster'}
+                              <div className="flex items-center gap-2 mb-1.5">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono uppercase font-semibold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                                  {poster.badge || 'Static Poster'}
                                 </span>
-                                <span className="text-[10px] font-semibold text-stone-400">
+                                <span className="text-[10px] font-medium text-stone-400">
                                   {poster.clientName}
                                 </span>
                               </div>
                               <h4
-                                className="text-base md:text-lg font-bold leading-snug line-clamp-2"
+                                className="text-base font-semibold leading-snug line-clamp-2"
                                 style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
                               >
                                 {poster.title}
                               </h4>
                             </div>
                             <span
-                              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] tracking-wider uppercase font-semibold border"
+                              className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono uppercase font-medium border"
                               style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}
                             >
                               Static
@@ -1469,34 +1531,34 @@ function App() {
                           </div>
 
                           <div
-                            className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border cursor-pointer select-none group/img"
+                            className="relative aspect-[3/4] w-full rounded-lg overflow-hidden border cursor-pointer select-none group/img"
                             style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                             onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
                           >
                             <img
                               src={poster.src}
                               alt={poster.title}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-[1.03]"
+                              className="w-full h-full object-cover transition-opacity duration-300"
                               loading="lazy"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-between p-4">
-                              <span className="text-xs font-semibold text-white leading-tight">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-between p-3.5">
+                              <span className="text-xs font-medium text-white leading-tight">
                                 {poster.subtitle}
                               </span>
-                              <span className="p-2 rounded-full bg-yellow-400 text-black font-bold shadow-lg">
-                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                              <span className="p-1.5 rounded-md bg-yellow-400 text-black font-bold shadow-md">
+                                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                                 </svg>
                               </span>
                             </div>
                           </div>
 
-                          <div className="mt-4 pt-3 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--border-color)' }}>
+                          <div className="mt-3 pt-3 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--border-color)' }}>
                             <span style={{ color: 'var(--text-tertiary)' }}>{poster.clientName} Key Visual</span>
                             <button
                               type="button"
                               onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
-                              className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1"
+                              className="font-semibold text-yellow-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
                             >
                               <span>View Fullscreen</span>
                               <span>↗</span>
@@ -1522,9 +1584,9 @@ function App() {
 
             if (rawServices.length === 0) {
               return (
-                <div className="py-16 text-center rounded-3xl border p-8"
-                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
-                  <div className="w-12 h-12 rounded-full border border-yellow-400/30 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mx-auto mb-4">
+                <div className="py-16 text-center rounded-xl border p-8"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}>
+                  <div className="w-10 h-10 rounded-lg border border-yellow-400/30 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mx-auto mb-4">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
@@ -1538,7 +1600,7 @@ function App() {
                   <div className="flex flex-wrap items-center justify-center gap-3">
                     <button
                       onClick={() => setServiceSearch('')}
-                      className="px-5 py-2.5 rounded-full border text-xs font-semibold hover:border-yellow-400 transition-colors cursor-pointer"
+                      className="px-4 py-2 rounded-lg border text-xs font-semibold hover:border-yellow-400 transition-colors cursor-pointer"
                       style={{ borderColor: 'var(--border-color)' }}>
                       Reset Search
                     </button>
@@ -1546,7 +1608,7 @@ function App() {
                       href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%20have%20a%20custom%20service%20inquiry."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-shimmer px-6 py-2.5 rounded-full text-xs font-bold"
+                      className="btn-primary px-5 py-2 rounded-lg text-xs font-semibold"
                     >
                       Inquire on WhatsApp →
                     </a>
@@ -1584,47 +1646,44 @@ function App() {
                   return (
                     <article
                       key={s.title}
-                      className="bento-card group relative p-5 sm:p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.12)] hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                      style={{ background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)' }}
+                      className="bento-card group relative p-5 sm:p-6 flex flex-col justify-between cursor-pointer transition-colors hover:border-stone-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      style={{ backgroundColor: 'var(--bg-card)' }}
                       onClick={() => handleServiceClick(s.title, categoryName)}
                       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleServiceClick(s.title, categoryName); } }}
                       tabIndex={0}
                       role="button"
                       aria-label={`View details and portfolio for ${s.title}`}
                     >
-                      {/* Hover ambient lighting */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-yellow-400/10 via-transparent to-yellow-500/15 pointer-events-none rounded-[20px]" aria-hidden="true" />
-
                       <div className="relative">
                         {/* Card Top Pill strip: Category / Tag + Live asset counter */}
-                        <div className="flex items-center justify-between gap-2 mb-4">
-                          <span className="pill-label text-[9px] tracking-[0.2em]">{s.tag || categoryName}</span>
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span className="pill-label text-[9px] tracking-[0.16em]">{s.tag || categoryName}</span>
 
                           {/* Upcoming Badge */}
                           {s.isUpcoming ? (
-                            <span className="text-[10px] tracking-wider uppercase font-bold px-2.5 py-0.5 rounded-full border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_12px_rgba(255,209,0,0.15)] flex items-center gap-1">
-                              <span>✦</span> {s.upcomingBadge || 'Upcoming'}
+                            <span className="text-[10px] font-mono tracking-wider uppercase font-semibold px-2 py-0.5 rounded-md border border-yellow-400/30 bg-yellow-400/10 text-yellow-400">
+                              {s.upcomingBadge || 'Upcoming'}
                             </span>
                           ) : (
                             <>
                               {/* Dynamic Proof Metric Badges */}
                               {videosCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] font-mono tracking-wider uppercase font-medium px-2 py-0.5 rounded-md border border-white/10 bg-white/5 text-stone-300">
                                   {videosCount} {videosCount === 1 ? 'Video' : 'Videos'}
                                 </span>
                               )}
                               {examplesCount > 0 && videosCount === 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] font-mono tracking-wider uppercase font-medium px-2 py-0.5 rounded-md border border-white/10 bg-white/5 text-stone-300">
                                   {examplesCount}+ Designs
                                 </span>
                               )}
                               {clientCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
-                                  {clientCount} Client Cases
+                                <span className="text-[10px] font-mono tracking-wider uppercase font-medium px-2 py-0.5 rounded-md border border-white/10 bg-white/5 text-stone-300">
+                                  {clientCount} Clients
                                 </span>
                               )}
                               {webCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] font-mono tracking-wider uppercase font-medium px-2 py-0.5 rounded-md border border-white/10 bg-white/5 text-stone-300">
                                   Live Demos
                                 </span>
                               )}
@@ -1633,27 +1692,27 @@ function App() {
                         </div>
 
                         {/* Title */}
-                        <h4 className="text-xl font-bold mb-2.5 leading-snug group-hover:text-yellow-400 transition-colors"
+                        <h4 className="text-lg font-bold mb-2 leading-snug group-hover:text-yellow-400 transition-colors"
                           style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                           {s.title}
                         </h4>
 
                         {/* Description */}
-                        <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
+                        <p className="text-xs sm:text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
                           {s.desc}
                         </p>
 
                         {/* Feature bullets for upcoming labs */}
                         {s.isUpcoming && s.features?.length > 0 && (
-                          <div className="flex flex-col gap-1.5 mb-4 p-3 rounded-xl border"
+                          <div className="flex flex-col gap-1.5 mb-4 p-3 rounded-lg border"
                             style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
-                            <div className="text-[9px] uppercase tracking-widest font-bold text-yellow-400 mb-1 flex items-center justify-between">
+                            <div className="text-[9px] font-mono uppercase tracking-wider font-semibold text-yellow-400 mb-1 flex items-center justify-between">
                               <span>Capabilities Preview</span>
-                              <span className="text-[8px] font-normal opacity-70">{s.targetRelease || 'Early Access'}</span>
+                              <span className="text-[9px] font-normal opacity-70">{s.targetRelease || 'Early Access'}</span>
                             </div>
                             {s.features.slice(0, 2).map((feat, fi) => (
-                              <div key={fi} className="flex items-start gap-1.5 text-[11px]" style={{ color: 'var(--text-secondary)' }}>
-                                <span className="text-yellow-400 font-bold shrink-0 mt-0.5">✦</span>
+                              <div key={fi} className="flex items-start gap-1.5 text-xs" style={{ color: 'var(--text-secondary)' }}>
+                                <span className="text-yellow-400 font-bold shrink-0 mt-0.5">·</span>
                                 <span className="truncate">{feat.title}</span>
                               </div>
                             ))}
@@ -1663,20 +1722,20 @@ function App() {
                         {/* Sample preview thumbnails if available */}
                         {sampleImages.length > 0 && (
                           <div className="flex items-center gap-2 mb-4 pt-1">
-                            <div className="flex -space-x-2">
+                            <div className="flex -space-x-1.5">
                               {sampleImages.map((ex, i) => (
                                 <img
                                   key={i}
                                   src={ex.image}
                                   alt=""
-                                  className="w-8 h-8 rounded-full object-cover border-2 transition-transform group-hover:scale-105"
-                                  style={{ borderColor: 'var(--bg-card)' }}
+                                  className="w-7 h-7 rounded-md object-cover border"
+                                  style={{ borderColor: 'var(--border-color)' }}
                                   loading="lazy"
                                 />
                               ))}
                             </div>
-                            <span className="text-[10px] font-medium" style={{ color: 'var(--text-tertiary)' }}>
-                              Real client deliverables
+                            <span className="text-[10px] font-mono" style={{ color: 'var(--text-tertiary)' }}>
+                              Real deliverables
                             </span>
                           </div>
                         )}
@@ -1685,9 +1744,9 @@ function App() {
                         {serviceData?.clientShowcases?.length > 0 && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-4 pt-1">
                             {serviceData.clientShowcases.map((c, i) => (
-                              <span key={i} className="text-[9px] px-2.5 py-0.5 rounded-full font-semibold border"
+                              <span key={i} className="text-[10px] font-mono px-2 py-0.5 rounded-md font-medium border"
                                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                                ✦ {c.client}
+                                {c.client}
                               </span>
                             ))}
                           </div>
@@ -1695,18 +1754,15 @@ function App() {
                       </div>
 
                       {/* Interactive Bottom Bar */}
-                      <div className="relative pt-4 border-t flex items-center justify-between mt-4 transition-all duration-300"
+                      <div className="relative pt-3.5 border-t flex items-center justify-between mt-3 transition-colors"
                         style={{ borderColor: 'var(--border-color)' }}>
-                        <span className="text-[11px] tracking-[0.2em] uppercase font-bold text-yellow-400 flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                        <span className="text-[11px] font-semibold tracking-wider uppercase text-yellow-400 flex items-center gap-1.5">
                           <span>{s.isUpcoming ? 'Explore Roadmap & Pre-Book' : 'View Portfolio & Details'}</span>
                         </span>
-                        <div className="w-8 h-8 rounded-full bg-yellow-400 text-black flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 group-hover:bg-yellow-300 transition-all">
+                        <div className="w-7 h-7 rounded-md bg-white/10 group-hover:bg-yellow-400 group-hover:text-black text-white flex items-center justify-center font-bold text-xs transition-colors">
                           →
                         </div>
                       </div>
-
-                      {/* Decorative corner accent */}
-                      <div className="absolute -right-4 -bottom-4 w-16 h-16 border border-yellow-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-400 pointer-events-none" aria-hidden="true" />
                     </article>
                   );
                 })}
@@ -1715,14 +1771,14 @@ function App() {
           })()}
 
           {/* ── Client Custom Retainer / Instant Action Banner ── */}
-          <div className="mt-14 rounded-3xl border p-8 md:p-10 relative overflow-hidden text-center md:text-left flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+          <div className="mt-12 rounded-xl border p-6 md:p-8 relative overflow-hidden text-center md:text-left flex flex-col md:flex-row md:items-center md:justify-between gap-6"
             style={{
-              borderColor: 'rgba(255, 209, 0, 0.3)',
-              background: 'linear-gradient(135deg, rgba(255, 209, 0, 0.06) 0%, var(--bg-card) 60%, rgba(255, 209, 0, 0.03) 100%)'
+              borderColor: 'var(--border-color)',
+              backgroundColor: 'var(--bg-card)',
             }}>
             <div className="max-w-xl">
               <div className="pill-label mb-3 inline-flex">Custom Retainers &amp; Fast Turnaround</div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+              <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 Need a tailored creative package?
               </h3>
               <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
@@ -1734,15 +1790,14 @@ function App() {
                 href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%20would%20like%20to%20discuss%20a%20custom%20service%20package."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[11px] tracking-[0.18em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
+                className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs tracking-wider uppercase font-semibold"
               >
                 Chat on WhatsApp →
               </a>
               <a
                 href="#contact"
                 onClick={handleSmoothScroll}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[11px] tracking-[0.18em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
-                style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-card)' }}
+                className="btn-secondary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-semibold"
               >
                 Book Discovery Call
               </a>
@@ -1838,7 +1893,7 @@ function App() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8">
             <div>
               <div className="pill-label mb-3 inline-flex">
-                ✦ Our Clients &amp; Collaborations
+                Our Clients &amp; Collaborations
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 Trusted by Leading Creators &amp; Brands.
@@ -1850,7 +1905,7 @@ function App() {
 
             {/* Quick Metrics Badge */}
             <div className="flex items-center gap-3 self-start md:self-auto shrink-0">
-              <div className="px-3.5 sm:px-4 py-2 rounded-2xl border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+              <div className="px-3.5 py-2 rounded-lg border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
                 <span className="text-base sm:text-lg font-bold text-yellow-400 font-mono">{clientsData.length}+</span>
                 <span className="text-[10px] tracking-wider uppercase ml-2 text-stone-400 font-semibold">Featured Clients</span>
               </div>
@@ -1858,21 +1913,21 @@ function App() {
           </div>
 
           {/* Client Avatar Ticker Ribbon */}
-          <div className="marquee-wrap mb-8 py-3.5 border-y" style={{ borderColor: 'var(--border-color)' }}>
-            <div className="marquee-track gap-4">
+          <div className="marquee-wrap mb-8 py-3 border-y" style={{ borderColor: 'var(--border-color)' }}>
+            <div className="marquee-track gap-3">
               {[...clientsData, ...clientsData].map((c, i) => (
                 <div
                   key={`${c.id}-${i}`}
-                  className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border shrink-0 transition-colors hover:border-yellow-400/40"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border shrink-0 transition-colors hover:border-stone-500"
                   style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                 >
                   <img
                     src={c.avatar}
                     alt={c.name}
-                    className="w-5 h-5 rounded-full object-cover border border-yellow-400/40"
+                    className="w-5 h-5 rounded-full object-cover border border-white/20"
                     loading="lazy"
                   />
-                  <span className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+                  <span className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>
                     {c.name}
                   </span>
                   {c.stats && (
@@ -1885,7 +1940,7 @@ function App() {
             </div>
           </div>
 
-          {/* Client Filter Tabs (Smooth horizontal touch scrolling) */}
+          {/* Client Filter Tabs */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-8 scrollbar-none flex-nowrap">
             {[
               { id: 'all', label: `All Clients (${clientsData.length})` },
@@ -1897,11 +1952,15 @@ function App() {
                 key={f.id}
                 type="button"
                 onClick={() => setClientFilter(f.id)}
-                className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+                className={`shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-colors border cursor-pointer ${
                   clientFilter === f.id
-                    ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10 shadow-sm'
-                    : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
+                    ? 'border-yellow-400 text-black bg-yellow-400 font-semibold'
+                    : 'text-stone-400 hover:text-white hover:border-stone-500'
                 }`}
+                style={{
+                  borderColor: clientFilter === f.id ? undefined : 'var(--border-color)',
+                  backgroundColor: clientFilter === f.id ? undefined : 'var(--bg-card)',
+                }}
               >
                 {f.label}
               </button>
@@ -1930,8 +1989,8 @@ function App() {
                 Reach out via Instagram, WhatsApp or email — we'll respond in 1–2 business days.
               </p>
 
-              {/* Social pill chips */}
-              <div className="flex flex-col gap-3">
+              {/* Social chips */}
+              <div className="flex flex-col gap-2.5">
                 {[
                   {
                     id: 'social-instagram', href: 'https://instagram.com/syntra.studio',
@@ -1959,10 +2018,10 @@ function App() {
                     target={social.href.startsWith('mailto') ? undefined : '_blank'}
                     rel={social.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
                     aria-label={`${social.label} — Syntra`}
-                    className="group flex items-center gap-3.5 sm:gap-4 px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl border transition-all duration-300 hover:border-yellow-400/60 hover:-translate-y-0.5 hover:shadow-lg"
+                    className="group flex items-center gap-3 px-4 py-3 rounded-lg border transition-colors hover:border-stone-500"
                     style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}
                   >
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-yellow-400/10"
+                    <div className="w-8 h-8 rounded-md flex items-center justify-center shrink-0 transition-colors group-hover:bg-yellow-400/10"
                       style={{ backgroundColor: 'var(--bg-overlay)' }}>
                       <svg className="w-4 h-4" viewBox={social.viewBox}
                         fill={social.fill ? 'currentColor' : 'none'}
@@ -1985,25 +2044,24 @@ function App() {
             <div className="contact-card">
               {formStatus === 'success' ? (
                 <div className="text-center py-8 px-4 flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-[0_0_24px_rgba(255,209,0,0.2)]"
-                    style={{ backgroundColor: 'rgba(255,209,0,0.1)', border: '2px solid rgba(255,209,0,0.5)' }}>
-                    <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" aria-hidden="true">
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-5 border border-yellow-400/40 bg-yellow-400/10">
+                    <svg className="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold mb-3 text-yellow-400" style={{ fontFamily: 'var(--font-display)' }}>Message Sent!</h3>
-                  <p className="text-sm max-w-md mx-auto mb-8 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <h3 className="text-xl font-bold mb-2 text-yellow-400" style={{ fontFamily: 'var(--font-display)' }}>Message Sent!</h3>
+                  <p className="text-sm max-w-md mx-auto mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     Thank you, <strong className="text-yellow-400">{formData.name}</strong>. Your inquiry has been received. We'll get back to you at <strong style={{ color: 'var(--text-primary)' }}>{formData.email}</strong> in 1–2 business days.
                   </p>
                   <button onClick={resetForm}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-yellow-400 text-yellow-400 text-xs tracking-[0.18em] uppercase font-semibold hover:bg-yellow-400 hover:text-black hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    className="btn-secondary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-semibold cursor-pointer">
                     Send Another Message
                   </button>
                 </div>
               ) : (
-                <form className="space-y-4 sm:space-y-5" onSubmit={handleFormSubmit} noValidate>
+                <form className="space-y-4" onSubmit={handleFormSubmit} noValidate>
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Send us a message</h3>
+                    <h3 className="text-lg font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Send us a message</h3>
                     <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>We respond within 1–2 business days.</p>
                   </div>
 
@@ -2014,7 +2072,7 @@ function App() {
                         type="text" id="contact-name" placeholder=" "
                         value={formData.name}
                         onChange={(e) => { setFormData(prev => ({ ...prev, name: e.target.value })); if (formErrors.name) setFormErrors(prev => ({ ...prev, name: '' })); }}
-                        className="w-full rounded-xl px-4 py-3 text-base md:text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 transition-all duration-300"
+                        className="w-full rounded-lg px-3.5 py-2.5 text-sm border outline-none focus:border-yellow-400 transition-colors"
                         style={{ backgroundColor: 'var(--bg-overlay)', borderColor: formErrors.name ? '#ef4444' : 'var(--border-color)', color: 'var(--text-primary)' }}
                         aria-describedby={formErrors.name ? 'name-error' : undefined}
                       />
@@ -2027,7 +2085,7 @@ function App() {
                         type="email" id="contact-email" placeholder=" "
                         value={formData.email}
                         onChange={(e) => { setFormData(prev => ({ ...prev, email: e.target.value })); if (formErrors.email) setFormErrors(prev => ({ ...prev, email: '' })); }}
-                        className="w-full rounded-xl px-4 py-3 text-base md:text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 transition-all duration-300"
+                        className="w-full rounded-lg px-3.5 py-2.5 text-sm border outline-none focus:border-yellow-400 transition-colors"
                         style={{ backgroundColor: 'var(--bg-overlay)', borderColor: formErrors.email ? '#ef4444' : 'var(--border-color)', color: 'var(--text-primary)' }}
                         aria-describedby={formErrors.email ? 'email-error' : undefined}
                       />
@@ -2042,7 +2100,7 @@ function App() {
                       rows={4} id="contact-message" placeholder=" "
                       value={formData.message}
                       onChange={(e) => { setFormData(prev => ({ ...prev, message: e.target.value })); if (formErrors.message) setFormErrors(prev => ({ ...prev, message: '' })); }}
-                      className="w-full rounded-xl px-4 py-3 text-base md:text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 resize-none transition-all duration-300"
+                      className="w-full rounded-lg px-3.5 py-2.5 text-sm border outline-none focus:border-yellow-400 resize-none transition-colors"
                       style={{ backgroundColor: 'var(--bg-overlay)', borderColor: formErrors.message ? '#ef4444' : 'var(--border-color)', color: 'var(--text-primary)' }}
                       aria-describedby={formErrors.message ? 'message-error' : undefined}
                     />
@@ -2053,7 +2111,7 @@ function App() {
                   <button
                     type="submit" id="contact-submit"
                     disabled={formStatus === 'submitting'}
-                    className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 sm:py-4 rounded-xl text-[11px] tracking-[0.25em] uppercase font-bold shadow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                    className="btn-primary w-full flex items-center justify-center gap-2 py-3 rounded-lg text-xs tracking-wider uppercase font-semibold cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {formStatus === 'submitting' ? (
                       <><div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" aria-hidden="true" />Sending...</>
@@ -2071,12 +2129,12 @@ function App() {
               <div>
                 <div className="flex items-center gap-2.5 mb-3">
                   <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain" />
-                  <span className="font-extrabold tracking-[0.22em] text-base uppercase"
+                  <span className="font-bold tracking-[0.16em] text-base uppercase"
                     style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                     SYNTRA
                   </span>
-                  <span className="text-[9px] tracking-[0.18em] uppercase font-bold text-yellow-400 border border-yellow-400/40 px-1.5 py-0.5 rounded-full bg-yellow-400/10">
-                    STUDIO
+                  <span className="text-[10px] tracking-wider uppercase font-semibold text-yellow-400 border border-yellow-400/30 px-1.5 py-0.5 rounded-md bg-yellow-400/10">
+                    Studio
                   </span>
                 </div>
                 <p className="text-xs leading-relaxed max-w-xs" style={{ color: 'var(--text-tertiary)' }}>
@@ -2086,11 +2144,11 @@ function App() {
               {/* Nav */}
               <div>
                 <p className="eyebrow mb-4">Navigate</p>
-                <div className="flex flex-col gap-2.5">
+                <div className="flex flex-col gap-2">
                   {['about', 'services', 'clients', 'process', 'contact'].map((link) => (
                     <a key={link} href={`#${link}`} onClick={handleSmoothScroll}
-                      className="text-sm hover:text-yellow-400 transition-colors duration-300 w-fit"
-                      style={{ color: 'var(--text-tertiary)' }}>
+                      className="text-xs hover:text-yellow-400 transition-colors w-fit"
+                      style={{ color: 'var(--text-secondary)' }}>
                       {link.charAt(0).toUpperCase() + link.slice(1)}
                     </a>
                   ))}
@@ -2099,25 +2157,25 @@ function App() {
               {/* Social */}
               <div>
                 <p className="eyebrow mb-4">Connect</p>
-                <div className="flex flex-col gap-2.5">
+                <div className="flex flex-col gap-2">
                   <a href="https://instagram.com/syntra.studio" target="_blank" rel="noopener noreferrer"
-                    className="text-sm hover:text-yellow-400 transition-colors duration-300 w-fit" style={{ color: 'var(--text-tertiary)' }}>
+                    className="text-xs hover:text-yellow-400 transition-colors w-fit" style={{ color: 'var(--text-secondary)' }}>
                     Instagram
                   </a>
                   <a href="https://wa.me/+918448865446" target="_blank" rel="noopener noreferrer"
-                    className="text-sm hover:text-yellow-400 transition-colors duration-300 w-fit" style={{ color: 'var(--text-tertiary)' }}>
+                    className="text-xs hover:text-yellow-400 transition-colors w-fit" style={{ color: 'var(--text-secondary)' }}>
                     WhatsApp
                   </a>
                   <a href="mailto:jatinmakhija1005@gmail.com"
-                    className="text-sm hover:text-yellow-400 transition-colors duration-300 w-fit" style={{ color: 'var(--text-tertiary)' }}>
+                    className="text-xs hover:text-yellow-400 transition-colors w-fit" style={{ color: 'var(--text-secondary)' }}>
                     Email
                   </a>
                 </div>
               </div>
             </div>
             <div className="pt-6 border-t flex flex-col md:flex-row md:items-center md:justify-between gap-3" style={{ borderColor: 'var(--border-color)' }}>
-              <span className="text-xs" style={{ color: 'var(--text-muted)' }}>© 2025 Syntra. All rights reserved.</span>
-              <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Crafted with ♥ in India</span>
+              <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>© 2025 Syntra. All rights reserved.</span>
+              <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Crafted in India</span>
             </div>
           </footer>
         </section>

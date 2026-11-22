@@ -77,7 +77,7 @@ export default function LightboxModal({ item, onClose }) {
         <div className="min-w-0 pr-2">
           {isCarousel ? (
             <div className="flex items-center gap-2">
-              <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+              <span className="shrink-0 px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold tracking-wider text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                 {activeIdx + 1} / {slides.length}
               </span>
               <h3 className="text-xs sm:text-sm md:text-base font-bold text-white truncate max-w-[200px] sm:max-w-md">
@@ -94,7 +94,7 @@ export default function LightboxModal({ item, onClose }) {
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-full flex items-center justify-center text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all hover:scale-105"
+            className="w-9 h-9 rounded-md flex items-center justify-center text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-colors cursor-pointer"
             aria-label="Close image viewer"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -115,17 +115,17 @@ export default function LightboxModal({ item, onClose }) {
           <img
             src={currentSlide.image || currentSlide.src}
             alt={currentSlide.title || item.title || 'Slide'}
-            className="max-h-[72vh] sm:max-h-[76vh] md:max-h-[80vh] w-auto max-w-full object-contain rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] border border-white/10"
+            className="max-h-[72vh] sm:max-h-[76vh] md:max-h-[80vh] w-auto max-w-full object-contain rounded-lg border border-white/10 shadow-2xl"
           />
 
           {/* Left Arrow */}
           {isCarousel && slides.length > 1 && (
             <button
               onClick={handlePrev}
-              className="absolute left-1.5 sm:left-2 md:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white bg-black/75 hover:bg-yellow-400 hover:text-black border border-white/20 backdrop-blur-md transition-all hover:scale-110 shadow-2xl"
+              className="absolute left-1.5 sm:left-2 md:-left-12 top-1/2 -translate-y-1/2 w-9 h-9 rounded-md flex items-center justify-center text-white bg-black/80 hover:bg-yellow-400 hover:text-black border border-white/20 backdrop-blur-md transition-colors shadow-xl cursor-pointer"
               aria-label="Previous slide (Left Arrow)"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
@@ -135,10 +135,10 @@ export default function LightboxModal({ item, onClose }) {
           {isCarousel && slides.length > 1 && (
             <button
               onClick={handleNext}
-              className="absolute right-1.5 sm:right-2 md:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white bg-black/75 hover:bg-yellow-400 hover:text-black border border-white/20 backdrop-blur-md transition-all hover:scale-110 shadow-2xl"
+              className="absolute right-1.5 sm:right-2 md:-right-12 top-1/2 -translate-y-1/2 w-9 h-9 rounded-md flex items-center justify-center text-white bg-black/80 hover:bg-yellow-400 hover:text-black border border-white/20 backdrop-blur-md transition-colors shadow-xl cursor-pointer"
               aria-label="Next slide (Right Arrow)"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </button>
