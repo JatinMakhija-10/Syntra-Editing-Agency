@@ -448,7 +448,7 @@ export const servicesData = {
     'Website SEO & Search Visibility': {
       title: 'Website SEO & Search Visibility',
       desc: 'Technical, semantic, and AI-first SEO engineered to rank modern brands on Google, Perplexity, and ChatGPT search with fast indexing and high-intent traffic.',
-      tag: 'Search Growth',
+      tag: '✦ Search Growth',
       isUpcoming: true,
       upcomingBadge: 'Private Beta',
       targetRelease: 'Q1 2027 · Early Access Open',
@@ -473,7 +473,7 @@ export const servicesData = {
     'Website Audit & Changes Suggestion': {
       title: 'Website Audit & Changes Suggestion',
       desc: 'Comprehensive UX, conversion rate optimization (CRO), and performance teardown — actionable recommendations, before-and-after wireframes, and video walkthroughs.',
-      tag: 'Audit & CRO',
+      tag: '✦ Audit & CRO',
       isUpcoming: true,
       upcomingBadge: 'Audits Open',
       targetRelease: 'Accepting Early Submissions',
@@ -977,7 +977,7 @@ export const servicesData = {
     'WhatsApp Bot Integration': {
       title: 'WhatsApp Bot Integration',
       desc: 'Intelligent 24/7 conversational WhatsApp bots built on Meta Official Cloud API — automated lead qualification, product catalogs, FAQ resolution, CRM sync & human escalation.',
-      tag: 'Automation',
+      tag: '✦ Automation',
       isUpcoming: true,
       upcomingBadge: 'Private Beta',
       targetRelease: 'Q1 2027 · Early Access Open',
@@ -1002,7 +1002,7 @@ export const servicesData = {
     'Instagram DM Automation': {
       title: 'Instagram DM Automation',
       desc: 'High-conversion Instagram Direct Message automation — trigger instant auto-replies on comments, story mentions, and keyword DMs to turn social engagement into pipeline revenue.',
-      tag: 'Automation',
+      tag: '✦ Automation',
       isUpcoming: true,
       upcomingBadge: 'Private Beta',
       targetRelease: 'Q1 2027 · Early Access Open',

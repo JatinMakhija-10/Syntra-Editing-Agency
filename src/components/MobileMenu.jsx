@@ -58,7 +58,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-lg flex items-center justify-center border transition-colors hover:border-yellow-400"
+            className="w-10 h-10 rounded-full flex items-center justify-center border transition-colors hover:border-yellow-400"
             style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
             aria-label="Close menu"
           >
@@ -73,7 +73,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
           {[
             { href: '#about', label: 'About' },
             { href: '#services', label: 'Services', badge: '6 Disciplines' },
-            { href: '#clients', label: 'Clients', badge: '16+' },
+            { href: '#clients', label: 'Previous Clients', badge: '16+' },
             { href: '#process', label: 'Process' },
             { href: '#contact', label: 'Contact' },
           ].map((link) => (
@@ -81,12 +81,12 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="flex items-center justify-between py-3 px-4 rounded-xl text-base font-medium transition-colors hover:bg-white/5 hover:text-yellow-400 min-h-[44px]"
+              className="flex items-center justify-between py-3.5 px-4 rounded-xl text-lg font-bold tracking-wider uppercase transition-all hover:bg-yellow-400/10 hover:text-yellow-400 min-h-[50px]"
               style={{ color: 'var(--text-primary)' }}
             >
               <span>{link.label}</span>
               {link.badge && (
-                <span className="text-[11px] font-mono" style={{ color: 'var(--text-tertiary)' }}>
+                <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold bg-yellow-400 text-black">
                   {link.badge}
                 </span>
               )}
@@ -95,14 +95,14 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
 
           {/* Quick Category Shortcuts */}
           <div className="pt-4 mt-2 border-t" style={{ borderColor: 'var(--border-color)' }}>
-            <p className="text-[11px] font-mono uppercase mb-3 px-4" style={{ color: 'var(--text-tertiary)' }}>
-              Explore disciplines
+            <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-yellow-400 mb-3 px-4">
+              Explore Disciplines
             </p>
             <div className="grid grid-cols-2 gap-2 px-1">
               {[
-                { id: 'UPCOMING', label: 'Upcoming Labs' },
-                { id: 'AUTOMATION', label: 'Automation & Bots' },
-                { id: 'AI_UGC', label: 'AI UGC Ads' },
+                { id: 'UPCOMING', label: '✦ Upcoming Labs' },
+                { id: 'AUTOMATION', label: '✦ Automation & Bots' },
+                { id: 'AI_UGC', label: '✦ AI UGC Ads' },
                 { id: 'VIDEO', label: 'Video & Reels' },
                 { id: 'THUMBNAILS', label: 'Thumbnails' },
                 { id: 'GRAPHICS', label: 'Brand Identity' },
@@ -113,7 +113,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
                   key={cat.id}
                   type="button"
                   onClick={() => handleCategoryClick(cat.id)}
-                  className="text-left text-xs font-semibold py-2.5 px-3 rounded-lg border transition-colors hover:border-yellow-400 hover:text-yellow-400"
+                  className="text-left text-xs font-semibold py-2.5 px-3 rounded-lg border transition-all hover:border-yellow-400 hover:text-yellow-400"
                   style={{
                     borderColor: 'var(--border-color)',
                     backgroundColor: 'var(--bg-overlay)',
@@ -133,7 +133,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
             href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%27d%20like%20to%20discuss%20a%20project"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-lg text-xs tracking-wider uppercase font-semibold"
+            className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full text-xs tracking-widest uppercase font-bold shadow-lg"
           >
             Chat on WhatsApp →
           </a>
