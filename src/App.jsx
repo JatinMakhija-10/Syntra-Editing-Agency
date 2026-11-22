@@ -604,14 +604,22 @@ function App() {
       </div>
 
       {/* Mobile Menu */}
-      <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} onNavigate={handleSmoothScroll} />
+      <MobileMenu
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        onNavigate={handleSmoothScroll}
+        onSelectCategory={(catId) => {
+          setActiveCategory(catId);
+          setServiceSearch('');
+          const target = document.getElementById('services');
+          if (target) smoothScrollTo(target, 500);
+        }}
+      />
 
       {/* Image Lightbox / Fullscreen Carousel Reader */}
       {selectedImage && (
         <LightboxModal item={selectedImage} onClose={() => setSelectedImage(null)} />
       )}
-
-
 
       {/* ── HEADER ── */}
       <header
@@ -623,9 +631,9 @@ function App() {
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-yellow-400 focus:text-black focus:rounded focus:outline-none">
           Skip to main content
         </a>
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/assets/syntra-logo.png" alt="Syntra — Creative Studio" className="h-8 w-auto" />
+            <img src="/assets/syntra-logo.png" alt="Syntra — Creative Studio" className="h-7 sm:h-8 w-auto" />
           </div>
           <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.18em] uppercase font-medium"
             style={{ fontFamily: 'var(--font-body)', color: 'var(--text-tertiary)' }} aria-label="Main navigation">
@@ -642,16 +650,17 @@ function App() {
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-4">
             <ThemeSwitch theme={theme} onToggle={toggleTheme} />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="md:hidden w-10 h-10 rounded-full flex items-center justify-center border transition-colors hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen} aria-controls="mobile-menu"
             >
-              <svg className="w-5 h-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--text-primary)' }}>
+              <svg className="w-5 h-5 text-yellow-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                viewBox="0 0 24 24" stroke="currentColor">
                 {mobileMenuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
               </svg>
             </button>
@@ -664,10 +673,10 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 pt-20" id="main-content" role="main">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20" id="main-content" role="main">
 
         {/* ── HERO ── */}
-        <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
+        <section className="relative pt-6 sm:pt-12 md:pt-24 pb-12 sm:pb-16 md:pb-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
           {/* Side labels */}
           <div className="hidden lg:flex flex-col gap-4 absolute -left-4 top-1/2 -translate-y-1/2 text-[9px] tracking-[0.4em] uppercase rotate-180 [writing-mode:vertical-rl]" style={{ color: 'var(--text-muted)' }}>
             <span>Experiential</span><span>Branding</span><span>Digital</span>
@@ -676,27 +685,27 @@ function App() {
             <span>India</span><span>IST</span><span><LiveClock /></span>
           </div>
 
-          <div className="grid md:grid-cols-[1.2fr,1fr] gap-12 items-center">
+          <div className="grid md:grid-cols-[1.2fr,1fr] gap-8 md:gap-12 items-center">
             <div>
-              <div className="pill-label mb-8 inline-flex">Editing-first creative studio</div>
+              <div className="pill-label mb-6 sm:mb-8 inline-flex">Editing-first creative studio</div>
 
-              <div className="space-y-3 mb-8">
-                <h1 className="font-bold leading-[1.05] tracking-tight" style={{
+              <div className="space-y-3 mb-6 sm:mb-8">
+                <h1 className="font-bold leading-[1.08] tracking-tight" style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2.8rem, 7vw, 6rem)',
+                  fontSize: 'clamp(2.1rem, 7vw, 5.5rem)',
                   color: 'var(--text-primary)'
                 }}>
                   We craft stories
                   <br />
                   <span style={{ color: 'var(--brand-yellow)' }}>that convert.</span>
                 </h1>
-                <p className="text-lg md:text-xl font-light max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-base sm:text-lg md:text-xl font-light max-w-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   Syntra is a motion-first editing agency. From raw footage to thumbnails, logos to full websites — every frame is tuned for <em>impact</em>.
                 </p>
               </div>
 
               {/* Stats strip */}
-              <div className="flex flex-wrap gap-8 mb-10 py-6 border-y" style={{ borderColor: 'var(--border-color)' }}>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap gap-4 sm:gap-6 md:gap-8 mb-8 py-5 border-y" style={{ borderColor: 'var(--border-color)' }}>
                 {[
                   { val: '150', suffix: '+', label: 'Projects' },
                   { val: '60', suffix: '+', label: 'Happy Clients' },
@@ -705,7 +714,7 @@ function App() {
                   { val: '2023', suffix: '', label: 'Founded' },
                 ].map((s) => (
                   <div key={s.label} className="flex flex-col">
-                    <span className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--brand-yellow)' }}>
+                    <span className="text-xl sm:text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--brand-yellow)' }}>
                       {s.val}{s.suffix}
                     </span>
                     <span className="text-[10px] tracking-widest uppercase" style={{ color: 'var(--text-tertiary)' }}>{s.label}</span>
@@ -713,21 +722,21 @@ function App() {
                 ))}
               </div>
 
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a href="#services" onClick={handleSmoothScroll}
-                  className="btn-shimmer inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
+                  className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
                   View Services →
                 </a>
                 <a href="#contact" onClick={handleSmoothScroll}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                  className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                   Start a project
                 </a>
               </div>
 
               {/* Quick Jump Category Chips */}
-              <div className="flex flex-wrap items-center gap-2 mt-6 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                <span className="text-[10px] tracking-widest uppercase font-semibold" style={{ color: 'var(--text-muted)' }}>
+              <div className="flex items-center gap-2 mt-6 pt-4 border-t overflow-x-auto pb-1.5 scrollbar-none flex-nowrap" style={{ borderColor: 'var(--border-color)' }}>
+                <span className="text-[10px] tracking-widest uppercase font-semibold shrink-0" style={{ color: 'var(--text-muted)' }}>
                   Jump to:
                 </span>
                 {[
@@ -805,7 +814,7 @@ function App() {
         </div>
 
         {/* ── ABOUT ── */}
-        <section id="about" className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
+        <section id="about" className="py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
           <SectionWrapper>
             <div className="grid md:grid-cols-2 gap-12 items-start">
               {/* Left — main card */}
@@ -860,22 +869,22 @@ function App() {
         </section>
 
         {/* ── SERVICES ── */}
-        <section id="services" className="relative py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
+        <section id="services" className="relative py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
           {/* Ambient spotlight glow */}
           <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-80 opacity-[0.06] rounded-full blur-3xl -z-10"
             style={{ background: 'radial-gradient(ellipse, #FFD100 0%, transparent 70%)' }}
             aria-hidden="true" />
 
           {/* Section header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 sm:mb-12">
             <div>
               <div className="pill-label mb-4 inline-flex">
                 ✦ Creative Capabilities · 6 Disciplines
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 A complete editing &amp;<br className="hidden md:block" /> design ecosystem.
               </h2>
-              <p className="mt-4 text-base max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              <p className="mt-3 sm:mt-4 text-sm sm:text-base max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 From gaming montages to logos, thumbnails, social posts, AI UGC ads and full websites — Syntra handles the entire funnel with zero templates.
               </p>
               {/* Metric badges strip */}
@@ -894,16 +903,16 @@ function App() {
               </div>
             </div>
             <a href="#contact" onClick={handleSmoothScroll}
-              className="shrink-0 btn-shimmer inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
+              className="shrink-0 btn-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300 w-full sm:w-auto text-center">
               Start a project →
             </a>
           </div>
 
           {/* Controls Bar: Category Tabs + Live Search Input */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-10 pb-6 border-b"
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8 sm:mb-10 pb-6 border-b"
             style={{ borderColor: 'var(--border-color)' }}>
-            {/* Category Tabs */}
-            <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Service categories">
+            {/* Category Tabs (Smooth touch scrolling on mobile) */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1.5 scrollbar-none flex-nowrap" role="tablist" aria-label="Service categories">
               {categoryTabs.map((tab) => {
                 const count = getCategoryCount(tab.id);
                 const active = activeCategory === tab.id;
@@ -924,7 +933,7 @@ function App() {
                         window.history.pushState({}, '', '#services');
                       }
                     }}
-                    className={`relative px-4 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold transition-all border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
+                    className={`relative shrink-0 px-3.5 sm:px-4 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold transition-all border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
                       active
                         ? 'border-yellow-400/80 bg-yellow-400/15 text-yellow-400 shadow-[0_0_24px_rgba(255,209,0,0.22)]'
                         : 'hover:border-yellow-300/50 hover:text-yellow-300'
@@ -1490,7 +1499,7 @@ function App() {
                   return (
                     <article
                       key={s.title}
-                      className="bento-card group relative p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.12)] hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      className="bento-card group relative p-5 sm:p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.12)] hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                       style={{ background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)' }}
                       onClick={() => handleServiceClick(s.title, categoryName)}
                       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleServiceClick(s.title, categoryName); } }}
@@ -1631,14 +1640,14 @@ function App() {
         </section>
 
         {/* ── PROCESS ── */}
-        <section id="process" className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
-          <div className="mb-14">
+        <section id="process" className="py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
+          <div className="mb-10 sm:mb-14">
             <div className="pill-label mb-4 inline-flex">Process</div>
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
               How we create —<br className="hidden md:block" /> frame by frame.
             </h2>
           </div>
-          <div className="grid md:grid-cols-4 gap-6 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 relative">
             {/* Connecting line */}
             <div className="hidden md:block absolute left-0 right-0 top-14 h-px bg-gradient-to-r from-transparent via-yellow-400/25 to-transparent" aria-hidden="true" />
             {[
@@ -1649,11 +1658,11 @@ function App() {
             ].map((s) => (
               <div
                 key={s.step}
-                className="process-card bento-card relative flex flex-col gap-4 p-6"
+                className="process-card bento-card relative flex flex-col gap-3 sm:gap-4 p-5 sm:p-6"
               >
                 <div className="step-num">{s.step}</div>
                 <div>
-                  <h3 className="text-base font-bold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{s.title}</h3>
+                  <h3 className="text-base font-bold mb-1.5 sm:mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{s.title}</h3>
                   <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{s.desc}</p>
                 </div>
               </div>
@@ -1662,31 +1671,31 @@ function App() {
         </section>
 
         {/* ── STATS ── */}
-        <section className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }} ref={statsRef}>
+        <section className="py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }} ref={statsRef}>
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <div className="pill-label mb-4 inline-flex">Inside Syntra</div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-5 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 A studio built around motion. Numbers that prove it.
               </h2>
               <p className="text-sm leading-relaxed max-w-md" style={{ color: 'var(--text-secondary)' }}>
                 Every project is a collaboration — fast, transparent, handcrafted. Here's where we stand.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4 md:gap-6">
-              <div className="bento-card p-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+              <div className="bento-card p-4 sm:p-6">
                 <StatCard value={150} suffix="+" label="Projects" trigger={statsTrigger} />
               </div>
-              <div className="bento-card p-6">
+              <div className="bento-card p-4 sm:p-6">
                 <StatCard value={60} suffix="+" label="Happy Clients" trigger={statsTrigger} />
               </div>
-              <div className="bento-card p-6">
+              <div className="bento-card p-4 sm:p-6">
                 <StatCard value={5} suffix="+" label="Countries" trigger={statsTrigger} />
               </div>
-              <div className="bento-card p-6">
+              <div className="bento-card p-4 sm:p-6">
                 <StatCard value={100} suffix="%" label="Delivery Rate" trigger={statsTrigger} />
               </div>
-              <div className="bento-card p-6 col-span-2">
+              <div className="bento-card p-4 sm:p-6 col-span-2">
                 <StatCard value={2023} suffix="" label="Founded" trigger={statsTrigger} />
               </div>
             </div>
@@ -1694,11 +1703,11 @@ function App() {
         </section>
 
         {/* ── TEAM ── */}
-        <section className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }} id="team-section">
-          <div className="mb-12 flex items-end justify-between gap-6">
+        <section className="py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }} id="team-section">
+          <div className="mb-8 sm:mb-12 flex items-end justify-between gap-6">
             <div>
-              <div className="pill-label mb-4 inline-flex">Team</div>
-              <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+              <div className="pill-label mb-3 sm:mb-4 inline-flex">Team</div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 The people behind Syntra.
               </h2>
             </div>
@@ -1713,14 +1722,14 @@ function App() {
         </section>
 
         {/* ── SELECTED CLIENTS & COLLABORATIONS ── */}
-        <section id="clients" className="py-20 md:py-28 border-b" style={{ borderColor: 'var(--border-color)' }}>
+        <section id="clients" className="py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
           <span id="testimonials" className="sr-only">Previous Clients</span>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8">
             <div>
               <div className="pill-label mb-3 inline-flex">
                 ✦ Our Clients &amp; Collaborations
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 Trusted by Leading Creators &amp; Brands.
               </h2>
               <p className="text-sm md:text-base mt-2 max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
@@ -1730,8 +1739,8 @@ function App() {
 
             {/* Quick Metrics Badge */}
             <div className="flex items-center gap-3 self-start md:self-auto shrink-0">
-              <div className="px-4 py-2 rounded-2xl border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
-                <span className="text-lg font-bold text-yellow-400 font-mono">{clientsData.length}+</span>
+              <div className="px-3.5 sm:px-4 py-2 rounded-2xl border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+                <span className="text-base sm:text-lg font-bold text-yellow-400 font-mono">{clientsData.length}+</span>
                 <span className="text-[10px] tracking-wider uppercase ml-2 text-stone-400 font-semibold">Featured Clients</span>
               </div>
             </div>
@@ -1765,8 +1774,8 @@ function App() {
             </div>
           </div>
 
-          {/* Client Filter Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-8 scrollbar-none">
+          {/* Client Filter Tabs (Smooth horizontal touch scrolling) */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-8 scrollbar-none flex-nowrap">
             {[
               { id: 'all', label: `All Clients (${clientsData.length})` },
               { id: 'creator', label: `Creators (${clientsData.filter((c) => c.type === 'creator').length})` },
@@ -1777,7 +1786,7 @@ function App() {
                 key={f.id}
                 type="button"
                 onClick={() => setClientFilter(f.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border ${
                   clientFilter === f.id
                     ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10 shadow-sm'
                     : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
@@ -1788,7 +1797,7 @@ function App() {
             ))}
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
             {clientsData
               .filter((c) => clientFilter === 'all' || c.type === clientFilter)
               .map((client, idx) => (
@@ -1798,15 +1807,15 @@ function App() {
         </section>
 
         {/* ── CONTACT ── */}
-        <section id="contact" className="py-20 md:py-28">
-          <div className="grid md:grid-cols-[1fr,1.1fr] gap-12 items-start">
+        <section id="contact" className="py-12 sm:py-16 md:py-24">
+          <div className="grid md:grid-cols-[1fr,1.1fr] gap-8 md:gap-12 items-start">
             {/* Left */}
             <div className="md:sticky md:top-28">
-              <div className="pill-label mb-6 inline-flex">Let's create</div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+              <div className="pill-label mb-4 sm:mb-6 inline-flex">Let's create</div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 Let's make<br />something<br /><span style={{ color: 'var(--brand-yellow)' }}>great.</span>
               </h2>
-              <p className="text-sm leading-relaxed mb-10 max-w-sm" style={{ color: 'var(--text-secondary)' }}>
+              <p className="text-sm leading-relaxed mb-8 sm:mb-10 max-w-sm" style={{ color: 'var(--text-secondary)' }}>
                 Reach out via Instagram, WhatsApp or email — we'll respond in 1–2 business days.
               </p>
 
@@ -1839,7 +1848,7 @@ function App() {
                     target={social.href.startsWith('mailto') ? undefined : '_blank'}
                     rel={social.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
                     aria-label={`${social.label} — Syntra`}
-                    className="group flex items-center gap-4 px-5 py-3.5 rounded-2xl border transition-all duration-300 hover:border-yellow-400/60 hover:-translate-y-0.5 hover:shadow-lg"
+                    className="group flex items-center gap-3.5 sm:gap-4 px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl border transition-all duration-300 hover:border-yellow-400/60 hover:-translate-y-0.5 hover:shadow-lg"
                     style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}
                   >
                     <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-yellow-400/10"
@@ -1881,9 +1890,9 @@ function App() {
                   </button>
                 </div>
               ) : (
-                <form className="space-y-5" onSubmit={handleFormSubmit} noValidate>
+                <form className="space-y-4 sm:space-y-5" onSubmit={handleFormSubmit} noValidate>
                   <div>
-                    <h3 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Send us a message</h3>
+                    <h3 className="text-lg sm:text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Send us a message</h3>
                     <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>We respond within 1–2 business days.</p>
                   </div>
 
@@ -1894,7 +1903,7 @@ function App() {
                         type="text" id="contact-name" placeholder=" "
                         value={formData.name}
                         onChange={(e) => { setFormData(prev => ({ ...prev, name: e.target.value })); if (formErrors.name) setFormErrors(prev => ({ ...prev, name: '' })); }}
-                        className="w-full rounded-xl px-4 py-3 text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 transition-all duration-300"
+                        className="w-full rounded-xl px-4 py-3 text-base md:text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 transition-all duration-300"
                         style={{ backgroundColor: 'var(--bg-overlay)', borderColor: formErrors.name ? '#ef4444' : 'var(--border-color)', color: 'var(--text-primary)' }}
                         aria-describedby={formErrors.name ? 'name-error' : undefined}
                       />
@@ -1907,7 +1916,7 @@ function App() {
                         type="email" id="contact-email" placeholder=" "
                         value={formData.email}
                         onChange={(e) => { setFormData(prev => ({ ...prev, email: e.target.value })); if (formErrors.email) setFormErrors(prev => ({ ...prev, email: '' })); }}
-                        className="w-full rounded-xl px-4 py-3 text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 transition-all duration-300"
+                        className="w-full rounded-xl px-4 py-3 text-base md:text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 transition-all duration-300"
                         style={{ backgroundColor: 'var(--bg-overlay)', borderColor: formErrors.email ? '#ef4444' : 'var(--border-color)', color: 'var(--text-primary)' }}
                         aria-describedby={formErrors.email ? 'email-error' : undefined}
                       />
@@ -1919,10 +1928,10 @@ function App() {
                   {/* Message */}
                   <div className="flex flex-col gap-1">
                     <textarea
-                      rows={5} id="contact-message" placeholder=" "
+                      rows={4} id="contact-message" placeholder=" "
                       value={formData.message}
                       onChange={(e) => { setFormData(prev => ({ ...prev, message: e.target.value })); if (formErrors.message) setFormErrors(prev => ({ ...prev, message: '' })); }}
-                      className="w-full rounded-xl px-4 py-3 text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 resize-none transition-all duration-300"
+                      className="w-full rounded-xl px-4 py-3 text-base md:text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 resize-none transition-all duration-300"
                       style={{ backgroundColor: 'var(--bg-overlay)', borderColor: formErrors.message ? '#ef4444' : 'var(--border-color)', color: 'var(--text-primary)' }}
                       aria-describedby={formErrors.message ? 'message-error' : undefined}
                     />
@@ -1933,7 +1942,7 @@ function App() {
                   <button
                     type="submit" id="contact-submit"
                     disabled={formStatus === 'submitting'}
-                    className="btn-shimmer w-full flex items-center justify-center gap-2 py-4 rounded-xl text-[11px] tracking-[0.25em] uppercase font-bold shadow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                    className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 sm:py-4 rounded-xl text-[11px] tracking-[0.25em] uppercase font-bold shadow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
                   >
                     {formStatus === 'submitting' ? (
                       <><div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" aria-hidden="true" />Sending...</>
@@ -1945,7 +1954,7 @@ function App() {
           </div>
 
           {/* ── FOOTER ── */}
-          <footer className="mt-20 pt-10 border-t" style={{ borderColor: 'var(--border-color)' }}>
+          <footer className="mt-14 sm:mt-20 pt-8 sm:pt-10 border-t" style={{ borderColor: 'var(--border-color)' }}>
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               {/* Brand */}
               <div>

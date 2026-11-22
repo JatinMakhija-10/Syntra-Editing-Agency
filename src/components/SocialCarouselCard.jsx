@@ -29,7 +29,7 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
     if (touchStartX === null) return;
     const touchEndX = e.changedTouches[0].clientX;
     const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 40) {
+    if (Math.abs(diff) > 28) {
       if (diff > 0) {
         nextSlide();
       } else {
@@ -54,7 +54,7 @@ export default function SocialCarouselCard({ carousel, onImageClick, compact = f
 
   return (
     <div
-      className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/card"
+      className="rounded-3xl border p-4 sm:p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/card"
       style={{
         borderColor: 'var(--border-color)',
         background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)`,

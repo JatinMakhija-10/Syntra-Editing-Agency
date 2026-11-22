@@ -126,15 +126,15 @@ export function ServicePage({
         className="sticky top-0 z-40 border-b backdrop-blur-2xl transition-colors duration-300"
         style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--header-bg)' }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
             <button
               onClick={onBack}
-              className="flex items-center gap-2 text-xs tracking-wider uppercase font-semibold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-full border"
+              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-semibold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-full border shrink-0"
               style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
             >
               <span>←</span>
-              <span>All Services</span>
+              <span className="hidden sm:inline">All </span><span>Services</span>
             </button>
             <div className="hidden sm:flex items-center gap-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>
               <span>/</span>
@@ -144,11 +144,11 @@ export function ServicePage({
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Share button */}
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border transition-all duration-300 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold border transition-all duration-300 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}
               title="Copy shareable link"
             >
@@ -162,7 +162,7 @@ export function ServicePage({
                   <svg className="w-3.5 h-3.5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                   </svg>
-                  <span>Share Page</span>
+                  <span>Share<span className="hidden sm:inline"> Page</span></span>
                 </>
               )}
             </button>
@@ -182,45 +182,47 @@ export function ServicePage({
       </header>
 
       {/* ── HERO BANNER ── */}
-      <main className="max-w-7xl mx-auto px-6 py-12 md:py-16 w-full flex-1">
-        <div className="mb-14 border-b pb-12" style={{ borderColor: 'var(--border-color)' }}>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-16 w-full flex-1">
+        <div className="mb-10 md:mb-14 border-b pb-8 md:pb-12" style={{ borderColor: 'var(--border-color)' }}>
           <div className="pill-label mb-4">{service.tag || category}</div>
           <h1
-            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-5 tracking-tight"
+            className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-5 tracking-tight"
             style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
           >
             {service.title}
           </h1>
           <p
-            className="text-base md:text-xl font-light max-w-3xl leading-relaxed mb-8"
+            className="text-sm sm:text-base md:text-xl font-light max-w-3xl leading-relaxed mb-6 md:mb-8"
             style={{ color: 'var(--text-secondary)' }}
           >
             {service.desc}
           </p>
 
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shimmer inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
+              className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
             >
               Book on WhatsApp →
             </a>
-            <a
-              href="mailto:jatinmakhija1005@gmail.com?subject=Inquiry%20regarding%20Syntra%20Services"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
-              style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
-            >
-              Email Us
-            </a>
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
-              style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
-            >
-              {copied ? '✓ Link Copied' : 'Copy Direct Link'}
-            </button>
+            <div className="grid grid-cols-2 sm:flex items-center gap-2.5">
+              <a
+                href="mailto:jatinmakhija1005@gmail.com?subject=Inquiry%20regarding%20Syntra%20Services"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+              >
+                Email Us
+              </a>
+              <button
+                onClick={handleShare}
+                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+              >
+                {copied ? '✓ Copied' : 'Share Link'}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -234,14 +236,14 @@ export function ServicePage({
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               {service.clientShowcases.map((showcase, idx) => (
-                <div key={idx} className="rounded-3xl border p-6 md:p-8 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/40"
+                <div key={idx} className="rounded-3xl border p-4 sm:p-6 md:p-8 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/40"
                   style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-                  <div className="flex items-start justify-between mb-5">
+                  <div className="flex items-start justify-between mb-4 sm:mb-5">
                     <div>
-                      <div className="pill-label mb-3 inline-flex">
+                      <div className="pill-label mb-2 sm:mb-3 inline-flex">
                         AI Static Ads
                       </div>
-                      <h3 className="text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{showcase.client}</h3>
+                      <h3 className="text-lg sm:text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{showcase.client}</h3>
                       <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{showcase.clientDesc}</p>
                     </div>
                     {showcase.clientLink && !showcase.clientLink.includes('drive.google.com') && (
@@ -253,7 +255,7 @@ export function ServicePage({
                     )}
                   </div>
                   {showcase.examples?.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                       {showcase.examples.map((ex, exIdx) => (
                         <div key={exIdx} className="group/item relative rounded-xl overflow-hidden aspect-[3/4] cursor-pointer border transition-all duration-300 hover:border-yellow-400/60 hover:scale-[1.03]"
                           style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
@@ -379,7 +381,7 @@ export function ServicePage({
                 Explore {service.examples.length} studio deliverables. Click any item to inspect in high resolution.
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
               {service.examples.map((item, idx) => (
                 <GalleryCard
                   key={idx}
@@ -407,7 +409,7 @@ export function ServicePage({
                 Instagram Reels Showcase
               </h2>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
               {instagramVideos.map((video, idx) => (
                 <div key={`ig-${idx}`} className="rounded-xl overflow-hidden" style={{ aspectRatio: '9/16' }}>
                   <VideoEmbed video={video} serviceTitle={service.title} index={idx} />
@@ -499,7 +501,7 @@ export function ServicePage({
 
         {/* ── BOTTOM CALL TO ACTION ── */}
         <section
-          className="rounded-3xl border p-8 md:p-12 text-center relative overflow-hidden"
+          className="rounded-3xl border p-6 sm:p-8 md:p-12 text-center relative overflow-hidden"
           style={{
             borderColor: 'var(--border-color)',
             background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
@@ -508,26 +510,26 @@ export function ServicePage({
           <div className="max-w-2xl mx-auto space-y-4">
             <div className="pill-label inline-flex">Let's Collaborate</div>
             <h2
-              className="text-2xl md:text-4xl font-bold"
+              className="text-xl sm:text-2xl md:text-4xl font-bold"
               style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
             >
               Ready to elevate your brand with {service.title}?
             </h2>
-            <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-xs sm:text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
               From concept and pacing to color grading and final render — we ensure every frame works for your business.
             </p>
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shimmer inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs tracking-widest uppercase font-bold hover:scale-105 transition-all duration-300 shadow-lg"
+                className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs tracking-widest uppercase font-bold hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 Start on WhatsApp →
               </a>
               <button
                 onClick={onBack}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs tracking-widest uppercase font-semibold border transition-all duration-300 hover:border-yellow-400"
+                className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs tracking-widest uppercase font-semibold border transition-all duration-300 hover:border-yellow-400"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 ← Explore Other Services
@@ -538,7 +540,7 @@ export function ServicePage({
       </main>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t py-8 px-6" style={{ borderColor: 'var(--border-color)' }}>
+      <footer className="border-t py-6 sm:py-8 px-4 sm:px-6" style={{ borderColor: 'var(--border-color)' }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
           <div className="flex items-center gap-2">
             <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Syntra</span>
