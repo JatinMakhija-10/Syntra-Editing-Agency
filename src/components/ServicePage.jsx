@@ -97,7 +97,9 @@ export function ServicePage({
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hi Syntra, I'm interested in your ${service.title} service. Can we discuss a project?`
+    service.isUpcoming
+      ? `Hi Syntra, I would like to reserve an early access spot for ${service.title}.`
+      : `Hi Syntra, I'm interested in your ${service.title} service. Can we discuss a project?`
   );
   const whatsappUrl = `https://wa.me/+918448865446?text=${whatsappMessage}`;
 
@@ -127,20 +129,41 @@ export function ServicePage({
         style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--header-bg)' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-4">
             <button
               onClick={onBack}
-              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-semibold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-full border shrink-0"
+              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-semibold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-full border shrink-0 cursor-pointer"
               style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
             >
               <span>←</span>
-              <span className="hidden sm:inline">All </span><span>Services</span>
+              <span className="hidden sm:inline">Back</span>
             </button>
-            <div className="hidden sm:flex items-center gap-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>
+
+            {/* Syntra Logo + Brand Lockup */}
+            <button
+              onClick={onBack}
+              className="flex items-center gap-2 focus:outline-none group cursor-pointer"
+              title="Return to Syntra Studio Home"
+            >
+              <img src="/assets/syntra-logo.png" alt="Syntra" className="h-6 sm:h-7 w-auto object-contain transition-transform group-hover:scale-105" />
+              <div className="flex items-center gap-1.5">
+                <span className="font-extrabold tracking-[0.22em] text-sm sm:text-base uppercase group-hover:text-yellow-400 transition-colors"
+                  style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                  SYNTRA
+                </span>
+                <span className="text-[8px] tracking-[0.16em] uppercase font-bold text-yellow-400 border border-yellow-400/40 px-1.5 py-0.2 rounded-full hidden lg:inline-block bg-yellow-400/10">
+                  STUDIO
+                </span>
+              </div>
+            </button>
+
+            <div className="hidden md:flex items-center gap-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>
               <span>/</span>
-              <span className="text-[10px] tracking-widest uppercase font-semibold text-yellow-400">{category === 'AI_UGC' ? '✦ AI UGC' : category}</span>
+              <span className="text-[10px] tracking-widest uppercase font-semibold text-yellow-400">
+                {category === 'AI_UGC' ? '✦ AI UGC' : category === 'AUTOMATION' ? '✦ AUTOMATION' : category}
+              </span>
               <span>/</span>
-              <span className="truncate max-w-[200px]" style={{ color: 'var(--text-primary)' }}>{service.title}</span>
+              <span className="truncate max-w-[180px]" style={{ color: 'var(--text-primary)' }}>{service.title}</span>
             </div>
           </div>
 
@@ -184,7 +207,14 @@ export function ServicePage({
       {/* ── HERO BANNER ── */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-16 w-full flex-1">
         <div className="mb-10 md:mb-14 border-b pb-8 md:pb-12" style={{ borderColor: 'var(--border-color)' }}>
-          <div className="pill-label mb-4">{service.tag || category}</div>
+          <div className="flex flex-wrap items-center gap-2 mb-4">
+            <div className="pill-label">{service.tag || category}</div>
+            {service.isUpcoming && (
+              <span className="text-[10px] tracking-wider uppercase font-bold px-3 py-1 rounded-full border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_16px_rgba(255,209,0,0.18)] flex items-center gap-1.5">
+                <span>✦</span> UPCOMING DISCIPLINE · {service.upcomingBadge || 'EARLY ACCESS'} · {service.targetRelease || 'Q1 2027'}
+              </span>
+            )}
+          </div>
           <h1
             className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-5 tracking-tight"
             style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
@@ -205,7 +235,7 @@ export function ServicePage({
               rel="noopener noreferrer"
               className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
             >
-              Book on WhatsApp →
+              {service.isUpcoming ? 'Reserve Early Access on WhatsApp →' : 'Book on WhatsApp →'}
             </a>
             <div className="grid grid-cols-2 sm:flex items-center gap-2.5">
               <a
@@ -454,49 +484,169 @@ export function ServicePage({
           </section>
         )}
 
-        {/* ── SHOWCASE: CAPABILITIES SPOTLIGHT (when no media attached yet) ── */}
-        {(!service.examples?.length && !service.videoShowcase?.length && !service.webPreview?.length) && (
-          <section className="mb-16">
-            <div className="mb-8">
-              <p className="eyebrow mb-2">Capabilities</p>
-              <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                Engineered for Direct-Response ROI
-              </h2>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  step: '01',
-                  title: 'Hyper-Realistic AI Avatars',
-                  desc: 'Photorealistic digital creators with authentic micro-expressions, eye contact, and natural body language tailored to your target demographic.'
-                },
-                {
-                  step: '02',
-                  title: 'Hook-First Scripting & Voice',
-                  desc: 'Direct-response scripts with 3-second pattern interrupts, natural voice cloning, and audio mastering optimized for TikTok & Meta algorithms.'
-                },
-                {
-                  step: '03',
-                  title: 'Rapid Creative Testing & Scale',
-                  desc: 'Generate 10–20 creative variations in days to rapidly test angles, hooks, and CTAs without high studio and influencer shoot fees.'
-                }
-              ].map((item, idx) => (
-                <div key={idx} className="bento-card p-6 flex flex-col justify-between">
-                  <div>
-                    <span className="text-xs font-bold tracking-widest text-yellow-400 uppercase mb-3 block">
-                      {item.step}
-                    </span>
-                    <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                      {item.title}
-                    </h3>
-                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      {item.desc}
-                    </p>
+        {/* ── UPCOMING DISCIPLINE: FEATURES ARCHITECTURE & ROADMAP ── */}
+        {service.isUpcoming ? (
+          <section className="mb-16 space-y-12">
+            {/* Feature Architecture Matrix */}
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,209,0,0.3), transparent)' }} />
+                <p className="eyebrow" style={{ color: 'var(--brand-yellow)' }}>✦ Architecture &amp; Capabilities</p>
+                <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {(service.features || [
+                  { title: 'Enterprise Architecture', desc: 'Engineered for high throughput, security, and sub-second execution.' },
+                  { title: 'Custom Brand Integration', desc: 'Configured precisely to your workflows, databases, and customer journey.' },
+                  { title: 'Continuous Refinement', desc: 'Ongoing performance telemetry, prompt tuning, and conversion tracking.' },
+                ]).map((feat, idx) => (
+                  <div key={idx} className="bento-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50">
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-xs font-bold tracking-widest text-yellow-400 uppercase">
+                          0{idx + 1}
+                        </span>
+                        <span className="text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full border"
+                          style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
+                          Specification
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-bold mb-2 leading-snug" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                        {feat.title}
+                      </h3>
+                      <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                        {feat.desc}
+                      </p>
+                    </div>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Development & Rollout Roadmap */}
+            {service.roadmap?.length > 0 && (
+              <div>
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,209,0,0.3), transparent)' }} />
+                  <p className="eyebrow" style={{ color: 'var(--brand-yellow)' }}>✦ Rollout Roadmap &amp; Stages</p>
+                  <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
                 </div>
-              ))}
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+                  {service.roadmap.map((stage, sIdx) => {
+                    const isDone = stage.status === 'Completed';
+                    const isInProgress = stage.status === 'In Progress' || stage.status === 'Active';
+                    return (
+                      <div
+                        key={sIdx}
+                        className="p-5 rounded-2xl border flex flex-col justify-between transition-all duration-300"
+                        style={{
+                          borderColor: isInProgress ? 'rgba(255, 209, 0, 0.6)' : isDone ? 'rgba(255, 209, 0, 0.25)' : 'var(--border-color)',
+                          backgroundColor: isInProgress ? 'rgba(255, 209, 0, 0.05)' : 'var(--bg-card)',
+                          boxShadow: isInProgress ? '0 0 24px rgba(255, 209, 0, 0.12)' : undefined,
+                        }}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-[10px] tracking-widest uppercase font-bold text-yellow-400">
+                              {stage.phase}
+                            </span>
+                            <span
+                              className={`text-[9px] tracking-wider uppercase font-bold px-2 py-0.5 rounded-full border ${
+                                isInProgress
+                                  ? 'border-yellow-400 bg-yellow-400 text-black animate-pulse'
+                                  : isDone
+                                  ? 'border-yellow-400/40 text-yellow-400 bg-yellow-400/10'
+                                  : 'border-white/10 text-stone-400 bg-white/5'
+                              }`}
+                            >
+                              {stage.status}
+                            </span>
+                          </div>
+                          <h4 className="text-base font-bold mb-2 leading-snug" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                            {stage.title}
+                          </h4>
+                          <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                            {stage.detail}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* VIP Early Access Guarantee Banner */}
+            <div
+              className="rounded-3xl border p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+              style={{
+                borderColor: 'rgba(255, 209, 0, 0.4)',
+                background: 'linear-gradient(135deg, rgba(255, 209, 0, 0.08) 0%, var(--bg-card) 100%)',
+              }}
+            >
+              <div>
+                <span className="pill-label mb-2 inline-flex">✦ Private Beta Benefits</span>
+                <h3 className="text-xl sm:text-2xl font-bold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                  Lock In Founding Client Pricing &amp; Priority Onboarding.
+                </h3>
+                <p className="text-xs sm:text-sm max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  Early access partners receive bespoke workflow engineering, direct WhatsApp/Slack channel access with our engineering team, and permanent grandfathered retainer rates.
+                </p>
+              </div>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-shimmer px-7 py-3 rounded-full text-xs font-bold shrink-0 text-center uppercase tracking-wider"
+              >
+                Claim Early Access Spot →
+              </a>
             </div>
           </section>
+        ) : (
+          /* ── SHOWCASE: CAPABILITIES SPOTLIGHT (when no media attached yet) ── */
+          (!service.examples?.length && !service.videoShowcase?.length && !service.webPreview?.length) && (
+            <section className="mb-16">
+              <div className="mb-8">
+                <p className="eyebrow mb-2">Capabilities</p>
+                <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                  Engineered for Direct-Response ROI
+                </h2>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6">
+                {(service.features || [
+                  {
+                    title: 'Hyper-Realistic AI Avatars',
+                    desc: 'Photorealistic digital creators with authentic micro-expressions, eye contact, and natural body language tailored to your target demographic.'
+                  },
+                  {
+                    title: 'Hook-First Scripting & Voice',
+                    desc: 'Direct-response scripts with 3-second pattern interrupts, natural voice cloning, and audio mastering optimized for TikTok & Meta algorithms.'
+                  },
+                  {
+                    title: 'Rapid Creative Testing & Scale',
+                    desc: 'Generate 10–20 creative variations in days to rapidly test angles, hooks, and CTAs without high studio and influencer shoot fees.'
+                  }
+                ]).map((item, idx) => (
+                  <div key={idx} className="bento-card p-6 flex flex-col justify-between">
+                    <div>
+                      <span className="text-xs font-bold tracking-widest text-yellow-400 uppercase mb-3 block">
+                        0{idx + 1}
+                      </span>
+                      <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                        {item.title}
+                      </h3>
+                      <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
         )}
 
         {/* ── BOTTOM CALL TO ACTION ── */}
@@ -542,9 +692,11 @@ export function ServicePage({
       {/* ── FOOTER ── */}
       <footer className="border-t py-6 sm:py-8 px-4 sm:px-6" style={{ borderColor: 'var(--border-color)' }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Syntra</span>
-            <span>— Motion-first creative studio</span>
+          <div className="flex items-center gap-2.5">
+            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-5 w-auto object-contain" />
+            <span className="font-extrabold tracking-[0.2em] uppercase text-xs" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>SYNTRA</span>
+            <span className="text-[10px] tracking-wider uppercase font-bold text-yellow-400 border border-yellow-400/40 px-1.5 py-0.2 rounded-full bg-yellow-400/10 hidden sm:inline-block">STUDIO</span>
+            <span className="text-stone-500 hidden md:inline">— Motion-first creative studio</span>
           </div>
           <div className="flex items-center gap-6">
             <button onClick={onBack} className="hover:text-yellow-400 transition-colors">

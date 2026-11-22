@@ -53,7 +53,15 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
       >
         {/* Top Bar with Logo & Close */}
         <div className="flex items-center justify-between pb-4 border-b" style={{ borderColor: 'var(--border-color)' }}>
-          <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto" />
+          <div className="flex items-center gap-2.5">
+            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain" />
+            <span className="font-extrabold tracking-[0.22em] text-base uppercase" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+              SYNTRA
+            </span>
+            <span className="text-[9px] tracking-[0.18em] uppercase font-bold text-yellow-400 border border-yellow-400/40 px-1.5 py-0.5 rounded-full bg-yellow-400/10">
+              STUDIO
+            </span>
+          </div>
           <button
             onClick={onClose}
             className="w-10 h-10 rounded-full flex items-center justify-center border transition-colors hover:border-yellow-400"
@@ -98,12 +106,14 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
             </p>
             <div className="grid grid-cols-2 gap-2 px-1">
               {[
+                { id: 'UPCOMING', label: '✦ Upcoming Labs' },
+                { id: 'AUTOMATION', label: '✦ Automation & Bots' },
                 { id: 'AI_UGC', label: '✦ AI UGC Ads' },
                 { id: 'VIDEO', label: 'Video & Reels' },
                 { id: 'THUMBNAILS', label: 'Thumbnails' },
                 { id: 'GRAPHICS', label: 'Brand Identity' },
                 { id: 'CONTENT', label: 'Social & Copy' },
-                { id: 'WEB', label: 'Web Design' },
+                { id: 'WEB', label: 'Web & Growth' },
               ].map((cat) => (
                 <button
                   key={cat.id}

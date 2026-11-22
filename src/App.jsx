@@ -16,16 +16,18 @@ import { slugify, findServiceBySlug } from './utils/slug';
 import SocialCarouselCard from './components/SocialCarouselCard';
 import LightboxModal from './components/LightboxModal';
 
-const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB', 'AI_UGC'];
+const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB', 'AI_UGC', 'AUTOMATION'];
 
 const categoryTabs = [
   { id: 'ALL', label: 'All Services' },
+  { id: 'UPCOMING', label: '✦ Upcoming Labs', isHighlight: true },
+  { id: 'AUTOMATION', label: '✦ Automation & Bots', isHighlight: true },
   { id: 'AI_UGC', label: 'AI UGC Ads', isHighlight: true },
   { id: 'VIDEO', label: 'Video Editing' },
   { id: 'GRAPHICS', label: 'Graphic Design' },
   { id: 'THUMBNAILS', label: 'Thumbnails' },
   { id: 'CONTENT', label: 'Content & Copy' },
-  { id: 'WEB', label: 'Web Design' },
+  { id: 'WEB', label: 'Web & Growth' },
 ];
 
 // ── Live Clock ────────────────────────────────────────────────
@@ -324,9 +326,7 @@ function App() {
       Object.keys(staticServices).forEach(title => {
         const s = staticServices[title];
         merged[cat][title] = {
-          title: s.title,
-          desc: s.desc,
-          tag: s.tag,
+          ...s,
           examples: [...(s.examples || [])],
           videoShowcase: [...(s.videoShowcase || [])],
           webPreview: [...(s.webPreview || [])],
@@ -414,12 +414,34 @@ function App() {
       });
       return allServices;
     }
+    if (category === 'UPCOMING') {
+      const upcomingServices = [];
+      categories.forEach((cat) => {
+        const catServices = mergedData[cat] || {};
+        Object.keys(catServices).forEach((title) => {
+          const s = catServices[title];
+          if (s.isUpcoming) {
+            upcomingServices.push({ ...s, category: cat });
+          }
+        });
+      });
+      return upcomingServices;
+    }
     return Object.values(mergedData[category] || {}).map((s) => ({ ...s, category }));
   };
 
   const getCategoryCount = (catId) => {
     if (catId === 'ALL') {
       return categories.reduce((total, cat) => total + Object.keys(mergedData[cat] || {}).length, 0);
+    }
+    if (catId === 'UPCOMING') {
+      let count = 0;
+      categories.forEach((cat) => {
+        Object.values(mergedData[cat] || {}).forEach((s) => {
+          if (s.isUpcoming) count++;
+        });
+      });
+      return count;
     }
     return Object.keys(mergedData[catId] || {}).length;
   };
@@ -548,7 +570,7 @@ function App() {
 
   const handleServiceClick = (serviceTitle, serviceCategory) => {
     let cat = serviceCategory || activeCategory;
-    if (cat === 'ALL') {
+    if (cat === 'ALL' || cat === 'UPCOMING') {
       for (const c of categories) {
         if (mergedData[c]?.[serviceTitle]) {
           cat = c;
@@ -632,9 +654,18 @@ function App() {
           Skip to main content
         </a>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/assets/syntra-logo.png" alt="Syntra — Creative Studio" className="h-7 sm:h-8 w-auto" />
-          </div>
+          <a href="#" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-lg p-0.5">
+            <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 sm:h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+            <div className="flex items-center gap-2">
+              <span className="font-extrabold tracking-[0.22em] text-base sm:text-lg uppercase transition-colors duration-300 group-hover:text-yellow-400"
+                style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                SYNTRA
+              </span>
+              <span className="text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/40 px-1.5 py-0.5 rounded-full hidden sm:inline-block bg-yellow-400/10">
+                STUDIO
+              </span>
+            </div>
+          </a>
           <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.18em] uppercase font-medium"
             style={{ fontFamily: 'var(--font-body)', color: 'var(--text-tertiary)' }} aria-label="Main navigation">
             {['about', 'services', 'clients', 'process', 'contact'].map((link) => (
@@ -644,7 +675,7 @@ function App() {
                 <span>{link.charAt(0).toUpperCase() + link.slice(1)}</span>
                 {link === 'services' && (
                   <span className="text-[9px] px-1.5 py-0.2 rounded-full font-bold bg-yellow-400 text-black shadow-xs">
-                    6
+                    {categoryTabs.length - 1}
                   </span>
                 )}
               </a>
@@ -741,10 +772,12 @@ function App() {
                 </span>
                 {[
                   { label: '✦ AI UGC Ads', cat: 'AI_UGC' },
+                  { label: '✦ Automation & Bots', cat: 'AUTOMATION' },
+                  { label: '✦ Upcoming Labs', cat: 'UPCOMING' },
                   { label: 'Video & Reels', cat: 'VIDEO' },
                   { label: 'Thumbnails', cat: 'THUMBNAILS' },
                   { label: 'Brand Identity', cat: 'GRAPHICS' },
-                  { label: 'Websites', cat: 'WEB' },
+                  { label: 'Websites & SEO', cat: 'WEB' },
                 ].map((pill) => (
                   <button
                     key={pill.cat}
@@ -799,7 +832,7 @@ function App() {
           <div className="marquee-track">
             {[1, 2].map((rep) => (
               <div key={rep} className="flex items-center gap-10 pr-10">
-                {['Video Editing', '✦ AI UGC Ads', 'Static Ad Creatives', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'AI Avatars', 'Content Strategy', 'Logo Design', 'Reels & Shorts', '✦ AI Video Ads'].map((item) => (
+                {['Video Editing', '✦ AI UGC Ads', '✦ WhatsApp Bots', '✦ Instagram DM Funnels', '✦ Technical SEO', '✦ CRO Audits', 'Static Ad Creatives', 'Motion Graphics', 'Brand Identity', 'Thumbnail Design', 'Web Design', 'AI Avatars', 'Content Strategy', 'Logo Design', 'Reels & Shorts'].map((item) => (
                   <span key={item} className="flex items-center gap-4 whitespace-nowrap">
                     <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-yellow-400" />
                     <span className={`text-[11px] tracking-[0.3em] uppercase font-semibold ${item.startsWith('✦') ? 'text-yellow-400' : ''}`}
@@ -1043,6 +1076,58 @@ function App() {
                     </div>
                   </div>
                 </div>
+              ) : activeCategory === 'UPCOMING' ? (
+                /* ── UPCOMING Labs Showcase Banner ── */
+                <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative overflow-hidden"
+                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+                  <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" aria-hidden="true"
+                    style={{ background: 'radial-gradient(circle, rgba(255,209,0,0.14) 0%, transparent 70%)', filter: 'blur(45px)', transform: 'translate(20%, -20%)' }} />
+                  <div className="relative">
+                    <div className="pill-label mb-3 inline-flex">
+                      ✦ Syntra Innovation Labs · Early Access
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Next-Gen Automation, Meta Bots &amp; Growth Disciplines.
+                    </h3>
+                    <p className="text-sm max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      Expanding the studio stack beyond content into 24/7 WhatsApp Cloud bots, Instagram DM lead funnels, technical SEO engines, and comprehensive UX conversion teardowns.
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {['WhatsApp Cloud API', 'Instagram DM Automation', 'Technical SEO', 'CRO Website Audits', 'Private Beta Open'].map(tag => (
+                        <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 rounded-full border"
+                          style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="relative flex flex-col gap-2 shrink-0 md:text-right">
+                    <span className="text-[10px] tracking-widest uppercase font-bold text-yellow-400">Status: Private Beta</span>
+                    <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                      Launch Target: Q1 2027<br />Pre-Book via WhatsApp
+                    </p>
+                  </div>
+                </div>
+              ) : activeCategory === 'AUTOMATION' ? (
+                /* ── AUTOMATION Category Banner ── */
+                <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative overflow-hidden"
+                  style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
+                  <div className="relative">
+                    <div className="pill-label mb-3 inline-flex">
+                      ✦ Official Meta Graph &amp; Cloud API
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Conversational Automation &amp; Direct-Response Chatbots.
+                    </h3>
+                    <p className="text-sm max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      Turn comments, story mentions, and inbound traffic into qualified appointments and sales around the clock with zero manual chat drag.
+                    </p>
+                  </div>
+                  <div className="text-xs shrink-0 md:text-right" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="tracking-widest uppercase mb-1 font-bold text-yellow-400">Meta Compliant</p>
+                    <p className="leading-relaxed">WhatsApp Cloud API · Instagram DM Graph API · Webhook Sync</p>
+                  </div>
+                </div>
               ) : activeCategory === 'ALL' ? (
                 /* ── ALL Services Banner ── */
                 <div className="mb-8 rounded-3xl border p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
@@ -1050,15 +1135,15 @@ function App() {
                   <div>
                     <p className="eyebrow mb-2">Comprehensive Production Matrix</p>
                     <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                      All {totalServicesCount} Creative Offerings Across 6 Disciplines.
+                      All {totalServicesCount} Creative Offerings Across 8 Disciplines &amp; Labs.
                     </h3>
                     <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                      Click any service card to view complete video reels, portfolio galleries, and deliverables.
+                      Click any service card to view complete video reels, portfolio galleries, code demos, and early-access roadmaps.
                     </p>
                   </div>
                   <div className="text-xs shrink-0" style={{ color: 'var(--text-tertiary)' }}>
                     <p className="tracking-widest uppercase mb-1">Syntra Multi-Format Delivery</p>
-                    <p className="leading-relaxed">YouTube · Meta · TikTok · Web · Identity · Copy</p>
+                    <p className="leading-relaxed">YouTube · Meta · TikTok · Web · Bots · Identity</p>
                   </div>
                 </div>
               ) : (
@@ -1071,14 +1156,14 @@ function App() {
                       {activeCategory === 'GRAPHICS' && 'Graphic Design & Branding'}
                       {activeCategory === 'THUMBNAILS' && 'Thumbnail Design Suite'}
                       {activeCategory === 'CONTENT' && 'Social Content & Copywriting'}
-                      {activeCategory === 'WEB' && 'Web Design & Digital Presence'}
+                      {activeCategory === 'WEB' && 'Web Design, Technical SEO & Audits'}
                     </p>
                     <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       {activeCategory === 'VIDEO' && 'High-impact visual storytelling in every format.'}
                       {activeCategory === 'GRAPHICS' && 'Visual systems that make your brand unforgettable.'}
                       {activeCategory === 'THUMBNAILS' && 'Thumbnails engineered for clicks — not guesswork.'}
                       {activeCategory === 'CONTENT' && 'Words and visuals working together for attention.'}
-                      {activeCategory === 'WEB' && 'Web experiences tuned for speed, clarity and conversion.'}
+                      {activeCategory === 'WEB' && 'Fast modern websites, search visibility & conversion audits.'}
                     </h3>
                     <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                       Click any service card to explore galleries, videos, and client examples.
@@ -1091,7 +1176,7 @@ function App() {
                       {activeCategory === 'GRAPHICS' && 'Logos · Banners · Merch · Menus'}
                       {activeCategory === 'THUMBNAILS' && 'Elite · Standard tiers · A/B testing'}
                       {activeCategory === 'CONTENT' && 'Instagram · Scripts · Social flows'}
-                      {activeCategory === 'WEB' && 'Responsive · Conversion-focused · SEO-ready'}
+                      {activeCategory === 'WEB' && 'Responsive · SEO Optimization · CRO Audits'}
                     </p>
                   </div>
                 </div>
@@ -1515,26 +1600,35 @@ function App() {
                         <div className="flex items-center justify-between gap-2 mb-4">
                           <span className="pill-label text-[9px] tracking-[0.2em]">{s.tag || categoryName}</span>
 
-                          {/* Dynamic Proof Metric Badges */}
-                          {videosCount > 0 && (
-                            <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
-                              {videosCount} {videosCount === 1 ? 'Video' : 'Videos'}
+                          {/* Upcoming Badge */}
+                          {s.isUpcoming ? (
+                            <span className="text-[10px] tracking-wider uppercase font-bold px-2.5 py-0.5 rounded-full border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_12px_rgba(255,209,0,0.15)] flex items-center gap-1">
+                              <span>✦</span> {s.upcomingBadge || 'Upcoming'}
                             </span>
-                          )}
-                          {examplesCount > 0 && videosCount === 0 && (
-                            <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
-                              {examplesCount}+ Designs
-                            </span>
-                          )}
-                          {clientCount > 0 && (
-                            <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
-                              {clientCount} Client Cases
-                            </span>
-                          )}
-                          {webCount > 0 && (
-                            <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
-                              Live Demos
-                            </span>
+                          ) : (
+                            <>
+                              {/* Dynamic Proof Metric Badges */}
+                              {videosCount > 0 && (
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                  {videosCount} {videosCount === 1 ? 'Video' : 'Videos'}
+                                </span>
+                              )}
+                              {examplesCount > 0 && videosCount === 0 && (
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                  {examplesCount}+ Designs
+                                </span>
+                              )}
+                              {clientCount > 0 && (
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                  {clientCount} Client Cases
+                                </span>
+                              )}
+                              {webCount > 0 && (
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                  Live Demos
+                                </span>
+                              )}
+                            </>
                           )}
                         </div>
 
@@ -1548,6 +1642,23 @@ function App() {
                         <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
                           {s.desc}
                         </p>
+
+                        {/* Feature bullets for upcoming labs */}
+                        {s.isUpcoming && s.features?.length > 0 && (
+                          <div className="flex flex-col gap-1.5 mb-4 p-3 rounded-xl border"
+                            style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+                            <div className="text-[9px] uppercase tracking-widest font-bold text-yellow-400 mb-1 flex items-center justify-between">
+                              <span>Capabilities Preview</span>
+                              <span className="text-[8px] font-normal opacity-70">{s.targetRelease || 'Early Access'}</span>
+                            </div>
+                            {s.features.slice(0, 2).map((feat, fi) => (
+                              <div key={fi} className="flex items-start gap-1.5 text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                                <span className="text-yellow-400 font-bold shrink-0 mt-0.5">✦</span>
+                                <span className="truncate">{feat.title}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
 
                         {/* Sample preview thumbnails if available */}
                         {sampleImages.length > 0 && (
@@ -1587,7 +1698,7 @@ function App() {
                       <div className="relative pt-4 border-t flex items-center justify-between mt-4 transition-all duration-300"
                         style={{ borderColor: 'var(--border-color)' }}>
                         <span className="text-[11px] tracking-[0.2em] uppercase font-bold text-yellow-400 flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                          <span>View Portfolio &amp; Details</span>
+                          <span>{s.isUpcoming ? 'Explore Roadmap & Pre-Book' : 'View Portfolio & Details'}</span>
                         </span>
                         <div className="w-8 h-8 rounded-full bg-yellow-400 text-black flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 group-hover:bg-yellow-300 transition-all">
                           →
@@ -1958,7 +2069,16 @@ function App() {
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               {/* Brand */}
               <div>
-                <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto mb-3 opacity-80" />
+                <div className="flex items-center gap-2.5 mb-3">
+                  <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain" />
+                  <span className="font-extrabold tracking-[0.22em] text-base uppercase"
+                    style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    SYNTRA
+                  </span>
+                  <span className="text-[9px] tracking-[0.18em] uppercase font-bold text-yellow-400 border border-yellow-400/40 px-1.5 py-0.5 rounded-full bg-yellow-400/10">
+                    STUDIO
+                  </span>
+                </div>
                 <p className="text-xs leading-relaxed max-w-xs" style={{ color: 'var(--text-tertiary)' }}>
                   A motion-first creative studio crafting stories that convert — based in India, working worldwide.
                 </p>

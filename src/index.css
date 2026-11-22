@@ -120,7 +120,7 @@
 
   /* Logo */
   .syntra-logo {
-    background-image: url("https://cubeupload.com/im/chut/SyntraLogo1.png");
+    background-image: url("/assets/syntra-logo.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
