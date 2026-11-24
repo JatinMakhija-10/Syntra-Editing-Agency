@@ -281,6 +281,78 @@ const aiUgcPosters = [
     src: '/assets/shilpa-pilates/botox-free-neck-exercises.webp',
     badge: 'Anti-Aging Fix',
   },
+  {
+    id: 'poster-shilpa-mens-day-reformer',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: "International Men's Day — Men Do Pilates Too!",
+    subtitle: 'Reformer Core, Power & Functional Mobility Campaign',
+    src: '/assets/shilpa-pilates/shilpa-mens-day-pilates-reformer.webp',
+    badge: "Men's Fitness",
+  },
+  {
+    id: 'poster-shilpa-release-open-anatomy',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Release & Open — Upper Back, Shoulders, Chest & Neck',
+    subtitle: 'Foam Roller Myofascial Decompression & Posture Correction',
+    src: '/assets/shilpa-pilates/shilpa-release-open-foam-roller-anatomy.webp',
+    badge: 'Mobility & Posture',
+  },
+  {
+    id: 'poster-shilpa-upper-back-release-arc',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Upper Back Release — Mobilise, Release & Open',
+    subtitle: 'Step-by-Step Movement Arc & Shoulder Biomechanics Study',
+    src: '/assets/shilpa-pilates/shilpa-upper-back-release-foam-roller-arc.webp',
+    badge: 'Rehab & Recovery',
+  },
+  {
+    id: 'poster-shilpa-tai-chi-anti-aging',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Tai Chi Anti-Aging Exercises — Mindful Balance & Qi Flow',
+    subtitle: 'Holistic Longevity, Joint Mobility & Inner Vitality Series',
+    src: '/assets/shilpa-pilates/shilpa-tai-chi-anti-aging-exercises.webp',
+    badge: 'Mindful Movement',
+  },
+  {
+    id: 'poster-shilpa-aerial-yoga-grounded',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Aerial Silk Flow — Anti-Gravity Decompression & Grounding',
+    subtitle: 'Suspension Silk Therapy & Mindful Mat Integration',
+    src: '/assets/shilpa-pilates/shilpa-aerial-yoga-grounded-silk-flow.webp',
+    badge: 'Aerial Yoga',
+  },
+  {
+    id: 'poster-shilpa-mens-pilates-trio',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: "Men's Reformer Masterclass — Core Conditioning Trio",
+    subtitle: 'Athletic Resistance, Pull-Ups & Dynamic Reformer Rows',
+    src: '/assets/shilpa-pilates/shilpa-mens-pilates-trio-reformer-session.webp',
+    badge: 'Studio Masterclass',
+  },
+  {
+    id: 'poster-shilpa-aerial-sound-bath',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Aerial Silks & Tibetan Sound Bath Healing',
+    subtitle: 'Vibrational Sound Therapy & Restorative Aerial Hammock',
+    src: '/assets/shilpa-pilates/shilpa-aerial-sound-bath-silk-healing.webp',
+    badge: 'Sound & Silk',
+  },
+  {
+    id: 'poster-shilpa-mens-day-mat-poster',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: "International Men's Day on the Pilates Mat (Campaign Creative)",
+    subtitle: 'Breaking Stereotypes — Elite Functional Strength for Men',
+    src: '/assets/shilpa-pilates/shilpa-mens-day-pilates-mat-poster.webp',
+    badge: 'Campaign Creative',
+  },
 ];
 
 function App() {
@@ -1395,13 +1467,13 @@ function App() {
                       Boutique Fitness · Core Conditioning, Luxury Aqua Events &amp; Face Yoga
                     </p>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      15 high-converting ad creatives covering Radisson Blu luxury poolside aqua pilates &amp; sound healing, zero-equipment at-home mat routines, anatomical posture correction series, and non-invasive face yoga workshops.
+                      23 high-converting ad creatives covering International Men's Day reformer campaigns, foam roller myofascial decompression, Tai Chi anti-aging, aerial silk sound baths, Radisson Blu luxury poolside aqua events, and face yoga workshops.
                     </p>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
                     <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      15 Ad Creatives
+                      23 Ad Creatives
                     </span>
                     <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       Luxury &amp; Posture Series
@@ -1431,7 +1503,7 @@ function App() {
                       Featured AI UGC &amp; Performance Creatives
                     </h3>
                     <p className="text-xs md:text-sm mt-1 max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      Explore 32 studio deliverables across Arovia.ai, Anohga Yoga Studio &amp; Shilpa Pilates Studio. Swipe through multi-slide carousels or click any item to view in the fullscreen reader.
+                      Explore 40 studio deliverables across Arovia.ai, Anohga Yoga Studio &amp; Shilpa Pilates Studio. Swipe through multi-slide carousels or click any item to view in the fullscreen reader.
                     </p>
                   </div>
 
@@ -1443,10 +1515,10 @@ function App() {
                       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                     >
                       {[
-                        { id: 'all', label: 'All Clients (32)' },
+                        { id: 'all', label: 'All Clients (40)' },
                         { id: 'arovia', label: 'Arovia.ai (6)' },
                         { id: 'anohga', label: 'Anohga (11)' },
-                        { id: 'shilpa', label: 'Shilpa Pilates (15)' },
+                        { id: 'shilpa', label: 'Shilpa Pilates (23)' },
                       ].map((f) => (
                         <button
                           key={f.id}

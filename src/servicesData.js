@@ -409,6 +409,14 @@ export const servicesData = {
         { title: 'Shilpa Pilates — Studio Dandiya & Garba Workout', image: '/assets/shilpa-pilates/studio-dandiya-garba-session.webp' },
         { title: 'Shilpa Pilates — Festive Dandiya Dance Fitness & Celebration', image: '/assets/shilpa-pilates/festive-dandiya-dance-fitness.webp' },
         { title: 'Shilpa Pilates — Botox-Free Neck Exercises (Anti-Aging)', image: '/assets/shilpa-pilates/botox-free-neck-exercises.webp' },
+        { title: "Shilpa Pilates — International Men's Day (Men Do Pilates Too!)", image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-reformer.webp' },
+        { title: 'Shilpa Pilates — Release & Open (Foam Roller Anatomy)', image: '/assets/shilpa-pilates/shilpa-release-open-foam-roller-anatomy.webp' },
+        { title: 'Shilpa Pilates — Upper Back Release (Step-by-Step Arc)', image: '/assets/shilpa-pilates/shilpa-upper-back-release-foam-roller-arc.webp' },
+        { title: 'Shilpa Pilates — Tai Chi Anti-Aging Exercises', image: '/assets/shilpa-pilates/shilpa-tai-chi-anti-aging-exercises.webp' },
+        { title: 'Shilpa Pilates — Aerial Silk Flow (Grounded & Suspension)', image: '/assets/shilpa-pilates/shilpa-aerial-yoga-grounded-silk-flow.webp' },
+        { title: "Shilpa Pilates — Men's Reformer Masterclass Trio", image: '/assets/shilpa-pilates/shilpa-mens-pilates-trio-reformer-session.webp' },
+        { title: 'Shilpa Pilates — Aerial Silks & Sound Bath Healing', image: '/assets/shilpa-pilates/shilpa-aerial-sound-bath-silk-healing.webp' },
+        { title: "Shilpa Pilates — Men's Day on the Pilates Mat Poster", image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-mat-poster.webp' },
       ],
       videoShowcase: [
         { type: 'drive', src: 'https://drive.google.com/file/d/1VRLNnF9FUF6aPSgi4xU_vYyXs5j8R231/preview', title: '', description: '' },
@@ -594,6 +602,38 @@ export const servicesData = {
           title: 'Shilpa Pilates — Botox-Free Neck Exercises (Anti-Aging)',
           image: '/assets/shilpa-pilates/botox-free-neck-exercises.webp',
         },
+        {
+          title: "Shilpa Pilates — International Men's Day (Men Do Pilates Too!)",
+          image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-reformer.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Release & Open (Foam Roller Anatomy)',
+          image: '/assets/shilpa-pilates/shilpa-release-open-foam-roller-anatomy.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Upper Back Release (Step-by-Step Arc)',
+          image: '/assets/shilpa-pilates/shilpa-upper-back-release-foam-roller-arc.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Tai Chi Anti-Aging Exercises',
+          image: '/assets/shilpa-pilates/shilpa-tai-chi-anti-aging-exercises.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Aerial Silk Flow (Grounded & Suspension)',
+          image: '/assets/shilpa-pilates/shilpa-aerial-yoga-grounded-silk-flow.webp',
+        },
+        {
+          title: "Shilpa Pilates — Men's Reformer Masterclass Trio",
+          image: '/assets/shilpa-pilates/shilpa-mens-pilates-trio-reformer-session.webp',
+        },
+        {
+          title: 'Shilpa Pilates — Aerial Silks & Sound Bath Healing',
+          image: '/assets/shilpa-pilates/shilpa-aerial-sound-bath-silk-healing.webp',
+        },
+        {
+          title: "Shilpa Pilates — Men's Day on the Pilates Mat Poster",
+          image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-mat-poster.webp',
+        },
       ],
       videoShowcase: [],
       webPreview: [],
@@ -772,7 +812,7 @@ export const servicesData = {
         },
         {
           client: 'Shilpa Pilates Studio',
-          clientDesc: 'Boutique Fitness & Face Yoga — 15 high-converting ad creatives covering Radisson Blu aqua events, at-home core workouts, posture fixes & face yoga workshops.',
+          clientDesc: 'Boutique Fitness & Face Yoga — 23 high-converting ad creatives covering International Men\'s Day reformer campaigns, foam roller decompression, Tai Chi anti-aging, aerial silk healing, Radisson Blu aqua events & face yoga workshops.',
           examples: [
             {
               title: 'Shilpa Pilates — ABS Workout Core Session',
@@ -833,6 +873,38 @@ export const servicesData = {
             {
               title: 'Shilpa Pilates — Botox-Free Neck Exercises (Anti-Aging)',
               image: '/assets/shilpa-pilates/botox-free-neck-exercises.webp',
+            },
+            {
+              title: "Shilpa Pilates — International Men's Day (Men Do Pilates Too!)",
+              image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-reformer.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Release & Open (Foam Roller Anatomy)',
+              image: '/assets/shilpa-pilates/shilpa-release-open-foam-roller-anatomy.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Upper Back Release (Step-by-Step Arc)',
+              image: '/assets/shilpa-pilates/shilpa-upper-back-release-foam-roller-arc.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Tai Chi Anti-Aging Exercises',
+              image: '/assets/shilpa-pilates/shilpa-tai-chi-anti-aging-exercises.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Aerial Silk Flow (Grounded & Suspension)',
+              image: '/assets/shilpa-pilates/shilpa-aerial-yoga-grounded-silk-flow.webp',
+            },
+            {
+              title: "Shilpa Pilates — Men's Reformer Masterclass Trio",
+              image: '/assets/shilpa-pilates/shilpa-mens-pilates-trio-reformer-session.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Aerial Silks & Sound Bath Healing',
+              image: '/assets/shilpa-pilates/shilpa-aerial-sound-bath-silk-healing.webp',
+            },
+            {
+              title: "Shilpa Pilates — Men's Day on the Pilates Mat Poster",
+              image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-mat-poster.webp',
             },
           ],
         },

@@ -144,9 +144,9 @@ export const clientsData = [
     name: 'Shilpa Kanodia (Shilpa Pilates)',
     avatar: '/assets/clients/img30-d09b2srf.webp',
     category: 'Fitness & Face Yoga',
-    stats: '15 Deliverables',
-    scope: '15 ad creatives: Radisson Blu luxury aqua wellness campaign, at-home mat routines, anatomical posture studies, and face yoga brochures.',
-    tags: ['Fitness UGC', 'AI Ad Creatives', 'Posture Series', 'Aqua Wellness'],
+    stats: '23 Deliverables',
+    scope: '23 ad creatives: Men\'s Day reformer campaign, foam roller decompression, Tai Chi anti-aging, aerial silk sound bath, Radisson Blu aqua wellness, and face yoga series.',
+    tags: ['Fitness UGC', 'AI Ad Creatives', 'Posture Series', 'Reformer Campaign'],
     type: 'brand',
   },
   {
