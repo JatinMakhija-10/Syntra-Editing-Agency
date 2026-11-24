@@ -370,19 +370,8 @@ function App() {
   const [clientFilter, setClientFilter] = useState('all');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [statsTrigger, setStatsTrigger] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const statsRef = useRef(null);
   const { theme, toggleTheme } = useTheme();
-
-  // Scroll listener for dynamic floating header elevation
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Firestore real-time data states
   const [firestoreAdditions, setFirestoreAdditions] = useState({});
@@ -728,128 +717,97 @@ function App() {
 
       {/* ── HEADER ── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 pointer-events-none ${
-          isScrolled ? 'pt-2 sm:pt-3' : 'pt-3 sm:pt-5'
-        }`}
+        className="fixed top-0 left-0 right-0 z-30 border-b backdrop-blur-xl transition-colors duration-200"
+        style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--header-bg)' }}
         role="banner"
       >
         <a href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-yellow-400 focus:text-black focus:rounded focus:outline-none pointer-events-auto">
+          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:px-3 focus:py-1.5 focus:bg-yellow-400 focus:text-black focus:text-xs focus:font-mono focus:rounded-sm focus:outline-none">
           Skip to main content
         </a>
 
-        {/* Floating Glass Island Navbar */}
-        <div className="max-w-7xl mx-auto px-3 sm:px-6">
-          <div
-            className={`pointer-events-auto relative rounded-2xl sm:rounded-full border backdrop-blur-2xl transition-all duration-300 flex items-center justify-between ${
-              isScrolled
-                ? 'py-2 px-3.5 sm:px-5 shadow-[0_12px_40px_rgba(0,0,0,0.55)] border-white/15'
-                : 'py-2.5 sm:py-3 px-4 sm:px-6 shadow-[0_8px_30px_rgba(0,0,0,0.35)] border-white/10'
-            }`}
-            style={{
-              backgroundColor: isScrolled ? 'var(--header-bg)' : 'rgba(var(--bg-primary-rgb, 8, 8, 8), 0.78)',
-              borderColor: 'var(--border-color)',
-            }}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+          {/* Logo mark */}
+          <a
+            href="#"
+            className="flex items-center group focus:outline-none focus:ring-1 focus:ring-yellow-400 rounded-sm p-1"
+            aria-label="Syntra Home"
           >
-            {/* Ambient top rim highlight line */}
-            <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-yellow-400/35 to-transparent pointer-events-none opacity-70" />
+            <img
+              src="/assets/syntra-logo.png"
+              alt="Syntra"
+              className="h-7 sm:h-8 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85"
+            />
+          </a>
 
-            {/* Left: Interactive Logo Badge Tile & Live Studio Availability */}
-            <div className="flex items-center gap-3">
+          {/* Editorial Technical Navigation */}
+          <nav
+            className="hidden md:flex items-center gap-7 lg:gap-9 font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
+            style={{ color: 'var(--text-tertiary)' }}
+            aria-label="Main navigation"
+          >
+            {[
+              { id: 'about', label: 'About' },
+              { id: 'services', label: 'Services', index: '06' },
+              { id: 'clients', label: 'Clients' },
+              { id: 'process', label: 'Process' },
+              { id: 'contact', label: 'Contact' },
+            ].map((link) => (
               <a
-                href="#"
-                className="flex items-center group focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-xl p-0.5"
-                aria-label="Syntra Home"
-              >
-                <div className="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/[0.04] border border-white/10 shadow-[0_0_15px_rgba(250,204,21,0.12)] group-hover:border-yellow-400/50 group-hover:shadow-[0_0_20px_rgba(250,204,21,0.3)] group-hover:scale-105 transition-all duration-300">
-                  <img
-                    src="/assets/syntra-logo.png"
-                    alt="Syntra"
-                    className="h-6 w-auto object-contain transition-transform duration-300 group-hover:rotate-6"
-                  />
-                </div>
-              </a>
-
-              {/* Live Studio Status Badge */}
-              <div className="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-mono tracking-wider text-emerald-400 select-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="font-semibold uppercase tracking-[0.14em]">Studio Open</span>
-              </div>
-            </div>
-
-            {/* Center: Dock Navigation Links */}
-            <nav
-              className="hidden md:flex items-center gap-1 lg:gap-1.5 p-1 rounded-full border text-[11px] tracking-[0.16em] uppercase font-medium backdrop-blur-md"
-              style={{
-                borderColor: 'var(--border-color)',
-                backgroundColor: 'var(--bg-overlay)',
-                fontFamily: 'var(--font-body)',
-              }}
-              aria-label="Main navigation"
-            >
-              {[
-                { id: 'about', label: 'About' },
-                { id: 'services', label: 'Services', count: categoryTabs.length - 1 },
-                { id: 'clients', label: 'Clients' },
-                { id: 'process', label: 'Process' },
-                { id: 'contact', label: 'Contact' },
-              ].map((link) => (
-                <a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  onClick={handleSmoothScroll}
-                  className="px-3 py-1.5 rounded-full transition-all duration-200 inline-flex items-center gap-1.5 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-1 focus:ring-yellow-400"
-                  style={{ color: 'var(--text-tertiary)' }}
-                >
-                  <span>{link.label}</span>
-                  {link.count !== undefined && (
-                    <span className="text-[9px] px-1.5 py-0.2 rounded-full font-bold bg-yellow-400 text-black shadow-xs">
-                      {link.count}
-                    </span>
-                  )}
-                </a>
-              ))}
-            </nav>
-
-            {/* Right: Theme Switch, Mobile Button, Standout Gradient CTA */}
-            <div className="flex items-center gap-2 sm:gap-3">
-              <ThemeSwitch theme={theme} onToggle={toggleTheme} />
-
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border transition-all duration-300 hover:border-yellow-400 hover:shadow-[0_0_12px_rgba(250,204,21,0.25)] focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
-                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-                aria-expanded={mobileMenuOpen}
-                aria-controls="mobile-menu"
-              >
-                <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  {mobileMenuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
-                </svg>
-              </button>
-
-              <a
-                href="#contact"
+                key={link.id}
+                href={`#${link.id}`}
                 onClick={handleSmoothScroll}
-                className="hidden md:inline-flex items-center gap-1.5 text-[11px] tracking-[0.16em] uppercase font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-400 text-black shadow-[0_0_20px_rgba(250,204,21,0.35)] hover:shadow-[0_0_30px_rgba(250,204,21,0.65)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 group/cta focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                className="hover:text-yellow-400 transition-colors duration-150 inline-flex items-center gap-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                style={{ color: 'var(--text-tertiary)' }}
               >
-                <span>Start a project</span>
-                <span className="transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
+                <span>{link.label}</span>
+                {link.index && (
+                  <span className="text-[9px] font-mono text-stone-500 font-normal">
+                    /{link.index}
+                  </span>
+                )}
               </a>
-            </div>
+            ))}
+          </nav>
+
+          {/* Right Controls: Theme Toggle, Mobile Menu, Clean Studio CTA */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            <ThemeSwitch theme={theme} onToggle={toggleTheme} />
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden w-9 h-9 rounded-md border flex items-center justify-center transition-colors hover:border-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+              style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              <svg
+                className="w-4 h-4 text-yellow-400"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {mobileMenuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+              </svg>
+            </button>
+
+            <a
+              href="#contact"
+              onClick={handleSmoothScroll}
+              className="hidden md:inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider font-semibold px-4 py-2 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
+            >
+              <span>Start a project</span>
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24" id="main-content" role="main">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20" id="main-content" role="main">
 
         {/* ── HERO ── */}
         <section className="relative pt-6 sm:pt-12 md:pt-24 pb-12 sm:pb-16 md:pb-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
