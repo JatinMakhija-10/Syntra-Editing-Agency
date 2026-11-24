@@ -363,9 +363,6 @@ export default function Admin() {
         <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain" />
-            <span className="font-extrabold tracking-[0.2em] text-sm uppercase text-white" style={{ fontFamily: 'var(--font-display)' }}>
-              SYNTRA
-            </span>
             <span className="text-[9px] tracking-[0.2em] uppercase px-2 py-0.5 rounded bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 font-bold">
               Admin v2
             </span>
