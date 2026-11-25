@@ -180,18 +180,75 @@
 
   /* ── Bento card ── */
   .bento-card {
+    position: relative;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 20px;
-    transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s var(--ease-brand), box-shadow 0.35s ease;
+    border-radius: 16px;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s var(--ease-brand), box-shadow 0.25s ease;
     will-change: transform;
     overflow: hidden;
   }
   .bento-card:hover {
-    border-color: rgba(255, 209, 0, 0.4);
+    border-color: rgba(255, 209, 0, 0.45);
     background: var(--bg-card-hover);
     transform: translateY(-3px);
-    box-shadow: 0 20px 50px -15px rgba(255, 209, 0, 0.12);
+    box-shadow: 0 20px 50px -15px rgba(255, 209, 0, 0.14);
+  }
+  .bento-card:active {
+    transform: translateY(-1px) scale(0.995);
+  }
+
+  /* Reactive cursor spotlight overlay inside interactive cards */
+  .spotlight-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 209, 0, 0.085), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Tactile UI transitions */
+  @keyframes panelEnter {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-panel {
+    animation: panelEnter 0.28s var(--ease-brand) both;
+  }
+
+  @keyframes modalPop {
+    from { opacity: 0; transform: scale(0.97) translateY(6px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .animate-modal {
+    animation: modalPop 0.22s var(--ease-brand) both;
+  }
+
+  @keyframes eqBounce {
+    0%, 100% { transform: scaleY(0.35); }
+    50%      { transform: scaleY(1); }
+  }
+  .eq-bar {
+    transform-origin: bottom;
+    animation: eqBounce 0.55s ease-in-out infinite alternate;
+  }
+
+  .kbd-key {
+    padding: 1px 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-overlay);
+    color: var(--text-tertiary);
+    line-height: 1.4;
   }
 
   /* ── Contact card ── */

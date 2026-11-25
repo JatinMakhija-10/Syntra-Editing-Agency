@@ -4,7 +4,7 @@ import { ThemeSwitch } from './ThemeSwitch';
 import { slugify } from '../utils/slug';
 import SocialCarouselCard from './SocialCarouselCard';
 
-function GalleryCard({ item, idx, serviceTitle, onImageClick, isThumbnails }) {
+function GalleryCard({ item, idx, slides, serviceTitle, onImageClick, isThumbnails }) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
@@ -14,7 +14,27 @@ function GalleryCard({ item, idx, serviceTitle, onImageClick, isThumbnails }) {
         isThumbnails ? 'aspect-video' : 'aspect-[4/3]'
       } bg-stone-900/50`}
       style={{ borderColor: 'var(--border-color)' }}
-      onClick={() => onImageClick({ src: item.image, alt: item.title || serviceTitle, title: item.title || serviceTitle })}
+      onClick={() =>
+        onImageClick({
+          src: item.image,
+          alt: item.title || serviceTitle,
+          title: item.title || serviceTitle,
+          slides,
+          initialIndex: idx,
+        })
+      }
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onImageClick({
+            src: item.image,
+            alt: item.title || serviceTitle,
+            title: item.title || serviceTitle,
+            slides,
+            initialIndex: idx,
+          });
+        }
+      }}
       tabIndex={0}
       role="button"
       aria-label={`View ${item.title || serviceTitle} - Image ${idx + 1}`}
@@ -75,16 +95,31 @@ export function ServicePage({
   onToggleTheme,
   onBack,
   onImageClick,
+  allServices = [],
+  onSelectService,
+  onOpenPalette,
+  onSelectCategory,
 }) {
   const [copied, setCopied] = useState(false);
+  const [scrollPct, setScrollPct] = useState(0);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
     document.title = `${service.title} | Syntra Studio`;
     return () => {
       document.title = 'Syntra - Editing Agency | Video, Design & Web Services';
     };
   }, [service.title]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollPct(h > 0 ? Math.min(100, Math.round((window.scrollY / h) * 100)) : 0);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleShare = () => {
     const url = window.location.href;
@@ -105,6 +140,34 @@ export function ServicePage({
 
   const instagramVideos = (service.videoShowcase || []).filter(v => v.type === 'instagram');
   const otherVideos = (service.videoShowcase || []).filter(v => v.type !== 'instagram');
+
+  // Sibling services in same category + global Previous/Next navigation
+  const siblingServices = allServices.filter(s => s.category === category);
+  const currentIndex = allServices.findIndex(s => s.title === service.title && s.category === category);
+  const prevService = allServices.length > 1
+    ? allServices[(currentIndex - 1 + allServices.length) % allServices.length]
+    : null;
+  const nextService = allServices.length > 1
+    ? allServices[(currentIndex + 1) % allServices.length]
+    : null;
+
+  // Build quick media jump links for this page
+  const sectionAnchors = [
+    service.clientShowcases?.length > 0 && { id: 'sp-clients', label: `Client Showcases (${service.clientShowcases.length})` },
+    service.carousels?.length > 0 && { id: 'sp-carousels', label: `Carousels (${service.carousels.length})` },
+    service.webPreview?.length > 0 && { id: 'sp-web', label: `Live Demos (${service.webPreview.length})` },
+    service.examples?.length > 0 && { id: 'sp-gallery', label: `Gallery (${service.examples.length})` },
+    instagramVideos.length > 0 && { id: 'sp-reels', label: `Reels (${instagramVideos.length})` },
+    otherVideos.length > 0 && { id: 'sp-videos', label: `Videos (${otherVideos.length})` },
+  ].filter(Boolean);
+
+  const jumpToAnchor = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.pageYOffset - 88;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+  };
 
   return (
     <div
@@ -129,7 +192,7 @@ export function ServicePage({
         style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--header-bg)' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 sm:gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-4 min-w-0">
             <button
               onClick={onBack}
               className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-bold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-md border shrink-0 cursor-pointer"
@@ -142,28 +205,49 @@ export function ServicePage({
             {/* Syntra Logo */}
             <button
               onClick={onBack}
-              className="flex items-center focus:outline-none group cursor-pointer"
+              className="flex items-center focus:outline-none group cursor-pointer shrink-0"
               title="Return to Syntra Home"
             >
               <img src="/assets/syntra-logo.png" alt="Syntra" className="h-6 sm:h-7 w-auto object-contain transition-transform group-hover:scale-105" />
             </button>
 
-            <div className="hidden md:flex items-center gap-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>
+            <div className="hidden md:flex items-center gap-2 text-xs min-w-0" style={{ color: 'var(--text-tertiary)' }}>
               <span>/</span>
-              <span className="text-[10px] tracking-widest uppercase font-semibold text-yellow-400">
+              <button
+                type="button"
+                onClick={() => (onSelectCategory ? onSelectCategory(category) : onBack())}
+                className="text-[11px] tracking-widest uppercase font-bold text-yellow-400 hover:underline cursor-pointer shrink-0"
+                title={`Browse all ${category} services`}
+              >
                 {category === 'AI_UGC' ? '✦ AI UGC' : category === 'AUTOMATION' ? '✦ AUTOMATION' : category}
-              </span>
+              </button>
               <span>/</span>
-              <span className="truncate max-w-[180px]" style={{ color: 'var(--text-primary)' }}>{service.title}</span>
+              <span className="truncate max-w-[200px] font-bold" style={{ color: 'var(--text-primary)' }}>{service.title}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {onOpenPalette && (
+              <button
+                type="button"
+                onClick={onOpenPalette}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold border transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
+                style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
+                title="Quick Switch Services (Ctrl+K)"
+              >
+                <svg className="w-3.5 h-3.5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.3">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span>Jump</span>
+                <span className="kbd-key">⌘K</span>
+              </button>
+            )}
+
             {/* Share button */}
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs font-semibold border transition-all duration-300 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}
+              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs font-bold border transition-all duration-300 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer"
+              style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
               title="Copy shareable link"
             >
               {copied ? (
@@ -187,13 +271,57 @@ export function ServicePage({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shimmer hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-md text-[11px] tracking-[0.18em] uppercase font-bold shadow-md hover:scale-105 transition-all duration-300"
+              className="btn-shimmer hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-md text-xs tracking-[0.14em] uppercase font-bold shadow-md hover:scale-105 transition-all duration-300"
             >
               Inquire Now →
             </a>
           </div>
         </div>
+
+        {/* Scroll Progress Rail */}
+        <div className="h-[2px] w-full bg-transparent overflow-hidden">
+          <div
+            className="h-full bg-yellow-400 transition-[width] duration-75"
+            style={{ width: `${scrollPct}%` }}
+          />
+        </div>
       </header>
+
+      {/* ── SIBLING SERVICE QUICK SWITCHER BAR ── */}
+      {siblingServices.length > 1 && onSelectService && (
+        <div
+          className="border-b"
+          style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center gap-2 overflow-x-auto scrollbar-none">
+            <span className="text-[10px] font-mono uppercase tracking-widest font-bold shrink-0 mr-1" style={{ color: 'var(--text-tertiary)' }}>
+              In {category === 'AI_UGC' ? 'AI UGC' : category}:
+            </span>
+            {siblingServices.map((sib) => {
+              const isActive = sib.title === service.title;
+              return (
+                <button
+                  key={sib.title}
+                  type="button"
+                  onClick={() => !isActive && onSelectService(sib.title, sib.category)}
+                  className={`shrink-0 px-3 py-1 rounded-md text-xs font-bold border transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-yellow-400 text-black border-yellow-400 shadow-sm'
+                      : 'hover:border-yellow-400 hover:text-yellow-400'
+                  }`}
+                  style={
+                    isActive
+                      ? {}
+                      : { borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-secondary)' }
+                  }
+                >
+                  {sib.title}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* ── HERO BANNER ── */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-16 w-full flex-1">
@@ -238,18 +366,38 @@ export function ServicePage({
               </a>
               <button
                 onClick={handleShare}
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-md text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-md text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 {copied ? '✓ Copied' : 'Share Link'}
               </button>
             </div>
           </div>
+
+          {/* Quick Jump Anchors inside this service page */}
+          {sectionAnchors.length > 1 && (
+            <div className="mt-6 pt-5 border-t flex flex-wrap items-center gap-2" style={{ borderColor: 'var(--border-color)' }}>
+              <span className="text-[10px] font-mono uppercase tracking-widest font-bold mr-1" style={{ color: 'var(--text-muted)' }}>
+                On this page:
+              </span>
+              {sectionAnchors.map((anc) => (
+                <button
+                  key={anc.id}
+                  type="button"
+                  onClick={() => jumpToAnchor(anc.id)}
+                  className="px-3 py-1 rounded-md text-[11px] font-bold border transition-all hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
+                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-primary)' }}
+                >
+                  {anc.label} ↓
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ── AI UGC CLIENT SHOWCASES ── */}
         {service.clientShowcases?.length > 0 && (
-          <section className="mb-16">
+          <section id="sp-clients" className="mb-16">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,209,0,0.3), transparent)' }} />
               <p className="eyebrow" style={{ color: 'var(--brand-yellow)' }}>Client Showcases</p>
@@ -280,7 +428,16 @@ export function ServicePage({
                       {showcase.examples.map((ex, exIdx) => (
                         <div key={exIdx} className="group/item relative rounded-xl overflow-hidden aspect-[3/4] cursor-pointer border transition-all duration-300 hover:border-yellow-400/60 hover:scale-[1.03]"
                           style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
-                          onClick={() => onImageClick && onImageClick({ src: ex.image, alt: ex.title || showcase.client })}
+                          onClick={() =>
+                            onImageClick &&
+                            onImageClick({
+                              src: ex.image,
+                              alt: ex.title || showcase.client,
+                              title: `${showcase.client} Deliverables`,
+                              slides: showcase.examples,
+                              initialIndex: exIdx,
+                            })
+                          }
                           title={`Click to view: ${ex.title || showcase.client}`}>
                           <img src={ex.image} alt={ex.title || showcase.client} className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" loading="lazy" />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity flex items-end p-2.5">
@@ -308,7 +465,7 @@ export function ServicePage({
 
         {/* ── SHOWCASE: MULTI-SLIDE SOCIAL CAROUSELS ── */}
         {service.carousels?.length > 0 && (
-          <section className="mb-16">
+          <section id="sp-carousels" className="mb-16">
             <div className="mb-8">
               <div className="pill-label mb-2 inline-flex">
                 ✦ Multi-Slide Narrative Creatives
@@ -335,7 +492,7 @@ export function ServicePage({
 
         {/* ── SHOWCASE: WEBSITE PREVIEWS ── */}
         {service.webPreview?.length > 0 && (
-          <section className="mb-16">
+          <section id="sp-web" className="mb-16">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <p className="eyebrow mb-2">Live Websites</p>
@@ -392,14 +549,14 @@ export function ServicePage({
 
         {/* ── SHOWCASE: IMAGE GALLERY ── */}
         {service.examples?.length > 0 && (
-          <section className="mb-16">
+          <section id="sp-gallery" className="mb-16">
             <div className="mb-8">
               <p className="eyebrow mb-2">Portfolio</p>
               <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                 Visual Gallery
               </h2>
               <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
-                Explore {service.examples.length} studio deliverables. Click any item to inspect in high resolution.
+                Explore {service.examples.length} studio deliverables. Click any item to inspect &amp; cycle in high resolution.
               </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
@@ -408,6 +565,7 @@ export function ServicePage({
                   key={idx}
                   item={item}
                   idx={idx}
+                  slides={service.examples}
                   serviceTitle={service.title}
                   onImageClick={onImageClick}
                   isThumbnails={
@@ -423,7 +581,7 @@ export function ServicePage({
 
         {/* ── SHOWCASE: INSTAGRAM REELS ── */}
         {instagramVideos.length > 0 && (
-          <section className="mb-16">
+          <section id="sp-reels" className="mb-16">
             <div className="mb-8">
               <p className="eyebrow mb-2">Short-Form Content</p>
               <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
@@ -442,7 +600,7 @@ export function ServicePage({
 
         {/* ── SHOWCASE: YOUTUBE & OTHER VIDEOS ── */}
         {otherVideos.length > 0 && (
-          <section className="mb-16">
+          <section id="sp-videos" className="mb-16">
             <div className="mb-8">
               <p className="eyebrow mb-2">Video Productions</p>
               <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
@@ -640,6 +798,50 @@ export function ServicePage({
           )
         )}
 
+        {/* ── PREVIOUS / NEXT SERVICE NAVIGATION ── */}
+        {onSelectService && (prevService || nextService) && (
+          <section className="mb-10 grid sm:grid-cols-2 gap-4">
+            {prevService && (
+              <button
+                type="button"
+                onClick={() => onSelectService(prevService.title, prevService.category)}
+                className="bento-card p-5 text-left flex items-center justify-between gap-4 cursor-pointer group"
+              >
+                <div className="min-w-0">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-yellow-400 font-bold block mb-1">
+                    ← Previous Service
+                  </span>
+                  <h4 className="text-base font-bold truncate group-hover:text-yellow-400 transition-colors" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    {prevService.title}
+                  </h4>
+                </div>
+                <span className="text-[10px] font-mono uppercase px-2 py-1 rounded-sm border shrink-0" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)' }}>
+                  {prevService.category === 'AI_UGC' ? 'AI UGC' : prevService.category}
+                </span>
+              </button>
+            )}
+            {nextService && (
+              <button
+                type="button"
+                onClick={() => onSelectService(nextService.title, nextService.category)}
+                className="bento-card p-5 text-right flex items-center justify-between gap-4 cursor-pointer group sm:flex-row-reverse"
+              >
+                <div className="min-w-0">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-yellow-400 font-bold block mb-1">
+                    Next Service →
+                  </span>
+                  <h4 className="text-base font-bold truncate group-hover:text-yellow-400 transition-colors" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    {nextService.title}
+                  </h4>
+                </div>
+                <span className="text-[10px] font-mono uppercase px-2 py-1 rounded-sm border shrink-0" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)' }}>
+                  {nextService.category === 'AI_UGC' ? 'AI UGC' : nextService.category}
+                </span>
+              </button>
+            )}
+          </section>
+        )}
+
         {/* ── BOTTOM CALL TO ACTION ── */}
         <section
           className="rounded-3xl border p-6 sm:p-8 md:p-12 text-center relative overflow-hidden"
@@ -669,8 +871,8 @@ export function ServicePage({
                 Start on WhatsApp →
               </a>
               <button
-                onClick={onBack}
-                className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-xs tracking-widest uppercase font-semibold border transition-all duration-300 hover:border-yellow-400"
+                onClick={() => (onSelectCategory ? onSelectCategory(category) : onBack())}
+                className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-xs tracking-widest uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 cursor-pointer"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 ← Explore Other Services
@@ -679,6 +881,33 @@ export function ServicePage({
           </div>
         </section>
       </main>
+
+      {/* Floating Scroll-to-Top / Quick Jump Dock on ServicePage */}
+      {scrollPct > 12 && (
+        <div
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-30 flex items-center gap-1.5 p-1.5 rounded-lg border shadow-2xl backdrop-blur-xl animate-panel"
+          style={{ backgroundColor: 'var(--header-bg)', borderColor: 'var(--border-color)' }}
+        >
+          {onOpenPalette && (
+            <button
+              type="button"
+              onClick={onOpenPalette}
+              className="px-2.5 py-1.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider border hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
+              style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-overlay)' }}
+            >
+              Jump ⌘K
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="w-8 h-8 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black font-bold flex items-center justify-center transition-transform hover:-translate-y-0.5 cursor-pointer"
+            aria-label="Scroll back to top"
+          >
+            ↑
+          </button>
+        </div>
+      )}
 
       {/* ── FOOTER ── */}
       <footer className="border-t py-6 sm:py-8 px-4 sm:px-6" style={{ borderColor: 'var(--border-color)' }}>

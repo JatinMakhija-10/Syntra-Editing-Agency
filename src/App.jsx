@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { servicesData } from './servicesData';
 import { clientsData } from './clientsData';
 import { useTheme } from './hooks/useTheme';
-import { handleSmoothScroll, smoothScrollTo } from './utils/smoothScroll';
+import { handleSmoothScroll, smoothScrollTo, scrollToTop } from './utils/smoothScroll';
 import { TeamCard } from './components/TeamCard';
 import { ClientCard } from './components/ClientCard';
 import { SectionWrapper } from './components/SectionWrapper';
@@ -15,6 +15,10 @@ import { ServicePage } from './components/ServicePage';
 import { slugify, findServiceBySlug } from './utils/slug';
 import SocialCarouselCard from './components/SocialCarouselCard';
 import LightboxModal from './components/LightboxModal';
+import HeroCuttingBay from './components/HeroCuttingBay';
+import CommandPalette from './components/CommandPalette';
+import FloatingNav from './components/FloatingNav';
+import ProcessExplorer from './components/ProcessExplorer';
 
 const categories = ['VIDEO', 'GRAPHICS', 'THUMBNAILS', 'CONTENT', 'WEB', 'AI_UGC', 'AUTOMATION'];
 
@@ -369,9 +373,63 @@ function App() {
   const [aiUgcFormatFilter, setAiUgcFormatFilter] = useState('all');
   const [clientFilter, setClientFilter] = useState('all');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [scrollPct, setScrollPct] = useState(0);
   const [statsTrigger, setStatsTrigger] = useState(false);
   const statsRef = useRef(null);
   const { theme, toggleTheme } = useTheme();
+
+  // Global Cmd+K / Ctrl+K shortcut for Quick Studio Finder
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setPaletteOpen((open) => !open);
+      } else if (
+        e.key === '/' &&
+        !paletteOpen &&
+        !selectedImage &&
+        !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)
+      ) {
+        e.preventDefault();
+        setPaletteOpen(true);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [paletteOpen, selectedImage]);
+
+  // Active section spy & top scroll progress indicator
+  useEffect(() => {
+    if (selectedService) return;
+    const sectionIds = ['about', 'services', 'process', 'clients', 'contact'];
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollPct(h > 0 ? Math.min(100, Math.round((window.scrollY / h) * 100)) : 0);
+
+      let current = '';
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 180) {
+            current = id;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [selectedService]);
+
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  };
 
   // Firestore real-time data states
   const [firestoreAdditions, setFirestoreAdditions] = useState({});
@@ -523,10 +581,20 @@ function App() {
     0
   );
 
-  // Contact form state
+  const allFlatServices = getServicesForCategory('ALL');
+
+  // Contact form & scope builder state
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [selectedScopes, setSelectedScopes] = useState([]);
+  const [selectedTimeline, setSelectedTimeline] = useState('This Week');
   const [formStatus, setFormStatus] = useState('idle');
   const [formErrors, setFormErrors] = useState({});
+
+  const toggleScope = (scope) => {
+    setSelectedScopes((prev) =>
+      prev.includes(scope) ? prev.filter((item) => item !== scope) : [...prev, scope]
+    );
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -536,16 +604,28 @@ function App() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) errors.email = 'Email is required';
     else if (!emailRegex.test(formData.email)) errors.email = 'Please enter a valid email';
-    if (!formData.message.trim()) errors.message = 'Please tell us about your project';
+    if (!formData.message.trim() && selectedScopes.length === 0) {
+      errors.message = 'Select a scope tag or tell us about your project';
+    }
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setFormStatus('submitting');
-    setTimeout(() => setFormStatus('success'), 1500);
+    setTimeout(() => setFormStatus('success'), 1100);
   };
 
   const resetForm = () => {
     setFormData({ name: '', email: '', message: '' });
+    setSelectedScopes([]);
+    setSelectedTimeline('This Week');
     setFormStatus('idle');
     setFormErrors({});
+  };
+
+  const getWhatsAppBriefUrl = () => {
+    const scopeStr = selectedScopes.length > 0 ? selectedScopes.join(', ') : 'General Creative Project';
+    const namePart = formData.name.trim() ? `My name is ${formData.name.trim()}. ` : '';
+    const msgPart = formData.message.trim() ? `\nBrief: ${formData.message.trim()}` : '';
+    const text = `Hi Syntra! ${namePart}I'm interested in: ${scopeStr} (Timeline: ${selectedTimeline}).${msgPart}`;
+    return `https://wa.me/+918448865446?text=${encodeURIComponent(text)}`;
   };
 
   // Handle direct URLs (deep linking) and browser Back/Forward navigation
@@ -661,12 +741,48 @@ function App() {
   const handleBackToHome = () => {
     window.history.pushState({}, '', '/');
     setSelectedService(null);
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
   };
+
+  const navigateToSection = (sectionId) => {
+    setSelectedService(null);
+    window.history.pushState({}, '', `/${sectionId}`);
+    setTimeout(() => {
+      const target = document.getElementById(sectionId);
+      if (target) smoothScrollTo(target, 450);
+    }, 60);
+  };
+
+  const navigateToCategory = (catId) => {
+    setSelectedService(null);
+    setActiveCategory(catId);
+    setServiceSearch('');
+    window.history.pushState({}, '', catId === 'AI_UGC' ? '#ai-ugc' : '/services');
+    setTimeout(() => {
+      const target = document.getElementById('services');
+      if (target) smoothScrollTo(target, 450);
+    }, 60);
+  };
+
+  const commandPaletteNode = (
+    <CommandPalette
+      isOpen={paletteOpen}
+      onClose={() => setPaletteOpen(false)}
+      servicesByCategory={mergedData}
+      categoryTabs={categoryTabs}
+      onSelectService={handleServiceClick}
+      onSelectCategory={navigateToCategory}
+      onNavigateSection={navigateToSection}
+      onToggleTheme={toggleTheme}
+      theme={theme}
+    />
+  );
 
   // If a dedicated service page is active, render the ServicePage component!
   if (selectedService) {
     return (
       <>
+        {commandPaletteNode}
         <ServicePage
           service={selectedService}
           category={selectedService.category || activeCategory}
@@ -674,6 +790,10 @@ function App() {
           onToggleTheme={toggleTheme}
           onBack={handleBackToHome}
           onImageClick={(img) => setSelectedImage(img)}
+          allServices={allFlatServices}
+          onSelectService={handleServiceClick}
+          onOpenPalette={() => setPaletteOpen(true)}
+          onSelectCategory={navigateToCategory}
         />
 
         {/* Image Lightbox / Fullscreen Carousel Reader */}
@@ -689,6 +809,13 @@ function App() {
       className="min-h-screen overflow-x-hidden"
       style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
     >
+      {commandPaletteNode}
+      <FloatingNav
+        activeSection={activeSection}
+        onOpenPalette={() => setPaletteOpen(true)}
+        onNavigateSection={navigateToSection}
+      />
+
       {/* Ambient background blobs */}
       <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.035]"
@@ -726,23 +853,27 @@ function App() {
           Skip to main content
         </a>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-3">
           {/* Logo mark */}
           <a
             href="#"
-            className="flex items-center group focus:outline-none focus:ring-1 focus:ring-yellow-400 rounded-sm p-1"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToTop(450);
+            }}
+            className="flex items-center group focus:outline-none focus:ring-1 focus:ring-yellow-400 rounded-sm p-1 shrink-0"
             aria-label="Syntra Home"
           >
             <img
               src="/assets/syntra-logo.png"
               alt="Syntra"
-              className="h-7 sm:h-8 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85"
+              className="h-7 sm:h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-105 group-hover:opacity-90"
             />
           </a>
 
-          {/* Editorial Navigation */}
+          {/* Editorial Navigation with Active Section Spy */}
           <nav
-            className="hidden md:flex items-center gap-7 lg:gap-9 text-xs sm:text-[13px] tracking-[0.16em] uppercase font-bold"
+            className="hidden md:flex items-center gap-6 lg:gap-8 text-xs sm:text-[13px] tracking-[0.16em] uppercase font-bold"
             aria-label="Main navigation"
           >
             {[
@@ -751,26 +882,58 @@ function App() {
               { id: 'clients', label: 'Clients' },
               { id: 'process', label: 'Process' },
               { id: 'contact', label: 'Contact' },
-            ].map((link) => (
-              <a
-                key={link.id}
-                href={`#${link.id}`}
-                onClick={handleSmoothScroll}
-                className="group py-1.5 inline-flex items-center gap-2 transition-colors duration-150 hover:text-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                <span>{link.label}</span>
-                {link.index && (
-                  <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-sm bg-yellow-400/15 text-yellow-400 border border-yellow-400/30 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
-                    /{link.index}
-                  </span>
-                )}
-              </a>
-            ))}
+            ].map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={handleSmoothScroll}
+                  className={`group relative py-1.5 inline-flex items-center gap-2 transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-yellow-400 ${
+                    isActive ? 'text-yellow-400' : 'hover:text-yellow-400'
+                  }`}
+                  style={isActive ? {} : { color: 'var(--text-primary)' }}
+                >
+                  <span>{link.label}</span>
+                  {link.index && (
+                    <span
+                      className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-sm border transition-colors ${
+                        isActive
+                          ? 'bg-yellow-400 text-black border-yellow-400'
+                          : 'bg-yellow-400/15 text-yellow-400 border-yellow-400/30 group-hover:bg-yellow-400 group-hover:text-black'
+                      }`}
+                    >
+                      /{link.index}
+                    </span>
+                  )}
+                  <span
+                    className={`absolute bottom-0 left-0 right-0 h-[2px] bg-yellow-400 transition-transform duration-200 origin-left ${
+                      isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                    }`}
+                    aria-hidden="true"
+                  />
+                </a>
+              );
+            })}
           </nav>
 
-          {/* Right Controls: Theme Toggle, Mobile Menu, Clean Studio CTA */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          {/* Right Controls: Quick Jump, Theme Toggle, Mobile Menu, Clean Studio CTA */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <button
+              type="button"
+              onClick={() => setPaletteOpen(true)}
+              className="inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3 rounded-md border text-xs font-bold transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
+              style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-primary)' }}
+              aria-label="Open Quick Navigation Finder (Ctrl+K)"
+              title="Quick Jump to any Service or Section (Ctrl+K)"
+            >
+              <svg className="w-3.5 h-3.5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <span className="hidden lg:inline text-[11px] uppercase tracking-wider">Jump</span>
+              <span className="hidden sm:inline-flex kbd-key">⌘K</span>
+            </button>
+
             <ThemeSwitch theme={theme} onToggle={toggleTheme} />
 
             <button
@@ -804,6 +967,14 @@ function App() {
             </a>
           </div>
         </div>
+
+        {/* Dynamic Scroll Progress Rail */}
+        <div className="h-[2px] w-full bg-transparent overflow-hidden" aria-hidden="true">
+          <div
+            className="h-full bg-yellow-400 transition-[width] duration-75"
+            style={{ width: `${scrollPct}%` }}
+          />
+        </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20" id="main-content" role="main">
@@ -819,7 +990,7 @@ function App() {
           </div>
 
           <div className="grid md:grid-cols-[1.2fr,1fr] gap-8 md:gap-12 items-center">
-            <div>
+            <div className="min-w-0">
               <div className="pill-label mb-6 sm:mb-8 inline-flex">Editing-first creative studio</div>
 
               <div className="space-y-3 mb-6 sm:mb-8">
@@ -889,7 +1060,7 @@ function App() {
                       const target = document.getElementById('services');
                       if (target) smoothScrollTo(target, 500);
                     }}
-                    className="text-[10px] tracking-wider uppercase font-semibold px-3 py-1.5 rounded-md border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105 cursor-pointer flex items-center gap-1.5"
+                    className="text-[10px] tracking-wider uppercase font-semibold px-3 py-1.5 rounded-md border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
                     style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
                   >
                     {pill.label}
@@ -898,125 +1069,8 @@ function App() {
               </div>
             </div>
 
-            {/* Hero Studio Cutting Bay Preview (Optimized) */}
-            <div className="relative">
-              <div className="rounded-2xl sm:rounded-3xl border overflow-hidden shadow-2xl transition-all duration-300 hover:border-yellow-400/40"
-                style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }}>
-                {/* NLE Window Header */}
-                <div className="px-3.5 sm:px-4 py-2 sm:py-2.5 border-b flex items-center justify-between text-xs"
-                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
-                  <div className="flex items-center gap-2">
-                    <div className="flex gap-1.5" aria-hidden="true">
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
-                    </div>
-                    <span className="font-mono text-[10px] sm:text-[11px] text-stone-400 ml-1.5 truncate">
-                      Syntra_Master_Cut_v3.prproj
-                    </span>
-                  </div>
-                  <span className="font-mono text-[9px] sm:text-[10px] text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded border border-yellow-400/20 font-semibold">
-                    4K DCI · 60fps
-                  </span>
-                </div>
-
-                {/* Program Monitor */}
-                <div className="relative aspect-[16/10] bg-black overflow-hidden group">
-                  <img
-                    src="/assets/hero-cinematic-cut.webp"
-                    alt="Syntra Studio Master Cut Preview"
-                    className="w-full h-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-[1.03]"
-                    loading="eager"
-                    fetchPriority="high"
-                  />
-                  {/* Monitor HUD Overlay */}
-                  <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 flex items-center gap-2 bg-black/70 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-md border border-white/10 font-mono text-[9px] sm:text-[10px] text-white">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                    <span className="font-semibold tracking-wider">REC</span>
-                    <span className="text-yellow-400 font-bold ml-0.5">00:43:18:02</span>
-                  </div>
-                  <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 bg-black/70 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-md border border-white/10 font-mono text-[9px] sm:text-[10px] text-stone-300">
-                    ProRes 422 HQ
-                  </div>
-                  <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 bg-black/70 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-md border border-white/10 font-mono text-[9px] sm:text-[10px] text-stone-300">
-                    Color Grade: Cinematic Teal &amp; Gold LUT
-                  </div>
-                </div>
-
-                {/* Multi-Track Editor Timeline */}
-                <div className="p-3 sm:p-4 border-t space-y-1.5 sm:space-y-2 font-mono text-[9px] sm:text-[10px]"
-                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
-                  {/* Time ruler */}
-                  <div className="flex justify-between text-[8px] sm:text-[9px] text-stone-500 px-1 select-none font-mono">
-                    <span>00:00:00</span>
-                    <span>00:20:00</span>
-                    <span className="text-yellow-400 font-bold">00:43:18</span>
-                    <span>01:00:00</span>
-                    <span className="hidden sm:inline">01:20:00</span>
-                  </div>
-
-                  {/* Track V2 - Titles & Overlays */}
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <span className="w-5 sm:w-6 text-stone-400 text-right select-none font-semibold">V2</span>
-                    <div className="flex-1 h-5 sm:h-6 bg-black/40 rounded border border-white/5 flex gap-1 p-0.5 relative overflow-hidden">
-                      <div className="w-1/4 h-full bg-amber-500/30 border border-amber-500/50 rounded flex items-center px-1.5 sm:px-2 text-[8px] sm:text-[9px] text-amber-200 truncate">
-                        Title_Motion_In
-                      </div>
-                      <div className="w-1/3 h-full bg-amber-500/20 border border-amber-500/40 rounded flex items-center px-1.5 sm:px-2 text-[8px] sm:text-[9px] text-amber-200 truncate">
-                        LUT_FilmGrade_03
-                      </div>
-                      {/* Playhead needle */}
-                      <div className="absolute top-0 bottom-0 left-[48%] w-0.5 bg-yellow-400 z-10 pointer-events-none" />
-                    </div>
-                  </div>
-
-                  {/* Track V1 - Main Video Cuts */}
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <span className="w-5 sm:w-6 text-stone-400 text-right select-none font-semibold">V1</span>
-                    <div className="flex-1 h-5 sm:h-6 bg-black/40 rounded border border-white/5 flex gap-1 p-0.5 relative overflow-hidden">
-                      <div className="w-1/5 h-full bg-blue-500/30 border border-blue-500/50 rounded flex items-center px-1.5 sm:px-2 text-[8px] sm:text-[9px] text-blue-200 truncate">
-                        Scene_01_A-Roll
-                      </div>
-                      <div className="w-1/4 h-full bg-blue-500/40 border border-blue-500/60 rounded flex items-center px-1.5 sm:px-2 text-[8px] sm:text-[9px] text-blue-200 truncate">
-                        Multicam_CamB
-                      </div>
-                      <div className="w-1/3 h-full bg-blue-500/30 border border-blue-500/50 rounded flex items-center px-1.5 sm:px-2 text-[8px] sm:text-[9px] text-blue-200 truncate">
-                        B-Roll_Movement
-                      </div>
-                      {/* Playhead needle */}
-                      <div className="absolute top-0 bottom-0 left-[48%] w-0.5 bg-yellow-400 z-10 pointer-events-none" />
-                    </div>
-                  </div>
-
-                  {/* Track A1 - Dialog & Master Audio */}
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <span className="w-5 sm:w-6 text-stone-400 text-right select-none font-semibold">A1</span>
-                    <div className="flex-1 h-5 sm:h-6 bg-black/40 rounded border border-white/5 flex gap-1 p-0.5 relative overflow-hidden">
-                      <div className="w-3/5 h-full bg-emerald-500/30 border border-emerald-500/50 rounded flex items-center px-1.5 sm:px-2 text-[8px] sm:text-[9px] text-emerald-200 truncate">
-                        Dialog_VO_48kHz_Clean
-                      </div>
-                      <div className="w-1/4 h-full bg-emerald-500/20 border border-emerald-500/40 rounded flex items-center px-1.5 sm:px-2 text-[8px] sm:text-[9px] text-emerald-200 truncate">
-                        Sound_Design_Hit
-                      </div>
-                      {/* Playhead needle */}
-                      <div className="absolute top-0 bottom-0 left-[48%] w-0.5 bg-yellow-400 z-10 pointer-events-none" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Footer Telemetry */}
-                <div className="px-3.5 sm:px-4 py-2 border-t flex items-center justify-between text-[9px] sm:text-[10px] text-stone-400 font-mono"
-                  style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Timeline in sync
-                  </span>
-                  <span className="text-stone-500 truncate ml-2">
-                    RAM preview 100% · 0 dropped frames
-                  </span>
-                </div>
-              </div>
-            </div>
+            {/* Interactive Hero Studio Cutting Bay */}
+            <HeroCuttingBay />
           </div>
         </section>
 
@@ -1620,17 +1674,17 @@ function App() {
                         />
                       ))}
 
-                  {/* Filtered Posters */}
-                  {(aiUgcFormatFilter === 'all' || aiUgcFormatFilter === 'posters') &&
-                    aiUgcPosters
-                      .filter((poster) => {
-                        if (aiUgcClientFilter === 'all') return true;
-                        return poster.client === aiUgcClientFilter;
-                      })
-                      .map((poster) => (
+                  {/* Filtered Posters (Lightbox-cyclable) */}
+                  {(aiUgcFormatFilter === 'all' || aiUgcFormatFilter === 'posters') && (() => {
+                    const filteredPosters = aiUgcPosters.filter((poster) =>
+                      aiUgcClientFilter === 'all' ? true : poster.client === aiUgcClientFilter
+                    );
+                    const posterSlides = filteredPosters.map((p) => ({ image: p.src, title: p.title }));
+
+                    return filteredPosters.map((poster, pIdx) => (
                         <div
                           key={poster.id}
-                          className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/poster"
+                          className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/poster animate-panel"
                           style={{
                             borderColor: 'var(--border-color)',
                             background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
@@ -1664,7 +1718,15 @@ function App() {
                           <div
                             className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border cursor-pointer select-none group/img"
                             style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
-                            onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
+                            onClick={() =>
+                              setSelectedImage({
+                                src: poster.src,
+                                alt: poster.title,
+                                title: `${poster.clientName} Deliverables`,
+                                slides: posterSlides,
+                                initialIndex: pIdx,
+                              })
+                            }
                           >
                             <img
                               src={poster.src}
@@ -1688,15 +1750,24 @@ function App() {
                             <span style={{ color: 'var(--text-tertiary)' }}>{poster.clientName} Key Visual</span>
                             <button
                               type="button"
-                              onClick={() => setSelectedImage({ src: poster.src, alt: poster.title, title: poster.title })}
-                              className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1"
+                              onClick={() =>
+                                setSelectedImage({
+                                  src: poster.src,
+                                  alt: poster.title,
+                                  title: `${poster.clientName} Deliverables`,
+                                  slides: posterSlides,
+                                  initialIndex: pIdx,
+                                })
+                              }
+                              className="font-bold text-yellow-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
                             >
                               <span>View Fullscreen</span>
                               <span>↗</span>
                             </button>
                           </div>
                         </div>
-                      ))}
+                      ));
+                  })()}
                 </div>
               </div>
             </div>
@@ -1760,7 +1831,8 @@ function App() {
 
             return (
               <div
-                className={`grid gap-5 ${gridCols}`}
+                key={`${activeCategory}-${serviceSearch}`}
+                className={`grid gap-5 ${gridCols} animate-panel`}
                 role="tabpanel"
                 id={`${activeCategory}-panel`}
                 aria-labelledby={`${activeCategory}-tab`}
@@ -1777,7 +1849,8 @@ function App() {
                   return (
                     <article
                       key={s.title}
-                      className="bento-card group relative p-5 sm:p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.12)] hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      onMouseMove={handleCardMouseMove}
+                      className="bento-card spotlight-card group relative p-5 sm:p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.12)] hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                       style={{ background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)' }}
                       onClick={() => handleServiceClick(s.title, categoryName)}
                       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleServiceClick(s.title, categoryName); } }}
@@ -1786,7 +1859,7 @@ function App() {
                       aria-label={`View details and portfolio for ${s.title}`}
                     >
                       {/* Hover ambient lighting */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-yellow-400/10 via-transparent to-yellow-500/15 pointer-events-none rounded-[20px]" aria-hidden="true" />
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-yellow-400/10 via-transparent to-yellow-500/15 pointer-events-none rounded-[16px]" aria-hidden="true" />
 
                       <div className="relative">
                         {/* Card Top Pill strip: Category / Tag + Live asset counter */}
@@ -1943,36 +2016,8 @@ function App() {
           </div>
         </section>
 
-        {/* ── PROCESS ── */}
-        <section id="process" className="py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }}>
-          <div className="mb-10 sm:mb-14">
-            <div className="pill-label mb-4 inline-flex">Process</div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-              How we create —<br className="hidden md:block" /> frame by frame.
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 relative">
-            {/* Connecting line */}
-            <div className="hidden md:block absolute left-0 right-0 top-14 h-px bg-gradient-to-r from-transparent via-yellow-400/25 to-transparent" aria-hidden="true" />
-            {[
-              { step: '01', title: 'Discovery', desc: 'Requirements, moodboards, references, and creative constraints.' },
-              { step: '02', title: 'Draft', desc: 'Sketches, storyboards, edit directions and styleframes.' },
-              { step: '03', title: 'Edit', desc: 'Full creative execution across video, design and copy.' },
-              { step: '04', title: 'Deliver', desc: 'On-time delivery plus space for iteration and refinement.' },
-            ].map((s) => (
-              <div
-                key={s.step}
-                className="process-card bento-card relative flex flex-col gap-3 sm:gap-4 p-5 sm:p-6"
-              >
-                <div className="step-num">{s.step}</div>
-                <div>
-                  <h3 className="text-base font-bold mb-1.5 sm:mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{s.title}</h3>
-                  <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{s.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* ── INTERACTIVE PROCESS EXPLORER ── */}
+        <ProcessExplorer />
 
         {/* ── STATS ── */}
         <section className="py-12 sm:py-16 md:py-24 border-b" style={{ borderColor: 'var(--border-color)' }} ref={statsRef}>
@@ -2090,7 +2135,7 @@ function App() {
                 key={f.id}
                 type="button"
                 onClick={() => setClientFilter(f.id)}
-                className={`shrink-0 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all border ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all border cursor-pointer ${
                   clientFilter === f.id
                     ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10 shadow-sm'
                     : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
@@ -2101,11 +2146,11 @@ function App() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+          <div key={clientFilter} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 animate-panel">
             {clientsData
               .filter((c) => clientFilter === 'all' || c.type === clientFilter)
               .map((client, idx) => (
-                <ClientCard key={client.name} client={client} delay={idx * 30} />
+                <ClientCard key={client.name} client={client} delay={idx * 25} />
               ))}
           </div>
         </section>
@@ -2174,33 +2219,113 @@ function App() {
               </div>
             </div>
 
-            {/* Right — form */}
+            {/* Right — Interactive Brief & Contact Form */}
             <div className="contact-card">
               {formStatus === 'success' ? (
-                <div className="text-center py-8 px-4 flex flex-col items-center justify-center">
+                <div className="text-center py-8 px-4 flex flex-col items-center justify-center animate-panel">
                   <div className="w-16 h-16 rounded-md flex items-center justify-center mb-6 shadow-[0_0_24px_rgba(255,209,0,0.2)]"
                     style={{ backgroundColor: 'rgba(255,209,0,0.1)', border: '2px solid rgba(255,209,0,0.5)' }}>
                     <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold mb-3 text-yellow-400" style={{ fontFamily: 'var(--font-display)' }}>Message Sent!</h3>
-                  <p className="text-sm max-w-md mx-auto mb-8 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                    Thank you, <strong className="text-yellow-400">{formData.name}</strong>. Your inquiry has been received. We'll get back to you at <strong style={{ color: 'var(--text-primary)' }}>{formData.email}</strong> in 1–2 business days.
+                  <h3 className="text-2xl font-bold mb-3 text-yellow-400" style={{ fontFamily: 'var(--font-display)' }}>Brief Logged!</h3>
+                  <p className="text-sm max-w-md mx-auto mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    Thank you, <strong className="text-yellow-400">{formData.name}</strong>. Your inquiry has been received. We'll reach out at <strong style={{ color: 'var(--text-primary)' }}>{formData.email}</strong> within 1–2 business days.
                   </p>
-                  <button onClick={resetForm}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md border border-yellow-400 text-yellow-400 text-xs tracking-[0.18em] uppercase font-semibold hover:bg-yellow-400 hover:text-black hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                    Send Another Message
-                  </button>
+                  {selectedScopes.length > 0 && (
+                    <div className="mb-6 px-4 py-2.5 rounded-lg border text-xs font-mono" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-secondary)' }}>
+                      Scope: <strong className="text-yellow-400">{selectedScopes.join(' · ')}</strong> · Timeline: <strong>{selectedTimeline}</strong>
+                    </div>
+                  )}
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <a
+                      href={getWhatsAppBriefUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-shimmer inline-flex items-center gap-2 px-6 py-2.5 rounded-md text-xs tracking-[0.15em] uppercase font-bold"
+                    >
+                      Fast-Track on WhatsApp →
+                    </a>
+                    <button onClick={resetForm}
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md border border-yellow-400 text-yellow-400 text-xs tracking-[0.18em] uppercase font-semibold hover:bg-yellow-400 hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer">
+                      New Brief
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form className="space-y-4 sm:space-y-5" onSubmit={handleFormSubmit} noValidate>
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Send us a message</h3>
-                    <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>We respond within 1–2 business days.</p>
+                    <h3 className="text-lg sm:text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Build your project brief</h3>
+                    <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Select what you need below and send via email or instant WhatsApp.</p>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
+                  {/* Interactive Scope Selector */}
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-widest font-bold mb-2" style={{ color: 'var(--text-tertiary)' }}>
+                      1. Select Services Needed
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {['Video Editing', 'AI UGC Ads', 'Thumbnails', 'Graphic Design', 'Web & SEO', 'Automation Bot'].map((scope) => {
+                        const active = selectedScopes.includes(scope);
+                        return (
+                          <button
+                            key={scope}
+                            type="button"
+                            onClick={() => toggleScope(scope)}
+                            className={`px-3 py-1.5 rounded-md text-xs font-bold border transition-all cursor-pointer ${
+                              active
+                                ? 'bg-yellow-400 text-black border-yellow-400 shadow-sm'
+                                : 'hover:border-yellow-400/60 hover:text-yellow-400'
+                            }`}
+                            style={
+                              active
+                                ? {}
+                                : { borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-secondary)' }
+                            }
+                            aria-pressed={active}
+                          >
+                            {active ? '✓ ' : '+ '}
+                            {scope}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Timeline Selector */}
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-widest font-bold mb-2" style={{ color: 'var(--text-tertiary)' }}>
+                      2. Target Turnaround
+                    </p>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {['48h Express', 'This Week', 'Monthly Retainer', 'Flexible'].map((t) => {
+                        const active = selectedTimeline === t;
+                        return (
+                          <button
+                            key={t}
+                            type="button"
+                            onClick={() => setSelectedTimeline(t)}
+                            className={`px-2.5 py-2 rounded-md text-[11px] font-bold border transition-all text-center cursor-pointer ${
+                              active
+                                ? 'border-yellow-400 bg-yellow-400/15 text-yellow-400'
+                                : 'hover:border-white/25'
+                            }`}
+                            style={
+                              active
+                                ? {}
+                                : { borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-secondary)' }
+                            }
+                            aria-pressed={active}
+                          >
+                            {t}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4 pt-1">
                     {/* Name */}
                     <div className="flex flex-col gap-1">
                       <input
@@ -2232,26 +2357,38 @@ function App() {
                   {/* Message */}
                   <div className="flex flex-col gap-1">
                     <textarea
-                      rows={4} id="contact-message" placeholder=" "
+                      rows={3} id="contact-message" placeholder=" "
                       value={formData.message}
                       onChange={(e) => { setFormData(prev => ({ ...prev, message: e.target.value })); if (formErrors.message) setFormErrors(prev => ({ ...prev, message: '' })); }}
                       className="w-full rounded-xl px-4 py-3 text-base md:text-sm border outline-none focus:ring-2 focus:ring-yellow-400/40 resize-none transition-all duration-300"
                       style={{ backgroundColor: 'var(--bg-overlay)', borderColor: formErrors.message ? '#ef4444' : 'var(--border-color)', color: 'var(--text-primary)' }}
                       aria-describedby={formErrors.message ? 'message-error' : undefined}
                     />
-                    <label htmlFor="contact-message" className="text-xs font-medium px-1" style={{ color: 'var(--text-tertiary)' }}>Tell us about your project</label>
+                    <label htmlFor="contact-message" className="text-xs font-medium px-1" style={{ color: 'var(--text-tertiary)' }}>Project links, vision, or volume notes</label>
                     {formErrors.message && <p id="message-error" className="text-red-500 text-xs font-medium">{formErrors.message}</p>}
                   </div>
 
-                  <button
-                    type="submit" id="contact-submit"
-                    disabled={formStatus === 'submitting'}
-                    className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 sm:py-4 rounded-xl text-[11px] tracking-[0.25em] uppercase font-bold shadow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
-                  >
-                    {formStatus === 'submitting' ? (
-                      <><div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" aria-hidden="true" />Sending...</>
-                    ) : 'Send Message →'}
-                  </button>
+                  <div className="grid sm:grid-cols-2 gap-3 pt-1">
+                    <button
+                      type="submit" id="contact-submit"
+                      disabled={formStatus === 'submitting'}
+                      className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 rounded-md text-xs tracking-[0.18em] uppercase font-bold shadow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                      {formStatus === 'submitting' ? (
+                        <><div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" aria-hidden="true" />Sending...</>
+                      ) : 'Submit Brief →'}
+                    </button>
+
+                    <a
+                      href={getWhatsAppBriefUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-md text-xs tracking-[0.16em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400"
+                      style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-primary)' }}
+                    >
+                      Send via WhatsApp ↗
+                    </a>
+                  </div>
                 </form>
               )}
             </div>
@@ -2262,12 +2399,26 @@ function App() {
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               {/* Brand */}
               <div>
-                <div className="flex items-center mb-3">
-                  <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain opacity-80" />
-                </div>
-                <p className="text-xs leading-relaxed max-w-xs" style={{ color: 'var(--text-tertiary)' }}>
+                <button
+                  type="button"
+                  onClick={() => scrollToTop(450)}
+                  className="flex items-center mb-3 cursor-pointer focus:outline-none"
+                  aria-label="Scroll to top"
+                >
+                  <img src="/assets/syntra-logo.png" alt="Syntra" className="h-7 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                </button>
+                <p className="text-xs leading-relaxed max-w-xs mb-3" style={{ color: 'var(--text-tertiary)' }}>
                   A motion-first creative studio crafting stories that convert — based in India, working worldwide.
                 </p>
+                <button
+                  type="button"
+                  onClick={() => setPaletteOpen(true)}
+                  className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-1 rounded-md border hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
+                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
+                >
+                  <span>Quick Jump</span>
+                  <span className="kbd-key">⌘K</span>
+                </button>
               </div>
               {/* Nav */}
               <div>
