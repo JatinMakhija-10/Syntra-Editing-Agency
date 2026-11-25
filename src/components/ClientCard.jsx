@@ -56,7 +56,7 @@ export function ClientCard({ client, delay = 0 }) {
 
           {client.stats && (
             <span
-              className="shrink-0 px-2 py-0.5 rounded-full text-[9px] tracking-wider uppercase font-bold border border-yellow-400/20 text-yellow-400 bg-yellow-400/5"
+              className="shrink-0 px-2 py-0.5 rounded-md text-[9px] tracking-wider uppercase font-bold border border-yellow-400/20 text-yellow-400 bg-yellow-400/5"
             >
               {client.stats}
             </span>

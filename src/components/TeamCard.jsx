@@ -39,7 +39,7 @@ export function TeamCard({ name, role, delay = 0 }) {
         
         {/* Themed initials avatar */}
         <div 
-          className="w-20 h-20 rounded-full flex items-center justify-center border-2 transition-all duration-500 shadow-[0_0_20px_rgba(250,204,21,0.15)] group-hover:border-yellow-400 group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(250,204,21,0.3)]"
+          className="w-20 h-20 rounded-md flex items-center justify-center border-2 transition-all duration-500 shadow-[0_0_20px_rgba(250,204,21,0.15)] group-hover:border-yellow-400 group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(250,204,21,0.3)]"
           style={{
             backgroundColor: 'rgba(255, 209, 0, 0.08)',
             borderColor: 'rgba(255, 209, 0, 0.3)',

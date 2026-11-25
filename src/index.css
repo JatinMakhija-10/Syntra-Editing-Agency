@@ -217,25 +217,26 @@
   :-ms-input-placeholder { color: var(--text-muted); opacity: 0.7; }
   ::-ms-input-placeholder { color: var(--text-muted); opacity: 0.7; }
 
-  /* ── Pill label ── */
-  .pill-label {
+  /* ── Studio Badge Label ── */
+  .pill-label, .badge-label {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 12px;
-    border-radius: 999px;
+    padding: 3px 10px;
+    border-radius: 4px;
     font-size: 10px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
+    font-family: var(--font-mono, monospace);
     font-weight: 600;
     border: 1px solid var(--border-color);
     color: var(--text-tertiary);
     background: var(--bg-overlay);
   }
-  .pill-label::before {
+  .pill-label::before, .badge-label::before {
     content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
+    width: 5px; height: 5px;
+    border-radius: 1px;
     background: var(--brand-yellow);
   }
 

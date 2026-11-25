@@ -58,7 +58,7 @@ function GalleryCard({ item, idx, serviceTitle, onImageClick, isThumbnails }) {
         <p className="text-xs font-semibold text-white leading-tight line-clamp-2">
           {item.title || `${serviceTitle} Deliverable ${idx + 1}`}
         </p>
-        <span className="shrink-0 p-1.5 rounded-full bg-yellow-400 text-black font-bold shadow-md ml-2">
+        <span className="shrink-0 p-1.5 rounded-md bg-yellow-400 text-black font-bold shadow-md ml-2">
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
           </svg>
@@ -132,7 +132,7 @@ export function ServicePage({
           <div className="flex items-center gap-2.5 sm:gap-4">
             <button
               onClick={onBack}
-              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-semibold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-full border shrink-0 cursor-pointer"
+              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-semibold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-md border shrink-0 cursor-pointer"
               style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
             >
               <span>←</span>
@@ -162,7 +162,7 @@ export function ServicePage({
             {/* Share button */}
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold border transition-all duration-300 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs font-semibold border transition-all duration-300 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }}
               title="Copy shareable link"
             >
@@ -187,7 +187,7 @@ export function ServicePage({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shimmer hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full text-[11px] tracking-[0.18em] uppercase font-bold shadow-md hover:scale-105 transition-all duration-300"
+              className="btn-shimmer hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-md text-[11px] tracking-[0.18em] uppercase font-bold shadow-md hover:scale-105 transition-all duration-300"
             >
               Inquire Now →
             </a>
@@ -201,7 +201,7 @@ export function ServicePage({
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <div className="pill-label">{service.tag || category}</div>
             {service.isUpcoming && (
-              <span className="text-[10px] tracking-wider uppercase font-bold px-3 py-1 rounded-full border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_16px_rgba(255,209,0,0.18)] flex items-center gap-1.5">
+              <span className="text-[10px] tracking-wider uppercase font-bold px-3 py-1 rounded-md border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_16px_rgba(255,209,0,0.18)] flex items-center gap-1.5">
                 <span>✦</span> UPCOMING DISCIPLINE · {service.upcomingBadge || 'EARLY ACCESS'} · {service.targetRelease || 'Q1 2027'}
               </span>
             )}
@@ -224,21 +224,21 @@ export function ServicePage({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
+              className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-md text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
             >
               {service.isUpcoming ? 'Reserve Early Access on WhatsApp →' : 'Book on WhatsApp →'}
             </a>
             <div className="grid grid-cols-2 sm:flex items-center gap-2.5">
               <a
                 href="mailto:jatinmakhija1005@gmail.com?subject=Inquiry%20regarding%20Syntra%20Services"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 Email Us
               </a>
               <button
                 onClick={handleShare}
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-md text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 {copied ? '✓ Copied' : 'Share Link'}
@@ -269,7 +269,7 @@ export function ServicePage({
                     </div>
                     {showcase.clientLink && !showcase.clientLink.includes('drive.google.com') && (
                       <a href={showcase.clientLink} target="_blank" rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Visit site ↗
                       </a>
@@ -378,7 +378,7 @@ export function ServicePage({
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400 text-black text-[10px] tracking-[0.15em] uppercase font-semibold hover:bg-yellow-300 transition-all hover:scale-105"
+                        className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-yellow-400 text-black text-[10px] tracking-[0.15em] uppercase font-semibold hover:bg-yellow-300 transition-all hover:scale-105"
                       >
                         Visit Live →
                       </a>
@@ -498,7 +498,7 @@ export function ServicePage({
                         <span className="text-xs font-bold tracking-widest text-yellow-400 uppercase">
                           0{idx + 1}
                         </span>
-                        <span className="text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full border"
+                        <span className="text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-md border"
                           style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
                           Specification
                         </span>
@@ -544,7 +544,7 @@ export function ServicePage({
                               {stage.phase}
                             </span>
                             <span
-                              className={`text-[9px] tracking-wider uppercase font-bold px-2 py-0.5 rounded-full border ${
+                              className={`text-[9px] tracking-wider uppercase font-bold px-2 py-0.5 rounded-md border ${
                                 isInProgress
                                   ? 'border-yellow-400 bg-yellow-400 text-black animate-pulse'
                                   : isDone
@@ -590,7 +590,7 @@ export function ServicePage({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shimmer px-7 py-3 rounded-full text-xs font-bold shrink-0 text-center uppercase tracking-wider"
+                className="btn-shimmer px-7 py-3 rounded-md text-xs font-bold shrink-0 text-center uppercase tracking-wider"
               >
                 Claim Early Access Spot →
               </a>
@@ -664,13 +664,13 @@ export function ServicePage({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs tracking-widest uppercase font-bold hover:scale-105 transition-all duration-300 shadow-lg"
+                className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-md text-xs tracking-widest uppercase font-bold hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 Start on WhatsApp →
               </a>
               <button
                 onClick={onBack}
-                className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs tracking-widest uppercase font-semibold border transition-all duration-300 hover:border-yellow-400"
+                className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-xs tracking-widest uppercase font-semibold border transition-all duration-300 hover:border-yellow-400"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 ← Explore Other Services

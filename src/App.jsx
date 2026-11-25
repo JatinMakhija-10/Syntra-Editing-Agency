@@ -858,11 +858,11 @@ function App() {
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a href="#services" onClick={handleSmoothScroll}
-                  className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
+                  className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
                   View Services →
                 </a>
                 <a href="#contact" onClick={handleSmoothScroll}
-                  className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                  className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                   Start a project
                 </a>
@@ -890,7 +890,7 @@ function App() {
                       const target = document.getElementById('services');
                       if (target) smoothScrollTo(target, 500);
                     }}
-                    className="text-[10px] tracking-wider uppercase font-semibold px-3 py-1.5 rounded-full border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105 cursor-pointer flex items-center gap-1.5"
+                    className="text-[10px] tracking-wider uppercase font-semibold px-3 py-1.5 rounded-md border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105 cursor-pointer flex items-center gap-1.5"
                     style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
                   >
                     {pill.label}
@@ -1058,7 +1058,7 @@ function App() {
                 <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   Every frame, pixel and word is tuned for feeling, clarity and conversion. No templates. Only handcrafted work built around your story.
                 </p>
-                <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full border border-yellow-400/10" aria-hidden="true" />
+                <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-xl border border-yellow-400/10" aria-hidden="true" />
               </div>
 
               {/* Right — focus + meta */}
@@ -1116,21 +1116,21 @@ function App() {
               </p>
               {/* Metric badges strip */}
               <div className="flex flex-wrap items-center gap-2 mt-5">
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                   {totalServicesCount} Specialized Services
                 </span>
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border"
+                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-md border"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                   100+ Video Edits
                 </span>
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-full border"
+                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-md border"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                   Custom Brand Retainers
                 </span>
               </div>
             </div>
             <a href="#contact" onClick={handleSmoothScroll}
-              className="shrink-0 btn-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300 w-full sm:w-auto text-center">
+              className="shrink-0 btn-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300 w-full sm:w-auto text-center">
               Start a project →
             </a>
           </div>
@@ -1160,7 +1160,7 @@ function App() {
                         window.history.pushState({}, '', '#services');
                       }
                     }}
-                    className={`relative shrink-0 px-3.5 sm:px-4 py-2 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold transition-all border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
+                    className={`relative shrink-0 px-3.5 sm:px-4 py-2 rounded-md text-[10px] tracking-[0.2em] uppercase font-bold transition-all border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
                       active
                         ? 'border-yellow-400/80 bg-yellow-400/15 text-yellow-400 shadow-[0_0_24px_rgba(255,209,0,0.22)]'
                         : 'hover:border-yellow-300/50 hover:text-yellow-300'
@@ -1172,12 +1172,12 @@ function App() {
                     }}
                   >
                     <span>{tab.label}</span>
-                    <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold ml-0.5 ${
+                    <span className={`text-[9px] px-1.5 py-0.2 rounded-md font-bold ml-0.5 ${
                       active ? 'bg-yellow-400 text-black' : 'bg-[var(--bg-overlay)] text-[var(--text-muted)]'
                     }`}>
                       {count}
                     </span>
-                    {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/10 rounded-full" aria-hidden="true" />}
+                    {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/10 rounded-md" aria-hidden="true" />}
                   </button>
                 );
               })}
@@ -1190,7 +1190,7 @@ function App() {
                 value={serviceSearch}
                 onChange={(e) => setServiceSearch(e.target.value)}
                 placeholder="Search services (e.g. reels, ai ads)..."
-                className="w-full pl-9 pr-9 py-2.5 rounded-full text-xs border outline-none transition-all duration-300 focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full pl-9 pr-9 py-2.5 rounded-md text-xs border outline-none transition-all duration-300 focus:ring-2 focus:ring-yellow-400/40"
                 style={{
                   backgroundColor: 'var(--bg-card)',
                   borderColor: serviceSearch ? 'var(--brand-yellow)' : 'var(--border-color)',
@@ -1255,7 +1255,7 @@ function App() {
                       </p>
                       <div className="flex flex-wrap gap-2.5 mt-5">
                         {['AI Avatars', 'Performance Video Ads', 'Static Creatives', 'Hook-First Scripts', 'Multi-Platform Formats'].map((tag) => (
-                          <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-full border"
+                          <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-md border"
                             style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                             {tag}
                           </span>
@@ -1288,7 +1288,7 @@ function App() {
                     </p>
                     <div className="flex flex-wrap gap-2 mt-4">
                       {['WhatsApp Cloud API', 'Instagram DM Automation', 'Technical SEO', 'CRO Website Audits', 'Private Beta Open'].map(tag => (
-                        <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 rounded-full border"
+                        <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 rounded-md border"
                           style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                           {tag}
                         </span>
@@ -1402,10 +1402,10 @@ function App() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                         <span>✦</span> Featured Production
                       </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-full border"
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-md border"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Performance Ads
                       </span>
@@ -1422,13 +1422,13 @@ function App() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       6 Carousel Decks (32 Slides)
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       5 Launch Posters
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                       High-Intent Bookings
                     </span>
                   </div>
@@ -1444,14 +1444,14 @@ function App() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                         <span>✦</span> AI Creative Partner
                       </span>
                       <a
                         href="https://aroviaai.com/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
                       >
                         <span>Visit Site</span>
@@ -1470,13 +1470,13 @@ function App() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       3 Carousel Decks (16 Slides)
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       3 Festive Key Visuals
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                       Performance Scaled
                     </span>
                   </div>
@@ -1492,10 +1492,10 @@ function App() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                         <span>✦</span> Fitness &amp; UGC Partner
                       </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-full border"
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-md border"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Performance Ads
                       </span>
@@ -1512,13 +1512,13 @@ function App() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       23 Ad Creatives
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
                       Luxury &amp; Posture Series
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                       High Conversion
                     </span>
                   </div>
@@ -1536,7 +1536,7 @@ function App() {
                 {/* Header & Filter Controls Bar */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
                   <div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
                       <span>✦</span> Creative Deliverables Gallery
                     </span>
                     <h3 className="text-xl md:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
@@ -1640,7 +1640,7 @@ function App() {
                           <div className="flex items-start justify-between gap-3 mb-4">
                             <div>
                               <div className="flex items-center gap-2 mb-2">
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                                   <span>✦</span> {poster.badge || 'Static Poster'}
                                 </span>
                                 <span className="text-[10px] font-semibold text-stone-400">
@@ -1655,7 +1655,7 @@ function App() {
                               </h4>
                             </div>
                             <span
-                              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] tracking-wider uppercase font-semibold border"
+                              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[9px] tracking-wider uppercase font-semibold border"
                               style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}
                             >
                               Static
@@ -1677,7 +1677,7 @@ function App() {
                               <span className="text-xs font-semibold text-white leading-tight">
                                 {poster.subtitle}
                               </span>
-                              <span className="p-2 rounded-full bg-yellow-400 text-black font-bold shadow-lg">
+                              <span className="p-2 rounded-md bg-yellow-400 text-black font-bold shadow-lg">
                                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                                 </svg>
@@ -1718,7 +1718,7 @@ function App() {
               return (
                 <div className="py-16 text-center rounded-3xl border p-8"
                   style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
-                  <div className="w-12 h-12 rounded-full border border-yellow-400/30 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-12 h-12 rounded-md border border-yellow-400/30 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mx-auto mb-4">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
@@ -1732,7 +1732,7 @@ function App() {
                   <div className="flex flex-wrap items-center justify-center gap-3">
                     <button
                       onClick={() => setServiceSearch('')}
-                      className="px-5 py-2.5 rounded-full border text-xs font-semibold hover:border-yellow-400 transition-colors cursor-pointer"
+                      className="px-5 py-2.5 rounded-md border text-xs font-semibold hover:border-yellow-400 transition-colors cursor-pointer"
                       style={{ borderColor: 'var(--border-color)' }}>
                       Reset Search
                     </button>
@@ -1740,7 +1740,7 @@ function App() {
                       href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%20have%20a%20custom%20service%20inquiry."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-shimmer px-6 py-2.5 rounded-full text-xs font-bold"
+                      className="btn-shimmer px-6 py-2.5 rounded-md text-xs font-bold"
                     >
                       Inquire on WhatsApp →
                     </a>
@@ -1796,29 +1796,29 @@ function App() {
 
                           {/* Upcoming Badge */}
                           {s.isUpcoming ? (
-                            <span className="text-[10px] tracking-wider uppercase font-bold px-2.5 py-0.5 rounded-full border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_12px_rgba(255,209,0,0.15)] flex items-center gap-1">
+                            <span className="text-[10px] tracking-wider uppercase font-bold px-2.5 py-0.5 rounded-md border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_12px_rgba(255,209,0,0.15)] flex items-center gap-1">
                               <span>✦</span> {s.upcomingBadge || 'Upcoming'}
                             </span>
                           ) : (
                             <>
                               {/* Dynamic Proof Metric Badges */}
                               {videosCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                                   {videosCount} {videosCount === 1 ? 'Video' : 'Videos'}
                                 </span>
                               )}
                               {examplesCount > 0 && videosCount === 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                                   {examplesCount}+ Designs
                                 </span>
                               )}
                               {clientCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                                   {clientCount} Client Cases
                                 </span>
                               )}
                               {webCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                                   Live Demos
                                 </span>
                               )}
@@ -1863,7 +1863,7 @@ function App() {
                                   key={i}
                                   src={ex.image}
                                   alt=""
-                                  className="w-8 h-8 rounded-full object-cover border-2 transition-transform group-hover:scale-105"
+                                  className="w-8 h-8 rounded-md object-cover border-2 transition-transform group-hover:scale-105"
                                   style={{ borderColor: 'var(--bg-card)' }}
                                   loading="lazy"
                                 />
@@ -1879,7 +1879,7 @@ function App() {
                         {serviceData?.clientShowcases?.length > 0 && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-4 pt-1">
                             {serviceData.clientShowcases.map((c, i) => (
-                              <span key={i} className="text-[9px] px-2.5 py-0.5 rounded-full font-semibold border"
+                              <span key={i} className="text-[9px] px-2.5 py-0.5 rounded-md font-semibold border"
                                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                                 ✦ {c.client}
                               </span>
@@ -1894,7 +1894,7 @@ function App() {
                         <span className="text-[11px] tracking-[0.2em] uppercase font-bold text-yellow-400 flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
                           <span>{s.isUpcoming ? 'Explore Roadmap & Pre-Book' : 'View Portfolio & Details'}</span>
                         </span>
-                        <div className="w-8 h-8 rounded-full bg-yellow-400 text-black flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 group-hover:bg-yellow-300 transition-all">
+                        <div className="w-8 h-8 rounded-md bg-yellow-400 text-black flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 group-hover:bg-yellow-300 transition-all">
                           →
                         </div>
                       </div>
@@ -1928,14 +1928,14 @@ function App() {
                 href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%20would%20like%20to%20discuss%20a%20custom%20service%20package."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[11px] tracking-[0.18em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
+                className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-md text-[11px] tracking-[0.18em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
               >
                 Chat on WhatsApp →
               </a>
               <a
                 href="#contact"
                 onClick={handleSmoothScroll}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[11px] tracking-[0.18em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-md text-[11px] tracking-[0.18em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-card)' }}
               >
                 Book Discovery Call
@@ -2057,13 +2057,13 @@ function App() {
               {[...clientsData, ...clientsData].map((c, i) => (
                 <div
                   key={`${c.id}-${i}`}
-                  className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border shrink-0 transition-colors hover:border-yellow-400/40"
+                  className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-md border shrink-0 transition-colors hover:border-yellow-400/40"
                   style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                 >
                   <img
                     src={c.avatar}
                     alt={c.name}
-                    className="w-5 h-5 rounded-full object-cover border border-yellow-400/40"
+                    className="w-5 h-5 rounded-md object-cover border border-yellow-400/40"
                     loading="lazy"
                   />
                   <span className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
@@ -2091,7 +2091,7 @@ function App() {
                 key={f.id}
                 type="button"
                 onClick={() => setClientFilter(f.id)}
-                className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all border ${
                   clientFilter === f.id
                     ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10 shadow-sm'
                     : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
@@ -2179,7 +2179,7 @@ function App() {
             <div className="contact-card">
               {formStatus === 'success' ? (
                 <div className="text-center py-8 px-4 flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-[0_0_24px_rgba(255,209,0,0.2)]"
+                  <div className="w-16 h-16 rounded-md flex items-center justify-center mb-6 shadow-[0_0_24px_rgba(255,209,0,0.2)]"
                     style={{ backgroundColor: 'rgba(255,209,0,0.1)', border: '2px solid rgba(255,209,0,0.5)' }}>
                     <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -2190,7 +2190,7 @@ function App() {
                     Thank you, <strong className="text-yellow-400">{formData.name}</strong>. Your inquiry has been received. We'll get back to you at <strong style={{ color: 'var(--text-primary)' }}>{formData.email}</strong> in 1–2 business days.
                   </p>
                   <button onClick={resetForm}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-yellow-400 text-yellow-400 text-xs tracking-[0.18em] uppercase font-semibold hover:bg-yellow-400 hover:text-black hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md border border-yellow-400 text-yellow-400 text-xs tracking-[0.18em] uppercase font-semibold hover:bg-yellow-400 hover:text-black hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400">
                     Send Another Message
                   </button>
                 </div>

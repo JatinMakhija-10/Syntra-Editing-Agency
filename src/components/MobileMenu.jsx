@@ -58,7 +58,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-full flex items-center justify-center border transition-colors hover:border-yellow-400"
+            className="w-10 h-10 rounded-md flex items-center justify-center border transition-colors hover:border-yellow-400"
             style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
             aria-label="Close menu"
           >
@@ -86,7 +86,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
             >
               <span>{link.label}</span>
               {link.badge && (
-                <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold bg-yellow-400 text-black">
+                <span className="text-[10px] px-2.5 py-0.5 rounded-md font-bold bg-yellow-400 text-black">
                   {link.badge}
                 </span>
               )}
@@ -133,7 +133,7 @@ export const MobileMenu = ({ isOpen, onClose, onNavigate, onSelectCategory }) =>
             href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%27d%20like%20to%20discuss%20a%20project"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full text-xs tracking-widest uppercase font-bold shadow-lg"
+            className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-md text-xs tracking-widest uppercase font-bold shadow-lg"
           >
             Chat on WhatsApp →
           </a>
