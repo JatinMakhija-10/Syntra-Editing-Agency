@@ -132,8 +132,8 @@ export function ServicePage({
           <div className="flex items-center gap-2.5 sm:gap-4">
             <button
               onClick={onBack}
-              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-semibold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-md border shrink-0 cursor-pointer"
-              style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-bold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-md border shrink-0 cursor-pointer"
+              style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
             >
               <span>←</span>
               <span className="hidden sm:inline">Back</span>

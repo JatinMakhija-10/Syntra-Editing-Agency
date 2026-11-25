@@ -740,10 +740,9 @@ function App() {
             />
           </a>
 
-          {/* Editorial Technical Navigation */}
+          {/* Editorial Navigation */}
           <nav
-            className="hidden md:flex items-center gap-7 lg:gap-9 font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
-            style={{ color: 'var(--text-tertiary)' }}
+            className="hidden md:flex items-center gap-7 lg:gap-9 text-xs sm:text-[13px] tracking-[0.16em] uppercase font-bold"
             aria-label="Main navigation"
           >
             {[
@@ -757,12 +756,12 @@ function App() {
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={handleSmoothScroll}
-                className="hover:text-yellow-400 transition-colors duration-150 inline-flex items-center gap-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-400"
-                style={{ color: 'var(--text-tertiary)' }}
+                className="group py-1.5 inline-flex items-center gap-2 transition-colors duration-150 hover:text-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                style={{ color: 'var(--text-primary)' }}
               >
                 <span>{link.label}</span>
                 {link.index && (
-                  <span className="text-[9px] font-mono text-stone-500 font-normal">
+                  <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-sm bg-yellow-400/15 text-yellow-400 border border-yellow-400/30 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
                     /{link.index}
                   </span>
                 )}
@@ -798,7 +797,7 @@ function App() {
             <a
               href="#contact"
               onClick={handleSmoothScroll}
-              className="hidden md:inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider font-semibold px-4 py-2 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
+              className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold px-4 py-2 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black transition-all duration-150 hover:scale-[1.02] shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
             >
               <span>Start a project</span>
               <span aria-hidden="true">→</span>
