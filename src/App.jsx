@@ -15,6 +15,7 @@ import { ServicePage } from './components/ServicePage';
 import { slugify, findServiceBySlug } from './utils/slug';
 import SocialCarouselCard from './components/SocialCarouselCard';
 import LightboxModal from './components/LightboxModal';
+import CampaignModal from './components/CampaignModal';
 import HeroCuttingBay from './components/HeroCuttingBay';
 import CommandPalette from './components/CommandPalette';
 import FloatingNav from './components/FloatingNav';
@@ -450,6 +451,7 @@ function App() {
   const [serviceSearch, setServiceSearch] = useState('');
   const [selectedService, setSelectedService] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [activeCampaign, setActiveCampaign] = useState(null);
   const [aiUgcClientFilter, setAiUgcClientFilter] = useState('all');
   const [aiUgcFormatFilter, setAiUgcFormatFilter] = useState('all');
   const [clientFilter, setClientFilter] = useState('all');
@@ -471,6 +473,7 @@ function App() {
         e.key === '/' &&
         !paletteOpen &&
         !selectedImage &&
+        !activeCampaign &&
         !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)
       ) {
         e.preventDefault();
@@ -479,7 +482,7 @@ function App() {
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [paletteOpen, selectedImage]);
+  }, [paletteOpen, selectedImage, activeCampaign]);
 
   // Active section spy & top scroll progress indicator
   useEffect(() => {
@@ -775,9 +778,10 @@ function App() {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
         if (selectedImage) setSelectedImage(null);
+        else if (activeCampaign) setActiveCampaign(null);
       }
     };
-    if (selectedImage) {
+    if (selectedImage || activeCampaign) {
       document.addEventListener('keydown', handleEscape);
       document.body.style.overflow = 'hidden';
     } else {
@@ -787,7 +791,7 @@ function App() {
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = '';
     };
-  }, [selectedImage]);
+  }, [selectedImage, activeCampaign]);
 
   // Intersection observer for stats count-up
   useEffect(() => {
@@ -843,6 +847,133 @@ function App() {
       const target = document.getElementById('services');
       if (target) smoothScrollTo(target, 450);
     }, 60);
+  };
+
+  const campaignConfigs = [
+    {
+      id: 'anohga',
+      badge: 'Featured Production',
+      categoryTag: 'Performance Ads',
+      title: 'Anohga Yoga Studio',
+      subtitle: 'Wellness Brand · Static Ads, Launch Posters & Instagram Carousels',
+      description: 'Complete multi-format campaign for workshop promotions, studio passes, and alignment masterclasses. 5 studio launch posters and 6 narrative multi-slide carousels (32 total slides) engineered for Meta & Instagram performance.',
+      metricsLabel: '6 Decks · 5 Posters',
+      visitUrl: 'https://anohga-yoga-studio.netlify.app/',
+    },
+    {
+      id: 'arovia',
+      badge: 'AI Creative Partner',
+      categoryTag: 'Visit Site',
+      title: 'Arovia.ai',
+      subtitle: 'AI Platform · Health Intelligence Carousels & Festive Key Visuals',
+      description: 'Diagnostic storytelling and root-cause health intelligence campaign. 3 narrative multi-slide carousels (16 total slides) and 3 festive brand storytelling key visuals (Dhanteras, Dussehra & Diwali) built for social conversion.',
+      metricsLabel: '3 Decks · 3 Posters',
+      visitUrl: 'https://aroviaai.com/',
+    },
+    {
+      id: 'shilpa',
+      badge: 'Fitness & UGC Partner',
+      categoryTag: 'Performance Ads',
+      title: 'Shilpa Pilates Studio',
+      subtitle: 'Boutique Fitness · Core Conditioning, Luxury Aqua Events & Face Yoga',
+      description: "24 high-converting ad creatives covering online Face Yoga programs, International Men's Day reformer campaigns, foam roller decompression, Tai Chi anti-aging, aerial silk sound baths, Radisson Blu luxury poolside aqua events, and studio workshops.",
+      metricsLabel: '24 Ad Creatives',
+    },
+    {
+      id: 'tapas',
+      badge: 'Studio Launch',
+      categoryTag: 'Enrollment Ads',
+      title: 'Tapas Yog Shala',
+      subtitle: 'Iyengar Yoga Studio (Jaipur) · Heritage Visuals & Class Bento Posters',
+      description: '5 conversion-focused launch posters blending Jaipur architectural warmth with structured schedule, pricing, and trial enrollment cards for Iyengar yoga batches.',
+      metricsLabel: '5 Launch Creatives',
+    },
+    {
+      id: 'prana',
+      badge: 'Luxury Visuals',
+      categoryTag: '3D Key Art',
+      title: 'Prana Studio',
+      subtitle: 'Sound Therapy Sanctuary (Chennai) · 3D Acoustic & Healing Posters',
+      description: '3 bespoke bronze & sound-wave atmospheric campaign key visuals built for immersive sound bath and restorative frequency sessions in Chennai.',
+      metricsLabel: '3 Key Visuals',
+    },
+  ];
+
+  const getCampaignById = (id) => {
+    const cfg = campaignConfigs.find((c) => c.id === id);
+    if (!cfg) return null;
+    const allCarousels = mergedData.AI_UGC?.['AI UGC Static Ads']?.carousels || [];
+    const matchedCarousels = allCarousels.filter((c) =>
+      id === 'arovia'
+        ? c.client === 'Arovia.ai'
+        : id === 'anohga'
+        ? c.client === 'Anohga Yoga Studio' || !c.client
+        : false
+    );
+    const matchedPosters = aiUgcPosters.filter((p) => p.client === id);
+    const allLightboxSlides = [
+      ...matchedPosters.map((p) => ({ image: p.src, title: p.title })),
+      ...matchedCarousels.flatMap((c) =>
+        (c.slides || []).map((s) => ({
+          image: s.image,
+          title: s.title || c.title,
+        }))
+      ),
+    ];
+    return {
+      ...cfg,
+      carousels: matchedCarousels,
+      posters: matchedPosters,
+      allLightboxSlides,
+      totalAssets: matchedCarousels.length + matchedPosters.length,
+    };
+  };
+
+  const openCampaignModal = (id) => {
+    const campaign = getCampaignById(id);
+    if (campaign) setActiveCampaign(campaign);
+  };
+
+  const getClientCardAction = (client) => {
+    const campaignMap = {
+      'anohga-yoga': 'anohga',
+      'arovia-ai': 'arovia',
+      'pilates-coach-shilpa': 'shilpa',
+      'tapas-yog-shala': 'tapas',
+      'prana-studio': 'prana',
+    };
+    if (campaignMap[client.id]) {
+      const camp = getCampaignById(campaignMap[client.id]);
+      if (camp) {
+        return {
+          label: `Open ${camp.totalAssets} Creatives →`,
+          onClick: () => setActiveCampaign(camp),
+        };
+      }
+    }
+    const serviceMap = {
+      'triggered-insaan': { cat: 'VIDEO', title: 'Variety Content (Mixed Genres)', label: 'View Video Edits →' },
+      'beastboyshubh': { cat: 'THUMBNAILS', title: 'Elite Custom Thumbnails', label: 'View Thumbnails →' },
+      'armpower-gaming': { cat: 'VIDEO', title: 'Gaming Highlights & Montages', label: 'View Gaming Edits →' },
+      'gigigonemad': { cat: 'VIDEO', title: 'Shorts, Reels & TikTok', label: 'View Shorts & Reels →' },
+      'for-streets': { cat: 'GRAPHICS', title: 'T-shirt & Merchandise Designs', label: 'View Merch Work →' },
+      'riri-playz': { cat: 'VIDEO', title: 'Gaming Highlights & Montages', label: 'View Gaming Edits →' },
+      'famberz-tech': { cat: 'VIDEO', title: 'Tech Explainer Videos', label: 'View Tech Edits →' },
+      'sumo-me': { cat: 'THUMBNAILS', title: 'Premium Thumbnails', label: 'View Thumbnails →' },
+      'tabaahi-dc': { cat: 'VIDEO', title: 'Gaming Highlights & Montages', label: 'View Gaming Edits →' },
+      'pappan-gaming': { cat: 'VIDEO', title: 'Gaming Highlights & Montages', label: 'View Gaming Edits →' },
+      'sehezer': { cat: 'CONTENT', title: 'Instagram Posts & Social Graphics', label: 'View Social Design →' },
+      'caster-venom': { cat: 'VIDEO', title: 'Gaming Highlights & Montages', label: 'View Esports Edits →' },
+      'dr-preeti-gyne': { cat: 'VIDEO', title: 'Shorts, Reels & TikTok', label: 'View Reels Work →' },
+    };
+    const target = serviceMap[client.id];
+    if (target) {
+      return {
+        label: target.label,
+        onClick: () => handleServiceClick(target.title, target.cat),
+      };
+    }
+    return null;
   };
 
   const commandPaletteNode = (
@@ -917,6 +1048,23 @@ function App() {
           if (target) smoothScrollTo(target, 500);
         }}
       />
+
+      {/* Campaign Content Explorer Modal */}
+      {activeCampaign && (
+        <CampaignModal
+          campaign={activeCampaign}
+          onClose={() => setActiveCampaign(null)}
+          onImageClick={(img) => setSelectedImage(img)}
+          onFilterGrid={(id) => {
+            setActiveCampaign(null);
+            setAiUgcClientFilter(id);
+            setAiUgcFormatFilter('all');
+            setTimeout(() => {
+              document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 60);
+          }}
+        />
+      )}
 
       {/* Image Lightbox / Fullscreen Carousel Reader */}
       {selectedImage && (
@@ -1522,248 +1670,149 @@ function App() {
                 <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
               </div>
 
-              {/* Triple Client Snapshot Cards (Balanced & Symmetrical) */}
+              {/* Featured Client Campaign Cards (Interactive + Live Deliverable Previews) */}
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                {/* Anohga Highlight Card */}
-                <div
-                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
-                  style={{
-                    borderColor: 'var(--border-color)',
-                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
-                  }}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                        <span>✦</span> Featured Production
-                      </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        Performance Ads
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                      Anohga Yoga Studio
-                    </h3>
-                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
-                      Wellness Brand · Static Ads, Launch Posters &amp; Instagram Carousels
-                    </p>
-                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      Complete multi-format campaign for workshop promotions, studio passes, and alignment masterclasses. 5 studio launch posters and 6 narrative multi-slide carousels (32 total slides) engineered for Meta &amp; Instagram performance.
-                    </p>
-                  </div>
+                {campaignConfigs.map((cfg) => {
+                  const camp = getCampaignById(cfg.id);
+                  if (!camp) return null;
+                  const previews = camp.allLightboxSlides.slice(0, 3);
+                  const remainingCount = Math.max(0, camp.totalAssets - previews.length);
 
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      6 Decks · 5 Posters
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAiUgcClientFilter('anohga');
-                        setAiUgcFormatFilter('all');
-                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  return (
+                    <div
+                      key={camp.id}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openCampaignModal(camp.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          openCampaignModal(camp.id);
+                        }
                       }}
-                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
-                    >
-                      Filter Work ↓
-                    </button>
-                  </div>
-                </div>
-
-                {/* Arovia.ai Highlight Card */}
-                <div
-                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
-                  style={{
-                    borderColor: 'var(--border-color)',
-                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
-                  }}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                        <span>✦</span> AI Creative Partner
-                      </span>
-                      <a
-                        href="https://aroviaai.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
-                      >
-                        <span>Visit Site</span>
-                        <span>↗</span>
-                      </a>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                      Arovia.ai
-                    </h3>
-                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
-                      AI Platform · Health Intelligence Carousels &amp; Festive Key Visuals
-                    </p>
-                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      Diagnostic storytelling and root-cause health intelligence campaign. 3 narrative multi-slide carousels (16 total slides) and 3 festive brand storytelling key visuals (Dhanteras, Dussehra &amp; Diwali) built for social conversion.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      3 Decks · 3 Posters
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAiUgcClientFilter('arovia');
-                        setAiUgcFormatFilter('all');
-                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      aria-label={`Open ${camp.title} campaign content (${camp.totalAssets} deliverables)`}
+                      className="group rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/60 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(255,209,0,0.1)] flex flex-col justify-between cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      style={{
+                        borderColor: 'var(--border-color)',
+                        background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
                       }}
-                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
                     >
-                      Filter Work ↓
-                    </button>
-                  </div>
-                </div>
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-4">
+                          <span className="pill-label text-[9px] tracking-[0.2em]">
+                            {camp.badge}
+                          </span>
+                          {camp.visitUrl && camp.id === 'arovia' ? (
+                            <a
+                              href={camp.visitUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                              style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
+                            >
+                              <span>Visit Site</span>
+                              <span>↗</span>
+                            </a>
+                          ) : (
+                            <span
+                              className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
+                              style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}
+                            >
+                              {camp.categoryTag}
+                            </span>
+                          )}
+                        </div>
 
-                {/* Shilpa Pilates Studio Highlight Card */}
-                <div
-                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
-                  style={{
-                    borderColor: 'var(--border-color)',
-                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
-                  }}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                        <span>✦</span> Fitness &amp; UGC Partner
-                      </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        Performance Ads
-                      </span>
+                        <h3
+                          className="text-2xl font-bold mb-1.5 group-hover:text-yellow-400 transition-colors"
+                          style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
+                        >
+                          {camp.title}
+                        </h3>
+                        <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                          {camp.subtitle}
+                        </p>
+                        <p className="text-sm leading-relaxed mb-4 line-clamp-3" style={{ color: 'var(--text-secondary)' }}>
+                          {camp.description}
+                        </p>
+
+                        {/* Live Preview Thumbnails Inside Card */}
+                        {previews.length > 0 && (
+                          <div className="grid grid-cols-3 gap-2 mb-5">
+                            {previews.map((item, tIdx) => (
+                              <button
+                                key={tIdx}
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedImage({
+                                    src: item.image,
+                                    alt: item.title,
+                                    title: `${camp.title} — Deliverables`,
+                                    slides: camp.allLightboxSlides,
+                                    initialIndex: tIdx,
+                                  });
+                                }}
+                                className="group/thumb relative aspect-[4/5] rounded-xl overflow-hidden border bg-black/30 transition-all hover:border-yellow-400 cursor-pointer"
+                                style={{ borderColor: 'var(--border-color)' }}
+                                title={`Preview: ${item.title}`}
+                              >
+                                <img
+                                  src={item.image}
+                                  alt={item.title}
+                                  className="w-full h-full object-cover transition-transform duration-300 group-hover/thumb:scale-105"
+                                  loading="lazy"
+                                />
+                                {tIdx === previews.length - 1 && remainingCount > 0 ? (
+                                  <div className="absolute inset-0 bg-black/55 flex items-center justify-center">
+                                    <span className="px-2 py-0.5 rounded-lg text-[11px] font-mono font-bold text-yellow-400 bg-black/80 border border-yellow-400/40">
+                                      +{remainingCount} more
+                                    </span>
+                                  </div>
+                                ) : (
+                                  <div className="absolute inset-0 bg-black/0 group-hover/thumb:bg-black/35 transition-colors flex items-end justify-end p-1.5">
+                                    <span className="opacity-0 group-hover/thumb:opacity-100 text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-yellow-400 text-black transition-opacity">
+                                      ↗
+                                    </span>
+                                  </div>
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                        <span
+                          className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10"
+                          style={{ color: 'var(--text-secondary)' }}
+                        >
+                          {camp.metricsLabel}
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setAiUgcClientFilter(camp.id);
+                              setAiUgcFormatFilter('all');
+                              document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }}
+                            className="text-[10px] font-mono uppercase tracking-wider font-semibold px-2.5 py-1 rounded-lg border hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
+                            style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}
+                            title="Filter full gallery grid below"
+                          >
+                            Grid ↓
+                          </button>
+                          <span className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg bg-yellow-400 text-black group-hover:bg-yellow-300 transition-colors shadow-sm">
+                            Open Content →
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                      Shilpa Pilates Studio
-                    </h3>
-                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
-                      Boutique Fitness · Core Conditioning, Luxury Aqua Events &amp; Face Yoga
-                    </p>
-                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      24 high-converting ad creatives covering online Face Yoga programs, International Men's Day reformer campaigns, foam roller decompression, Tai Chi anti-aging, aerial silk sound baths, Radisson Blu luxury poolside aqua events, and studio workshops.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      24 Ad Creatives
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAiUgcClientFilter('shilpa');
-                        setAiUgcFormatFilter('all');
-                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }}
-                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
-                    >
-                      Filter Work ↓
-                    </button>
-                  </div>
-                </div>
-
-                {/* Tapas Yog Shala Highlight Card */}
-                <div
-                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
-                  style={{
-                    borderColor: 'var(--border-color)',
-                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
-                  }}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                        <span>✦</span> Studio Launch
-                      </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        Enrollment Ads
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                      Tapas Yog Shala
-                    </h3>
-                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
-                      Iyengar Yoga Studio (Jaipur) · Heritage Visuals &amp; Class Bento Posters
-                    </p>
-                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      5 conversion-focused launch posters blending Jaipur architectural warmth with structured schedule, pricing, and trial enrollment cards for Iyengar yoga batches.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      5 Launch Creatives
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAiUgcClientFilter('tapas');
-                        setAiUgcFormatFilter('all');
-                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }}
-                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
-                    >
-                      Filter Work ↓
-                    </button>
-                  </div>
-                </div>
-
-                {/* Prana Studio Highlight Card */}
-                <div
-                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
-                  style={{
-                    borderColor: 'var(--border-color)',
-                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
-                  }}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
-                        <span>✦</span> Luxury Visuals
-                      </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        3D Key Art
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                      Prana Studio
-                    </h3>
-                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
-                      Sound Therapy Sanctuary (Chennai) · 3D Acoustic &amp; Healing Posters
-                    </p>
-                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      3 bespoke bronze &amp; sound-wave atmospheric campaign key visuals built for immersive sound bath and restorative frequency sessions in Chennai.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      3 Key Visuals
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAiUgcClientFilter('prana');
-                        setAiUgcFormatFilter('all');
-                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }}
-                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
-                    >
-                      Filter Work ↓
-                    </button>
-                  </div>
-                </div>
+                  );
+                })}
 
                 {/* 6th Balanced Summary & Action Card */}
                 <div
@@ -2414,9 +2463,18 @@ function App() {
           <div key={clientFilter} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 animate-panel">
             {clientsData
               .filter((c) => clientFilter === 'all' || c.type === clientFilter)
-              .map((client, idx) => (
-                <ClientCard key={client.name} client={client} delay={idx * 25} />
-              ))}
+              .map((client, idx) => {
+                const action = getClientCardAction(client);
+                return (
+                  <ClientCard
+                    key={client.name}
+                    client={client}
+                    delay={idx * 25}
+                    onClick={action?.onClick}
+                    actionLabel={action?.label}
+                  />
+                );
+              })}
           </div>
         </section>
 

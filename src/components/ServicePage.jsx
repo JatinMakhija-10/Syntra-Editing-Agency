@@ -406,61 +406,97 @@ export function ServicePage({
               <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,209,0,0.3), transparent)' }} />
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              {service.clientShowcases.map((showcase, idx) => (
-                <div key={idx} className="rounded-3xl border p-4 sm:p-6 md:p-8 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/40"
+              {service.clientShowcases.map((showcase, idx) => {
+                const carouselSlides = (showcase.carousels || []).flatMap((c) =>
+                  (c.slides || []).map((s) => ({
+                    image: s.image,
+                    title: s.title || c.title,
+                  }))
+                );
+                const allShowcaseSlides = [...(showcase.examples || []), ...carouselSlides];
+
+                return (
+                <div key={idx} className="rounded-3xl border p-4 sm:p-6 md:p-8 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/40 flex flex-col justify-between"
                   style={{ borderColor: 'var(--border-color)', background: `linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)` }}>
-                  <div className="flex items-start justify-between mb-4 sm:mb-5">
-                    <div>
-                      <div className="pill-label mb-2 sm:mb-3 inline-flex">
-                        AI Static Ads
+                  <div>
+                    <div className="flex items-start justify-between mb-4 sm:mb-5">
+                      <div>
+                        <div className="pill-label mb-2 sm:mb-3 inline-flex">
+                          AI Static Ads
+                        </div>
+                        <h3 className="text-lg sm:text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{showcase.client}</h3>
+                        <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{showcase.clientDesc}</p>
                       </div>
-                      <h3 className="text-lg sm:text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>{showcase.client}</h3>
-                      <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{showcase.clientDesc}</p>
+                      {showcase.clientLink && !showcase.clientLink.includes('drive.google.com') && (
+                        <a href={showcase.clientLink} target="_blank" rel="noopener noreferrer"
+                          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                          style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
+                          Visit site ↗
+                        </a>
+                      )}
                     </div>
-                    {showcase.clientLink && !showcase.clientLink.includes('drive.google.com') && (
-                      <a href={showcase.clientLink} target="_blank" rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
-                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                        Visit site ↗
-                      </a>
+                    {showcase.examples?.length > 0 ? (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                        {showcase.examples.map((ex, exIdx) => (
+                          <div key={exIdx} className="group/item relative rounded-xl overflow-hidden aspect-[3/4] cursor-pointer border transition-all duration-300 hover:border-yellow-400/60 hover:scale-[1.03]"
+                            style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                            onClick={() =>
+                              onImageClick &&
+                              onImageClick({
+                                src: ex.image,
+                                alt: ex.title || showcase.client,
+                                title: `${showcase.client} Deliverables`,
+                                slides: allShowcaseSlides,
+                                initialIndex: exIdx,
+                              })
+                            }
+                            title={`Click to view: ${ex.title || showcase.client}`}>
+                            <img src={ex.image} alt={ex.title || showcase.client} className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" loading="lazy" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity flex items-end p-2.5">
+                              <span className="text-[10px] font-semibold text-white leading-tight">
+                                {ex.title}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="rounded-2xl flex items-center justify-center min-h-[100px]"
+                        style={{ background: 'var(--bg-overlay)', border: '1px dashed var(--border-color)' }}>
+                        <div className="text-center py-6 px-4">
+                          <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'var(--text-tertiary)' }}>Ad creatives coming soon</p>
+                          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
+                        </div>
+                      </div>
                     )}
                   </div>
-                  {showcase.examples?.length > 0 ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
-                      {showcase.examples.map((ex, exIdx) => (
-                        <div key={exIdx} className="group/item relative rounded-xl overflow-hidden aspect-[3/4] cursor-pointer border transition-all duration-300 hover:border-yellow-400/60 hover:scale-[1.03]"
-                          style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
-                          onClick={() =>
-                            onImageClick &&
-                            onImageClick({
-                              src: ex.image,
-                              alt: ex.title || showcase.client,
-                              title: `${showcase.client} Deliverables`,
-                              slides: showcase.examples,
-                              initialIndex: exIdx,
-                            })
-                          }
-                          title={`Click to view: ${ex.title || showcase.client}`}>
-                          <img src={ex.image} alt={ex.title || showcase.client} className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" loading="lazy" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity flex items-end p-2.5">
-                            <span className="text-[10px] font-semibold text-white leading-tight">
-                              {ex.title}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="rounded-2xl flex items-center justify-center min-h-[100px]"
-                      style={{ background: 'var(--bg-overlay)', border: '1px dashed var(--border-color)' }}>
-                      <div className="text-center py-6 px-4">
-                        <p className="text-[9px] tracking-[0.3em] uppercase font-semibold mb-1" style={{ color: 'var(--text-tertiary)' }}>Ad creatives coming soon</p>
-                        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Static ad gallery will appear here</p>
-                      </div>
+
+                  {allShowcaseSlides.length > 0 && (
+                    <div className="mt-4 pt-3 border-t flex items-center justify-between gap-3" style={{ borderColor: 'var(--border-color)' }}>
+                      <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>
+                        {showcase.examples?.length || 0} Posters{showcase.carousels?.length ? ` · ${showcase.carousels.length} Carousels` : ''}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onImageClick &&
+                          onImageClick({
+                            src: allShowcaseSlides[0].image,
+                            alt: showcase.client,
+                            title: `${showcase.client} — All Deliverables`,
+                            slides: allShowcaseSlides,
+                            initialIndex: 0,
+                          })
+                        }
+                        className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
+                      >
+                        Inspect All {allShowcaseSlides.length} Slides →
+                      </button>
                     </div>
                   )}
                 </div>
-              ))}
+                );
+              })}
             </div>
           </section>
         )}
