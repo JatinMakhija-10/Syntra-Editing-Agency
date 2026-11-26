@@ -252,6 +252,8 @@ export const servicesData = {
         { title: 'Syntra Brand Identity & Visual System #41', image: '/assets/portfolio/img30-d09b2srf.webp' },
         { title: 'Syntra Brand Identity & Visual System #42', image: '/assets/portfolio/menucard-3-1-hslqbc9k.webp' },
         { title: 'Syntra Brand Identity & Visual System #43', image: '/assets/portfolio/menucard22-1-srsw0j0v.webp' },
+        { title: 'Prana Studio — Sound Therapy Luxury Key Visual Identity', image: '/assets/prana-studio/prana-sound-therapy-disc.webp' },
+        { title: 'Tapas Yog Shala — Iyengar Yoga Studio Emblem & Layout', image: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-campaign.webp' },
       ],
     },
     'Banners / Headers / Social Covers': {
@@ -259,6 +261,13 @@ export const servicesData = {
       desc: 'High-impact covers for YouTube, Twitch, X and more.',
       tag: 'Social',
       examples: [
+        { title: 'Prana Studio — Sound Therapy (Acoustic Wave Key Visual)', image: '/assets/prana-studio/prana-sound-therapy-disc.webp' },
+        { title: 'Prana Studio — Let Sound Do The Healing (Visual System)', image: '/assets/prana-studio/prana-sound-healing-bowl.webp' },
+        { title: 'Prana Studio — Sound Therapy Sphere Story Visual', image: '/assets/prana-studio/prana-sound-therapy-sphere.webp' },
+        { title: 'Tapas Yog Shala — Find Your Balance Launch Poster', image: '/assets/tapas-yog-shala/tapas-yog-shala-find-your-balance.webp' },
+        { title: 'Tapas Yog Shala — Heritage Archway Yoga Campaign', image: '/assets/tapas-yog-shala/tapas-yog-shala-jaipur-arch-yoga.webp' },
+        { title: 'Tapas Yog Shala — Iyengar Class Launch Bento', image: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-campaign.webp' },
+        { title: 'Shilpa Pilates — Online Face Yoga Program Launch', image: '/assets/shilpa-pilates/shilpa-face-yoga-online-program.webp' },
         { title: 'Anohga Yoga Studio — 6-Pillar Studio Launch Visual', image: '/assets/anohga/anohga-flexibility-mobility-key-visual.webp' },
         { title: 'Arovia.ai — Dhanteras Festive Brand Visual', image: '/assets/arovia/posters/dhanteras-greatest-wealth.webp' },
         { title: 'Arovia.ai — Dussehra Clarity Key Visual', image: '/assets/arovia/posters/dussehra-clarity-over-confusion.webp' },
@@ -417,6 +426,15 @@ export const servicesData = {
         { title: "Shilpa Pilates — Men's Reformer Masterclass Trio", image: '/assets/shilpa-pilates/shilpa-mens-pilates-trio-reformer-session.webp' },
         { title: 'Shilpa Pilates — Aerial Silks & Sound Bath Healing', image: '/assets/shilpa-pilates/shilpa-aerial-sound-bath-silk-healing.webp' },
         { title: "Shilpa Pilates — Men's Day on the Pilates Mat Poster", image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-mat-poster.webp' },
+        { title: 'Shilpa Pilates — Online Face Yoga Zoom Program', image: '/assets/shilpa-pilates/shilpa-face-yoga-online-program.webp' },
+        { title: 'Prana Studio — Sound Therapy (Acoustic Wave Key Visual)', image: '/assets/prana-studio/prana-sound-therapy-disc.webp' },
+        { title: 'Prana Studio — Let Sound Do The Healing', image: '/assets/prana-studio/prana-sound-healing-bowl.webp' },
+        { title: 'Prana Studio — Sound Therapy Sphere Story', image: '/assets/prana-studio/prana-sound-therapy-sphere.webp' },
+        { title: 'Tapas Yog Shala — Find Your Balance Yoga Launch', image: '/assets/tapas-yog-shala/tapas-yog-shala-find-your-balance.webp' },
+        { title: 'Tapas Yog Shala — Jaipur Archway Yoga Campaign', image: '/assets/tapas-yog-shala/tapas-yog-shala-jaipur-arch-yoga.webp' },
+        { title: 'Tapas Yog Shala — Iyengar Class Schedule & Fee Poster', image: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-schedule.webp' },
+        { title: 'Tapas Yog Shala — Join Our Yoga Classes (Bento Guide)', image: '/assets/tapas-yog-shala/tapas-yog-shala-join-yoga-bento.webp' },
+        { title: 'Tapas Yog Shala — Iyengar Class Offer Grid', image: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-campaign.webp' },
       ],
       videoShowcase: [
         { type: 'drive', src: 'https://drive.google.com/file/d/1VRLNnF9FUF6aPSgi4xU_vYyXs5j8R231/preview', title: '', description: '' },
@@ -634,6 +652,42 @@ export const servicesData = {
           title: "Shilpa Pilates — Men's Day on the Pilates Mat Poster",
           image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-mat-poster.webp',
         },
+        {
+          title: 'Shilpa Pilates — Join My Online Face Yoga Program',
+          image: '/assets/shilpa-pilates/shilpa-face-yoga-online-program.webp',
+        },
+        {
+          title: 'Tapas Yog Shala — Find Your Balance Yoga Launch',
+          image: '/assets/tapas-yog-shala/tapas-yog-shala-find-your-balance.webp',
+        },
+        {
+          title: 'Tapas Yog Shala — Heritage Archway Yoga Story',
+          image: '/assets/tapas-yog-shala/tapas-yog-shala-jaipur-arch-yoga.webp',
+        },
+        {
+          title: 'Tapas Yog Shala — Iyengar Batch & Fee Breakdown Poster',
+          image: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-schedule.webp',
+        },
+        {
+          title: 'Tapas Yog Shala — Join Yoga Classes Bento Guide',
+          image: '/assets/tapas-yog-shala/tapas-yog-shala-join-yoga-bento.webp',
+        },
+        {
+          title: 'Tapas Yog Shala — Iyengar Style Enrollment Campaign',
+          image: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-campaign.webp',
+        },
+        {
+          title: 'Prana Studio — Sound Therapy (Acoustic Wave Key Visual)',
+          image: '/assets/prana-studio/prana-sound-therapy-disc.webp',
+        },
+        {
+          title: 'Prana Studio — Let Sound Do The Healing',
+          image: '/assets/prana-studio/prana-sound-healing-bowl.webp',
+        },
+        {
+          title: 'Prana Studio — Sound Therapy Sphere Story',
+          image: '/assets/prana-studio/prana-sound-therapy-sphere.webp',
+        },
       ],
       videoShowcase: [],
       webPreview: [],
@@ -812,7 +866,7 @@ export const servicesData = {
         },
         {
           client: 'Shilpa Pilates Studio',
-          clientDesc: 'Boutique Fitness & Face Yoga — 23 high-converting ad creatives covering International Men\'s Day reformer campaigns, foam roller decompression, Tai Chi anti-aging, aerial silk healing, Radisson Blu aqua events & face yoga workshops.',
+          clientDesc: 'Boutique Fitness & Face Yoga — 24 high-converting ad creatives covering online Face Yoga programs, International Men\'s Day reformer campaigns, foam roller decompression, Tai Chi anti-aging, aerial silk healing, Radisson Blu aqua events & workshops.',
           examples: [
             {
               title: 'Shilpa Pilates — ABS Workout Core Session',
@@ -905,6 +959,54 @@ export const servicesData = {
             {
               title: "Shilpa Pilates — Men's Day on the Pilates Mat Poster",
               image: '/assets/shilpa-pilates/shilpa-mens-day-pilates-mat-poster.webp',
+            },
+            {
+              title: 'Shilpa Pilates — Join My Online Face Yoga Program',
+              image: '/assets/shilpa-pilates/shilpa-face-yoga-online-program.webp',
+            },
+          ],
+        },
+        {
+          client: 'Tapas Yog Shala',
+          clientDesc: 'Iyengar Yoga Studio (Jaipur) — 5 enrollment posters & structured infographic cards blending architectural warmth with batch & trial clarity.',
+          examples: [
+            {
+              title: 'Tapas Yog Shala — Find Your Balance Yoga Launch',
+              image: '/assets/tapas-yog-shala/tapas-yog-shala-find-your-balance.webp',
+            },
+            {
+              title: 'Tapas Yog Shala — Heritage Archway Yoga Story',
+              image: '/assets/tapas-yog-shala/tapas-yog-shala-jaipur-arch-yoga.webp',
+            },
+            {
+              title: 'Tapas Yog Shala — Iyengar Batch & Fee Breakdown Poster',
+              image: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-schedule.webp',
+            },
+            {
+              title: 'Tapas Yog Shala — Join Yoga Classes Bento Guide',
+              image: '/assets/tapas-yog-shala/tapas-yog-shala-join-yoga-bento.webp',
+            },
+            {
+              title: 'Tapas Yog Shala — Iyengar Style Enrollment Campaign',
+              image: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-campaign.webp',
+            },
+          ],
+        },
+        {
+          client: 'Prana Studio',
+          clientDesc: 'Sound Therapy & Healing Sanctuary (Chennai) — 3 atmospheric 3D sculptural key visuals capturing acoustic resonance and calm.',
+          examples: [
+            {
+              title: 'Prana Studio — Sound Therapy (Acoustic Wave Key Visual)',
+              image: '/assets/prana-studio/prana-sound-therapy-disc.webp',
+            },
+            {
+              title: 'Prana Studio — Let Sound Do The Healing',
+              image: '/assets/prana-studio/prana-sound-healing-bowl.webp',
+            },
+            {
+              title: 'Prana Studio — Sound Therapy Sphere Story',
+              image: '/assets/prana-studio/prana-sound-therapy-sphere.webp',
             },
           ],
         },

@@ -35,7 +35,7 @@ const InstagramCard = ({ video, serviceTitle, index }) => {
 
       {/* Instagram gradient ring */}
       <div
-        className="absolute top-4 left-4 w-10 h-10 rounded-md flex items-center justify-center"
+        className="absolute top-4 left-4 w-10 h-10 rounded-xl flex items-center justify-center"
         style={{
           background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
           padding: '2px',
@@ -43,7 +43,7 @@ const InstagramCard = ({ video, serviceTitle, index }) => {
         aria-hidden="true"
       >
         <div
-          className="w-full h-full rounded-md flex items-center justify-center"
+          className="w-full h-full rounded-xl flex items-center justify-center"
           style={{ background: '#1a1a2e' }}
         >
           {/* Instagram camera icon */}
@@ -56,7 +56,7 @@ const InstagramCard = ({ video, serviceTitle, index }) => {
       {/* Reel play button — centered */}
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
         <div
-          className="w-16 h-16 rounded-md flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+          className="w-16 h-16 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
           style={{
             background: 'rgba(255,255,255,0.15)',
             backdropFilter: 'blur(8px)',

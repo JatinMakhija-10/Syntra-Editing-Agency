@@ -298,14 +298,14 @@ export function HeroCuttingBay() {
           )}
 
           {/* Monitor Top HUD */}
-          <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 flex items-center gap-2 bg-black/75 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-md border border-white/10 font-mono text-[9px] sm:text-[10px] text-white z-10">
+          <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 flex items-center gap-2 bg-black/75 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-xl border border-white/10 font-mono text-[9px] sm:text-[10px] text-white z-10">
             <span className={`w-1.5 h-1.5 rounded-full ${isPlaying ? 'bg-emerald-400 animate-pulse' : 'bg-red-500 animate-pulse'}`} />
             <span className="font-semibold tracking-wider">{isPlaying ? 'PLAY' : 'REC'}</span>
             <span className="text-yellow-400 font-bold ml-0.5 tabular-nums">{formatTimecode(playhead)}</span>
           </div>
 
           <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 flex items-center gap-1.5 z-10">
-            <span className="hidden sm:inline bg-black/75 backdrop-blur-md px-2 py-1 rounded-md border border-white/10 font-mono text-[9px] sm:text-[10px] text-stone-300">
+            <span className="hidden sm:inline bg-black/75 backdrop-blur-md px-2 py-1 rounded-lg border border-white/10 font-mono text-[9px] sm:text-[10px] text-stone-300">
               {activeClip === 'Multicam_CamB' ? 'Cam B · 50mm' : activeClip === 'B-Roll_Movement' ? 'Kinetic Zoom' : 'Cam A · 35mm'}
             </span>
             <button
@@ -314,7 +314,7 @@ export function HeroCuttingBay() {
                 e.stopPropagation();
                 togglePlay();
               }}
-              className="px-2.5 py-1 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black font-mono text-[9px] sm:text-[10px] font-bold shadow transition-transform active:scale-95 cursor-pointer flex items-center gap-1"
+              className="px-2.5 py-1 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black font-mono text-[9px] sm:text-[10px] font-bold shadow transition-transform active:scale-95 cursor-pointer flex items-center gap-1"
               aria-label={isPlaying ? 'Pause preview timeline' : 'Play preview timeline'}
             >
               {isPlaying ? '❚❚ PAUSE' : '▶ PLAY'}
@@ -329,10 +329,10 @@ export function HeroCuttingBay() {
             <button
               type="button"
               onClick={cycleLut}
-              className="bg-black/75 hover:bg-black/95 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/15 hover:border-yellow-400/60 font-mono text-[9px] sm:text-[10px] text-stone-200 transition-colors cursor-pointer flex items-center gap-1.5"
+              className="bg-black/75 hover:bg-black/95 backdrop-blur-md px-2.5 py-1 rounded-xl border border-white/15 hover:border-yellow-400/60 font-mono text-[9px] sm:text-[10px] text-stone-200 transition-colors cursor-pointer flex items-center gap-1.5"
               title="Click to cycle color grade LUTs"
             >
-              <span className="w-1.5 h-1.5 rounded-sm bg-yellow-400" />
+              <span className="w-1.5 h-1.5 rounded-lg bg-yellow-400" />
               <span>Color: {activeLut.label}</span>
             </button>
 
@@ -343,7 +343,7 @@ export function HeroCuttingBay() {
                   setShowTitleOverlay((s) => !s);
                   if (sfxEnabled) playStudioClick('tick');
                 }}
-                className={`px-2 py-1 rounded-md border font-mono text-[9px] font-bold transition-colors cursor-pointer ${
+                className={`px-2 py-1 rounded-xl border font-mono text-[9px] font-bold transition-colors cursor-pointer ${
                   showTitleOverlay
                     ? 'bg-yellow-400 text-black border-yellow-400'
                     : 'bg-black/75 text-stone-300 border-white/15 hover:border-yellow-400/50'
@@ -358,7 +358,7 @@ export function HeroCuttingBay() {
                   setShowSplitCompare((s) => !s);
                   if (sfxEnabled) playStudioClick('tick');
                 }}
-                className={`px-2 py-1 rounded-md border font-mono text-[9px] font-bold transition-colors cursor-pointer ${
+                className={`px-2 py-1 rounded-xl border font-mono text-[9px] font-bold transition-colors cursor-pointer ${
                   showSplitCompare
                     ? 'bg-yellow-400 text-black border-yellow-400'
                     : 'bg-black/75 text-stone-300 border-white/15 hover:border-yellow-400/50'

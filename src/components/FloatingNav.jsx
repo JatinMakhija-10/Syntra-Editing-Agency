@@ -48,7 +48,7 @@ export function FloatingNav({ activeSection, onOpenPalette, onNavigateSection })
                   onNavigateSection(s.id);
                   setMenuOpen(false);
                 }}
-                className={`w-full text-left px-2.5 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider flex items-center justify-between transition-colors cursor-pointer ${
+                className={`w-full text-left px-2.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-between transition-colors cursor-pointer ${
                   isCurrent
                     ? 'bg-yellow-400 text-black'
                     : 'hover:bg-white/10'
@@ -74,7 +74,7 @@ export function FloatingNav({ activeSection, onOpenPalette, onNavigateSection })
         <button
           type="button"
           onClick={onOpenPalette}
-          className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider border transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
+          className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[10px] font-mono font-bold uppercase tracking-wider border transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
           style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
           title="Open Quick Studio Search (Ctrl+K)"
         >
@@ -87,7 +87,7 @@ export function FloatingNav({ activeSection, onOpenPalette, onNavigateSection })
         <button
           type="button"
           onClick={() => setMenuOpen((o) => !o)}
-          className={`px-2.5 py-1.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
+          className={`px-2.5 py-1.5 rounded-xl text-[10px] font-mono font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
             menuOpen
               ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10'
               : 'hover:border-yellow-400'
@@ -106,7 +106,7 @@ export function FloatingNav({ activeSection, onOpenPalette, onNavigateSection })
         <button
           type="button"
           onClick={() => scrollToTop(450)}
-          className="w-8 h-8 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black font-bold flex items-center justify-center transition-transform hover:-translate-y-0.5 cursor-pointer shadow-sm"
+          className="w-8 h-8 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black font-bold flex items-center justify-center transition-transform hover:-translate-y-0.5 cursor-pointer shadow-sm"
           aria-label="Scroll back to top"
           title="Back to top"
         >

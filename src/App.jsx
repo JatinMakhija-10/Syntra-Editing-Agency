@@ -357,6 +357,87 @@ const aiUgcPosters = [
     src: '/assets/shilpa-pilates/shilpa-mens-day-pilates-mat-poster.webp',
     badge: 'Campaign Creative',
   },
+  {
+    id: 'poster-shilpa-face-yoga-online',
+    client: 'shilpa',
+    clientName: 'Shilpa Pilates Studio',
+    title: 'Join My Online Face Yoga Program — Live on Zoom',
+    subtitle: 'Natural Face Lifting Routine & Early Bird Enrollment Ad',
+    src: '/assets/shilpa-pilates/shilpa-face-yoga-online-program.webp',
+    badge: 'Online Program',
+  },
+  {
+    id: 'poster-tapas-find-your-balance',
+    client: 'tapas',
+    clientName: 'Tapas Yog Shala',
+    title: 'Tapas Yog Shala — Find Your Balance (Rope Wall Practice)',
+    subtitle: 'Yoga Classes Launch & Free First Month Offer',
+    src: '/assets/tapas-yog-shala/tapas-yog-shala-find-your-balance.webp',
+    badge: 'Studio Launch',
+  },
+  {
+    id: 'poster-tapas-jaipur-arch',
+    client: 'tapas',
+    clientName: 'Tapas Yog Shala',
+    title: 'Tapas Yog Shala — Heritage Archway Yoga Sanctuary (Jaipur)',
+    subtitle: 'A Little Space for Yourself — Studio Trial Creative',
+    src: '/assets/tapas-yog-shala/tapas-yog-shala-jaipur-arch-yoga.webp',
+    badge: 'Brand Visual',
+  },
+  {
+    id: 'poster-tapas-iyengar-schedule',
+    client: 'tapas',
+    clientName: 'Tapas Yog Shala',
+    title: 'Tapas Yog Shala — Iyengar Style Yoga Classes Schedule',
+    subtitle: 'Batch Timings, Registration & Onboarding Funnel Poster',
+    src: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-schedule.webp',
+    badge: 'Infographic Ad',
+  },
+  {
+    id: 'poster-tapas-join-bento',
+    client: 'tapas',
+    clientName: 'Tapas Yog Shala',
+    title: 'Tapas Yog Shala — Join Our Yoga Classes (Bento Guide)',
+    subtitle: 'Multi-Card Offer & Safety Screening Layout',
+    src: '/assets/tapas-yog-shala/tapas-yog-shala-join-yoga-bento.webp',
+    badge: 'Conversion Grid',
+  },
+  {
+    id: 'poster-tapas-iyengar-campaign',
+    client: 'tapas',
+    clientName: 'Tapas Yog Shala',
+    title: 'Tapas Yog Shala — Iyengar Yoga Opening Offer Campaign',
+    subtitle: 'Stronger, Calmer, More You — Full Schedule Ad',
+    src: '/assets/tapas-yog-shala/tapas-yog-shala-iyengar-campaign.webp',
+    badge: 'Performance Ad',
+  },
+  {
+    id: 'poster-prana-sound-disc',
+    client: 'prana',
+    clientName: 'Prana Studio',
+    title: 'Prana Studio — Sound Therapy (Acoustic Disc Key Visual)',
+    subtitle: 'Experiential 3D Resonance & Minimalist Sanctuary Poster',
+    src: '/assets/prana-studio/prana-sound-therapy-disc.webp',
+    badge: '3D Key Visual',
+  },
+  {
+    id: 'poster-prana-sound-bowl',
+    client: 'prana',
+    clientName: 'Prana Studio',
+    title: 'Prana Studio — Let Sound Do The Healing',
+    subtitle: 'Immersive Sound Bath & Sacred Architecture Campaign',
+    src: '/assets/prana-studio/prana-sound-healing-bowl.webp',
+    badge: 'Sound Healing',
+  },
+  {
+    id: 'poster-prana-sound-sphere',
+    client: 'prana',
+    clientName: 'Prana Studio',
+    title: 'Prana Studio — Sound Therapy Sphere Story Format',
+    subtitle: 'Sculptural Acoustic Ripple Vertical Poster',
+    src: '/assets/prana-studio/prana-sound-therapy-sphere.webp',
+    badge: 'Vertical Key Visual',
+  },
 ];
 
 function App() {
@@ -849,7 +930,7 @@ function App() {
         role="banner"
       >
         <a href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:px-3 focus:py-1.5 focus:bg-yellow-400 focus:text-black focus:text-xs focus:font-mono focus:rounded-sm focus:outline-none">
+          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:px-3 focus:py-1.5 focus:bg-yellow-400 focus:text-black focus:text-xs focus:font-mono focus:rounded-lg focus:outline-none">
           Skip to main content
         </a>
 
@@ -861,7 +942,7 @@ function App() {
               e.preventDefault();
               scrollToTop(450);
             }}
-            className="flex items-center group focus:outline-none focus:ring-1 focus:ring-yellow-400 rounded-sm p-1 shrink-0"
+            className="flex items-center group focus:outline-none focus:ring-1 focus:ring-yellow-400 rounded-lg p-1 shrink-0"
             aria-label="Syntra Home"
           >
             <img
@@ -897,7 +978,7 @@ function App() {
                   <span>{link.label}</span>
                   {link.index && (
                     <span
-                      className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-sm border transition-colors ${
+                      className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-lg border transition-colors ${
                         isActive
                           ? 'bg-yellow-400 text-black border-yellow-400'
                           : 'bg-yellow-400/15 text-yellow-400 border-yellow-400/30 group-hover:bg-yellow-400 group-hover:text-black'
@@ -922,7 +1003,7 @@ function App() {
             <button
               type="button"
               onClick={() => setPaletteOpen(true)}
-              className="inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3 rounded-md border text-xs font-bold transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
+              className="inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3 rounded-xl border text-xs font-bold transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-primary)' }}
               aria-label="Open Quick Navigation Finder (Ctrl+K)"
               title="Quick Jump to any Service or Section (Ctrl+K)"
@@ -938,7 +1019,7 @@ function App() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden w-9 h-9 rounded-md border flex items-center justify-center transition-colors hover:border-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+              className="md:hidden w-9 h-9 rounded-xl border flex items-center justify-center transition-colors hover:border-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400"
               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen}
@@ -960,7 +1041,7 @@ function App() {
             <a
               href="#contact"
               onClick={handleSmoothScroll}
-              className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold px-4 py-2 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black transition-all duration-150 hover:scale-[1.02] shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
+              className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold px-4 py-2 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black transition-all duration-150 hover:scale-[1.02] shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
             >
               <span>Start a project</span>
               <span aria-hidden="true">→</span>
@@ -1028,11 +1109,11 @@ function App() {
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a href="#services" onClick={handleSmoothScroll}
-                  className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
+                  className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300">
                   View Services →
                 </a>
                 <a href="#contact" onClick={handleSmoothScroll}
-                  className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                  className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-[11px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                   Start a project
                 </a>
@@ -1060,7 +1141,7 @@ function App() {
                       const target = document.getElementById('services');
                       if (target) smoothScrollTo(target, 500);
                     }}
-                    className="text-[10px] tracking-wider uppercase font-semibold px-3 py-1.5 rounded-md border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
+                    className="text-[10px] tracking-wider uppercase font-semibold px-3 py-1.5 rounded-xl border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
                     style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
                   >
                     {pill.label}
@@ -1167,23 +1248,21 @@ function App() {
               <p className="mt-3 sm:mt-4 text-sm sm:text-base max-w-xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 From gaming montages to logos, thumbnails, social posts, AI UGC ads and full websites — Syntra handles the entire funnel with zero templates.
               </p>
-              {/* Metric badges strip */}
-              <div className="flex flex-wrap items-center gap-2 mt-5">
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
-                  {totalServicesCount} Specialized Services
+              {/* Editorial metric specs strip (borderless typography instead of repetitive boxes) */}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5 text-xs font-semibold tracking-wider uppercase" style={{ color: 'var(--text-tertiary)' }}>
+                <span className="inline-flex items-center gap-2 text-yellow-400 font-bold">
+                  <span className="text-[9px]">◆</span> {totalServicesCount} Specialized Services
                 </span>
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-md border"
-                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                  100+ Video Edits
+                <span className="inline-flex items-center gap-2">
+                  <span className="text-[9px] text-yellow-400">◆</span> 100+ Video Edits
                 </span>
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-3 py-1 rounded-md border"
-                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
-                  Custom Brand Retainers
+                <span className="inline-flex items-center gap-2">
+                  <span className="text-[9px] text-yellow-400">◆</span> Custom Brand Retainers
                 </span>
               </div>
             </div>
             <a href="#contact" onClick={handleSmoothScroll}
-              className="shrink-0 btn-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300 w-full sm:w-auto text-center">
+              className="shrink-0 btn-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300 w-full sm:w-auto text-center">
               Start a project →
             </a>
           </div>
@@ -1213,7 +1292,7 @@ function App() {
                         window.history.pushState({}, '', '#services');
                       }
                     }}
-                    className={`relative shrink-0 px-3.5 sm:px-4 py-2 rounded-md text-[10px] tracking-[0.2em] uppercase font-bold transition-all border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
+                    className={`relative shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-[10px] tracking-[0.2em] uppercase font-bold transition-all border flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer ${
                       active
                         ? 'border-yellow-400/80 bg-yellow-400/15 text-yellow-400 shadow-[0_0_24px_rgba(255,209,0,0.22)]'
                         : 'hover:border-yellow-300/50 hover:text-yellow-300'
@@ -1225,12 +1304,12 @@ function App() {
                     }}
                   >
                     <span>{tab.label}</span>
-                    <span className={`text-[9px] px-1.5 py-0.2 rounded-md font-bold ml-0.5 ${
+                    <span className={`text-[9px] px-1.5 py-0.2 rounded-lg font-bold ml-0.5 ${
                       active ? 'bg-yellow-400 text-black' : 'bg-[var(--bg-overlay)] text-[var(--text-muted)]'
                     }`}>
                       {count}
                     </span>
-                    {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/10 rounded-md" aria-hidden="true" />}
+                    {active && <span className="absolute inset-0 -z-10 blur-xl bg-yellow-400/10 rounded-xl" aria-hidden="true" />}
                   </button>
                 );
               })}
@@ -1243,7 +1322,7 @@ function App() {
                 value={serviceSearch}
                 onChange={(e) => setServiceSearch(e.target.value)}
                 placeholder="Search services (e.g. reels, ai ads)..."
-                className="w-full pl-9 pr-9 py-2.5 rounded-md text-xs border outline-none transition-all duration-300 focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full pl-9 pr-9 py-2.5 rounded-xl text-xs border outline-none transition-all duration-300 focus:ring-2 focus:ring-yellow-400/40"
                 style={{
                   backgroundColor: 'var(--bg-card)',
                   borderColor: serviceSearch ? 'var(--brand-yellow)' : 'var(--border-color)',
@@ -1308,7 +1387,7 @@ function App() {
                       </p>
                       <div className="flex flex-wrap gap-2.5 mt-5">
                         {['AI Avatars', 'Performance Video Ads', 'Static Creatives', 'Hook-First Scripts', 'Multi-Platform Formats'].map((tag) => (
-                          <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-md border"
+                          <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1 rounded-lg border"
                             style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                             {tag}
                           </span>
@@ -1341,7 +1420,7 @@ function App() {
                     </p>
                     <div className="flex flex-wrap gap-2 mt-4">
                       {['WhatsApp Cloud API', 'Instagram DM Automation', 'Technical SEO', 'CRO Website Audits', 'Private Beta Open'].map(tag => (
-                        <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 rounded-md border"
+                        <span key={tag} className="text-[9px] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 rounded-lg border"
                           style={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                           {tag}
                         </span>
@@ -1455,10 +1534,10 @@ function App() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                         <span>✦</span> Featured Production
                       </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-md border"
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Performance Ads
                       </span>
@@ -1474,16 +1553,21 @@ function App() {
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      6 Carousel Decks (32 Slides)
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      6 Decks · 5 Posters
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      5 Launch Posters
-                    </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
-                      High-Intent Bookings
-                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAiUgcClientFilter('anohga');
+                        setAiUgcFormatFilter('all');
+                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
+                    >
+                      Filter Work ↓
+                    </button>
                   </div>
                 </div>
 
@@ -1497,14 +1581,14 @@ function App() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                         <span>✦</span> AI Creative Partner
                       </span>
                       <a
                         href="https://aroviaai.com/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-[9px] tracking-[0.15em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
                       >
                         <span>Visit Site</span>
@@ -1522,16 +1606,21 @@ function App() {
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      3 Carousel Decks (16 Slides)
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      3 Decks · 3 Posters
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      3 Festive Key Visuals
-                    </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
-                      Performance Scaled
-                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAiUgcClientFilter('arovia');
+                        setAiUgcFormatFilter('all');
+                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
+                    >
+                      Filter Work ↓
+                    </button>
                   </div>
                 </div>
 
@@ -1545,10 +1634,10 @@ function App() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                         <span>✦</span> Fitness &amp; UGC Partner
                       </span>
-                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-md border"
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Performance Ads
                       </span>
@@ -1560,64 +1649,218 @@ function App() {
                       Boutique Fitness · Core Conditioning, Luxury Aqua Events &amp; Face Yoga
                     </p>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
-                      23 high-converting ad creatives covering International Men's Day reformer campaigns, foam roller myofascial decompression, Tai Chi anti-aging, aerial silk sound baths, Radisson Blu luxury poolside aqua events, and face yoga workshops.
+                      24 high-converting ad creatives covering online Face Yoga programs, International Men's Day reformer campaigns, foam roller decompression, Tai Chi anti-aging, aerial silk sound baths, Radisson Blu luxury poolside aqua events, and studio workshops.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      24 Ad Creatives
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAiUgcClientFilter('shilpa');
+                        setAiUgcFormatFilter('all');
+                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
+                    >
+                      Filter Work ↓
+                    </button>
+                  </div>
+                </div>
+
+                {/* Tapas Yog Shala Highlight Card */}
+                <div
+                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
+                  style={{
+                    borderColor: 'var(--border-color)',
+                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                  }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                        <span>✦</span> Studio Launch
+                      </span>
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
+                        Enrollment Ads
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Tapas Yog Shala
+                    </h3>
+                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                      Iyengar Yoga Studio (Jaipur) · Heritage Visuals &amp; Class Bento Posters
+                    </p>
+                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+                      5 conversion-focused launch posters blending Jaipur architectural warmth with structured schedule, pricing, and trial enrollment cards for Iyengar yoga batches.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      5 Launch Creatives
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAiUgcClientFilter('tapas');
+                        setAiUgcFormatFilter('all');
+                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
+                    >
+                      Filter Work ↓
+                    </button>
+                  </div>
+                </div>
+
+                {/* Prana Studio Highlight Card */}
+                <div
+                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] flex flex-col justify-between"
+                  style={{
+                    borderColor: 'var(--border-color)',
+                    background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
+                  }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                        <span>✦</span> Luxury Visuals
+                      </span>
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
+                        3D Key Art
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Prana Studio
+                    </h3>
+                    <p className="text-xs mb-3 font-semibold" style={{ color: 'var(--text-tertiary)' }}>
+                      Sound Therapy Sanctuary (Chennai) · 3D Acoustic &amp; Healing Posters
+                    </p>
+                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+                      3 bespoke bronze &amp; sound-wave atmospheric campaign key visuals built for immersive sound bath and restorative frequency sessions in Chennai.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
+                      3 Key Visuals
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAiUgcClientFilter('prana');
+                        setAiUgcFormatFilter('all');
+                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-lg text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
+                    >
+                      Filter Work ↓
+                    </button>
+                  </div>
+                </div>
+
+                {/* 6th Balanced Summary & Action Card */}
+                <div
+                  className="rounded-3xl border p-6 md:p-7 relative overflow-hidden transition-all duration-300 hover:border-yellow-400/60 hover:shadow-[0_16px_40px_rgba(255,209,0,0.12)] flex flex-col justify-between"
+                  style={{
+                    borderColor: 'rgba(255, 209, 0, 0.35)',
+                    background: 'linear-gradient(135deg, rgba(255, 209, 0, 0.08) 0%, var(--bg-card) 100%)',
+                  }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold bg-yellow-400 text-black">
+                        <span>✦</span> 49 Live Assets
+                      </span>
+                      <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-1 rounded-lg border"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
+                        5 Active Brands
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                      Want Results Like These?
+                    </h3>
+                    <p className="text-xs mb-3 font-semibold text-yellow-400">
+                      40 Static Ads · 9 Carousels (48 Slides)
+                    </p>
+                    <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+                      Browse every brand below or get a custom pack of scroll-stopping AI UGC creatives, launch posters, and educational decks built for your brand.
                     </p>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      23 Ad Creatives
-                    </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10" style={{ color: 'var(--text-secondary)' }}>
-                      Luxury &amp; Posture Series
-                    </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
-                      High Conversion
-                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAiUgcClientFilter('all');
+                        setAiUgcFormatFilter('all');
+                        document.getElementById('ai-ugc-deliverables')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="btn-shimmer flex-1 py-2 px-3 rounded-xl text-[10px] font-mono uppercase tracking-wider font-bold text-center cursor-pointer"
+                    >
+                      Show All 49 ↓
+                    </button>
+                    <a
+                      href="#contact"
+                      onClick={handleSmoothScroll}
+                      className="py-2 px-3 rounded-xl text-[10px] font-mono uppercase tracking-wider font-bold border hover:border-yellow-400 hover:text-yellow-400 transition-colors"
+                      style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-overlay)' }}
+                    >
+                      Book Pack →
+                    </a>
                   </div>
                 </div>
               </div>
 
               {/* Full-Width Creative Deliverables Suite */}
               <div
-                className="rounded-3xl border p-6 md:p-8 relative overflow-hidden"
+                id="ai-ugc-deliverables"
+                className="rounded-3xl border p-6 md:p-8 relative overflow-hidden scroll-mt-20"
                 style={{
                   borderColor: 'var(--border-color)',
                   background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
                 }}
               >
                 {/* Header & Filter Controls Bar */}
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="flex flex-col gap-5 mb-8 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
                   <div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10 mb-2">
                       <span>✦</span> Creative Deliverables Gallery
                     </span>
                     <h3 className="text-xl md:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
                       Featured AI UGC &amp; Performance Creatives
                     </h3>
                     <p className="text-xs md:text-sm mt-1 max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      Explore 40 studio deliverables across Arovia.ai, Anohga Yoga Studio &amp; Shilpa Pilates Studio. Swipe through multi-slide carousels or click any item to view in the fullscreen reader.
+                      Explore 49 studio deliverables across Arovia.ai, Anohga Yoga Studio, Shilpa Pilates Studio, Tapas Yog Shala &amp; Prana Studio. Swipe through multi-slide carousels or click any item to inspect &amp; cycle fullscreen.
                     </p>
                   </div>
 
                   {/* Dual Filter Controls Bar */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 shrink-0">
-                    {/* Client Selector Pills */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 w-full">
+                    {/* Client Selector */}
                     <div
                       className="flex items-center gap-1 p-1 rounded-xl border overflow-x-auto max-w-full scrollbar-none"
                       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                     >
                       {[
-                        { id: 'all', label: 'All Clients (40)' },
-                        { id: 'arovia', label: 'Arovia.ai (6)' },
+                        { id: 'all', label: 'All Clients (49)' },
+                        { id: 'shilpa', label: 'Shilpa Pilates (24)' },
                         { id: 'anohga', label: 'Anohga (11)' },
-                        { id: 'shilpa', label: 'Shilpa Pilates (23)' },
+                        { id: 'arovia', label: 'Arovia.ai (6)' },
+                        { id: 'tapas', label: 'Tapas Yog Shala (5)' },
+                        { id: 'prana', label: 'Prana Studio (3)' },
                       ].map((f) => (
                         <button
                           key={f.id}
                           type="button"
                           onClick={() => setAiUgcClientFilter(f.id)}
-                          className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                             aiUgcClientFilter === f.id
                               ? 'bg-yellow-400 text-black font-bold shadow-sm'
                               : 'text-stone-400 hover:text-white'
@@ -1628,21 +1871,21 @@ function App() {
                       ))}
                     </div>
 
-                    {/* Format Selector Pills */}
+                    {/* Format Selector */}
                     <div
                       className="flex items-center gap-1 p-1 rounded-xl border shrink-0"
                       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                     >
                       {[
-                        { id: 'all', label: 'All Formats (32)' },
+                        { id: 'all', label: 'All (49)' },
                         { id: 'carousels', label: 'Carousels (9)' },
-                        { id: 'posters', label: 'Posters (23)' },
+                        { id: 'posters', label: 'Posters (40)' },
                       ].map((f) => (
                         <button
                           key={f.id}
                           type="button"
                           onClick={() => setAiUgcFormatFilter(f.id)}
-                          className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                             aiUgcFormatFilter === f.id
                               ? 'border border-yellow-400/50 text-yellow-400 bg-yellow-400/10 font-bold'
                               : 'text-stone-400 hover:text-white'
@@ -1656,17 +1899,45 @@ function App() {
                 </div>
 
                 {/* 3-Column Studio Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* Filtered Carousels */}
-                  {(aiUgcFormatFilter === 'all' || aiUgcFormatFilter === 'carousels') &&
-                    (servicesData.AI_UGC['AI UGC Static Ads'].carousels || [])
-                      .filter((c) => {
-                        if (aiUgcClientFilter === 'all') return true;
-                        if (aiUgcClientFilter === 'arovia') return c.client === 'Arovia.ai';
-                        if (aiUgcClientFilter === 'anohga') return c.client === 'Anohga Yoga Studio' || !c.client;
-                        return false;
-                      })
-                      .map((carousel) => (
+                {(() => {
+                  const matchedCarousels =
+                    aiUgcFormatFilter === 'all' || aiUgcFormatFilter === 'carousels'
+                      ? (servicesData.AI_UGC['AI UGC Static Ads'].carousels || []).filter((c) => {
+                          if (aiUgcClientFilter === 'all') return true;
+                          if (aiUgcClientFilter === 'arovia') return c.client === 'Arovia.ai';
+                          if (aiUgcClientFilter === 'anohga') return c.client === 'Anohga Yoga Studio' || !c.client;
+                          return false;
+                        })
+                      : [];
+                  const matchedPosters =
+                    aiUgcFormatFilter === 'all' || aiUgcFormatFilter === 'posters'
+                      ? aiUgcPosters.filter((poster) =>
+                          aiUgcClientFilter === 'all' ? true : poster.client === aiUgcClientFilter
+                        )
+                      : [];
+
+                  if (matchedCarousels.length === 0 && matchedPosters.length === 0) {
+                    return (
+                      <div className="py-12 text-center rounded-2xl border p-6" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
+                        <p className="text-sm font-semibold mb-3" style={{ color: 'var(--text-secondary)' }}>
+                          No carousel decks for this client — all deliverables are static campaign posters.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setAiUgcFormatFilter('all')}
+                          className="btn-shimmer px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer"
+                        >
+                          Show All Formats
+                        </button>
+                      </div>
+                    );
+                  }
+
+                  const posterSlides = matchedPosters.map((p) => ({ image: p.src, title: p.title }));
+
+                  return (
+                    <div key={`${aiUgcClientFilter}-${aiUgcFormatFilter}`} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-panel">
+                      {matchedCarousels.map((carousel) => (
                         <SocialCarouselCard
                           key={carousel.id}
                           carousel={carousel}
@@ -1674,17 +1945,10 @@ function App() {
                         />
                       ))}
 
-                  {/* Filtered Posters (Lightbox-cyclable) */}
-                  {(aiUgcFormatFilter === 'all' || aiUgcFormatFilter === 'posters') && (() => {
-                    const filteredPosters = aiUgcPosters.filter((poster) =>
-                      aiUgcClientFilter === 'all' ? true : poster.client === aiUgcClientFilter
-                    );
-                    const posterSlides = filteredPosters.map((p) => ({ image: p.src, title: p.title }));
-
-                    return filteredPosters.map((poster, pIdx) => (
+                      {matchedPosters.map((poster, pIdx) => (
                         <div
                           key={poster.id}
-                          className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/poster animate-panel"
+                          className="rounded-3xl border p-5 md:p-6 flex flex-col justify-between transition-all duration-300 hover:border-yellow-400/50 hover:shadow-[0_16px_40px_rgba(255,209,0,0.08)] group/poster"
                           style={{
                             borderColor: 'var(--border-color)',
                             background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gradient-end) 100%)',
@@ -1693,7 +1957,7 @@ function App() {
                           <div className="flex items-start justify-between gap-3 mb-4">
                             <div>
                               <div className="flex items-center gap-2 mb-2">
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg text-[9px] tracking-[0.2em] uppercase font-bold text-yellow-400 border border-yellow-400/30 bg-yellow-400/10">
                                   <span>✦</span> {poster.badge || 'Static Poster'}
                                 </span>
                                 <span className="text-[10px] font-semibold text-stone-400">
@@ -1708,7 +1972,7 @@ function App() {
                               </h4>
                             </div>
                             <span
-                              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[9px] tracking-wider uppercase font-semibold border"
+                              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[9px] tracking-wider uppercase font-semibold border"
                               style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}
                             >
                               Static
@@ -1738,7 +2002,7 @@ function App() {
                               <span className="text-xs font-semibold text-white leading-tight">
                                 {poster.subtitle}
                               </span>
-                              <span className="p-2 rounded-md bg-yellow-400 text-black font-bold shadow-lg">
+                              <span className="p-2 rounded-xl bg-yellow-400 text-black font-bold shadow-lg">
                                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                                 </svg>
@@ -1766,9 +2030,10 @@ function App() {
                             </button>
                           </div>
                         </div>
-                      ));
-                  })()}
-                </div>
+                      ))}
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           )}
@@ -1788,7 +2053,7 @@ function App() {
               return (
                 <div className="py-16 text-center rounded-3xl border p-8"
                   style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}>
-                  <div className="w-12 h-12 rounded-md border border-yellow-400/30 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-12 h-12 rounded-xl border border-yellow-400/30 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mx-auto mb-4">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
@@ -1802,7 +2067,7 @@ function App() {
                   <div className="flex flex-wrap items-center justify-center gap-3">
                     <button
                       onClick={() => setServiceSearch('')}
-                      className="px-5 py-2.5 rounded-md border text-xs font-semibold hover:border-yellow-400 transition-colors cursor-pointer"
+                      className="px-5 py-2.5 rounded-xl border text-xs font-semibold hover:border-yellow-400 transition-colors cursor-pointer"
                       style={{ borderColor: 'var(--border-color)' }}>
                       Reset Search
                     </button>
@@ -1810,7 +2075,7 @@ function App() {
                       href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%20have%20a%20custom%20service%20inquiry."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-shimmer px-6 py-2.5 rounded-md text-xs font-bold"
+                      className="btn-shimmer px-6 py-2.5 rounded-xl text-xs font-bold"
                     >
                       Inquire on WhatsApp →
                     </a>
@@ -1868,29 +2133,29 @@ function App() {
 
                           {/* Upcoming Badge */}
                           {s.isUpcoming ? (
-                            <span className="text-[10px] tracking-wider uppercase font-bold px-2.5 py-0.5 rounded-md border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_12px_rgba(255,209,0,0.15)] flex items-center gap-1">
+                            <span className="text-[10px] tracking-wider uppercase font-bold px-2.5 py-0.5 rounded-lg border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_12px_rgba(255,209,0,0.15)] flex items-center gap-1">
                               <span>✦</span> {s.upcomingBadge || 'Upcoming'}
                             </span>
                           ) : (
                             <>
                               {/* Dynamic Proof Metric Badges */}
                               {videosCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-lg border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                                   {videosCount} {videosCount === 1 ? 'Video' : 'Videos'}
                                 </span>
                               )}
                               {examplesCount > 0 && videosCount === 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-lg border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                                   {examplesCount}+ Designs
                                 </span>
                               )}
                               {clientCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-lg border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                                   {clientCount} Client Cases
                                 </span>
                               )}
                               {webCount > 0 && (
-                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-md border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
+                                <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-lg border border-yellow-400/25 bg-yellow-400/10 text-yellow-400">
                                   Live Demos
                                 </span>
                               )}
@@ -1935,7 +2200,7 @@ function App() {
                                   key={i}
                                   src={ex.image}
                                   alt=""
-                                  className="w-8 h-8 rounded-md object-cover border-2 transition-transform group-hover:scale-105"
+                                  className="w-8 h-8 rounded-xl object-cover border-2 transition-transform group-hover:scale-105"
                                   style={{ borderColor: 'var(--bg-card)' }}
                                   loading="lazy"
                                 />
@@ -1951,7 +2216,7 @@ function App() {
                         {serviceData?.clientShowcases?.length > 0 && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-4 pt-1">
                             {serviceData.clientShowcases.map((c, i) => (
-                              <span key={i} className="text-[9px] px-2.5 py-0.5 rounded-md font-semibold border"
+                              <span key={i} className="text-[9px] px-2.5 py-0.5 rounded-lg font-semibold border"
                                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                                 ✦ {c.client}
                               </span>
@@ -1966,7 +2231,7 @@ function App() {
                         <span className="text-[11px] tracking-[0.2em] uppercase font-bold text-yellow-400 flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
                           <span>{s.isUpcoming ? 'Explore Roadmap & Pre-Book' : 'View Portfolio & Details'}</span>
                         </span>
-                        <div className="w-8 h-8 rounded-md bg-yellow-400 text-black flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 group-hover:bg-yellow-300 transition-all">
+                        <div className="w-8 h-8 rounded-xl bg-yellow-400 text-black flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 group-hover:bg-yellow-300 transition-all">
                           →
                         </div>
                       </div>
@@ -2000,14 +2265,14 @@ function App() {
                 href="https://wa.me/+918448865446?text=Hi%20Syntra%2C%20I%20would%20like%20to%20discuss%20a%20custom%20service%20package."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-md text-[11px] tracking-[0.18em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
+                className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[11px] tracking-[0.18em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
               >
                 Chat on WhatsApp →
               </a>
               <a
                 href="#contact"
                 onClick={handleSmoothScroll}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-md text-[11px] tracking-[0.18em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[11px] tracking-[0.18em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-card)' }}
               >
                 Book Discovery Call
@@ -2101,13 +2366,13 @@ function App() {
               {[...clientsData, ...clientsData].map((c, i) => (
                 <div
                   key={`${c.id}-${i}`}
-                  className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-md border shrink-0 transition-colors hover:border-yellow-400/40"
+                  className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl border shrink-0 transition-colors hover:border-yellow-400/40"
                   style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
                 >
                   <img
                     src={c.avatar}
                     alt={c.name}
-                    className="w-5 h-5 rounded-md object-cover border border-yellow-400/40"
+                    className="w-5 h-5 rounded-xl object-cover border border-yellow-400/40"
                     loading="lazy"
                   />
                   <span className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
@@ -2135,7 +2400,7 @@ function App() {
                 key={f.id}
                 type="button"
                 onClick={() => setClientFilter(f.id)}
-                className={`shrink-0 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all border cursor-pointer ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all border cursor-pointer ${
                   clientFilter === f.id
                     ? 'border-yellow-400 text-yellow-400 bg-yellow-400/10 shadow-sm'
                     : 'border-white/10 text-stone-400 hover:text-white hover:border-white/20'
@@ -2223,7 +2488,7 @@ function App() {
             <div className="contact-card">
               {formStatus === 'success' ? (
                 <div className="text-center py-8 px-4 flex flex-col items-center justify-center animate-panel">
-                  <div className="w-16 h-16 rounded-md flex items-center justify-center mb-6 shadow-[0_0_24px_rgba(255,209,0,0.2)]"
+                  <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 shadow-[0_0_24px_rgba(255,209,0,0.2)]"
                     style={{ backgroundColor: 'rgba(255,209,0,0.1)', border: '2px solid rgba(255,209,0,0.5)' }}>
                     <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -2243,12 +2508,12 @@ function App() {
                       href={getWhatsAppBriefUrl()}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-shimmer inline-flex items-center gap-2 px-6 py-2.5 rounded-md text-xs tracking-[0.15em] uppercase font-bold"
+                      className="btn-shimmer inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs tracking-[0.15em] uppercase font-bold"
                     >
                       Fast-Track on WhatsApp →
                     </a>
                     <button onClick={resetForm}
-                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md border border-yellow-400 text-yellow-400 text-xs tracking-[0.18em] uppercase font-semibold hover:bg-yellow-400 hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer">
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-yellow-400 text-yellow-400 text-xs tracking-[0.18em] uppercase font-semibold hover:bg-yellow-400 hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer">
                       New Brief
                     </button>
                   </div>
@@ -2273,7 +2538,7 @@ function App() {
                             key={scope}
                             type="button"
                             onClick={() => toggleScope(scope)}
-                            className={`px-3 py-1.5 rounded-md text-xs font-bold border transition-all cursor-pointer ${
+                            className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                               active
                                 ? 'bg-yellow-400 text-black border-yellow-400 shadow-sm'
                                 : 'hover:border-yellow-400/60 hover:text-yellow-400'
@@ -2306,7 +2571,7 @@ function App() {
                             key={t}
                             type="button"
                             onClick={() => setSelectedTimeline(t)}
-                            className={`px-2.5 py-2 rounded-md text-[11px] font-bold border transition-all text-center cursor-pointer ${
+                            className={`px-2.5 py-2 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer ${
                               active
                                 ? 'border-yellow-400 bg-yellow-400/15 text-yellow-400'
                                 : 'hover:border-white/25'
@@ -2372,7 +2637,7 @@ function App() {
                     <button
                       type="submit" id="contact-submit"
                       disabled={formStatus === 'submitting'}
-                      className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 rounded-md text-xs tracking-[0.18em] uppercase font-bold shadow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed cursor-pointer"
+                      className="btn-shimmer w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs tracking-[0.18em] uppercase font-bold shadow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed cursor-pointer"
                     >
                       {formStatus === 'submitting' ? (
                         <><div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" aria-hidden="true" />Sending...</>
@@ -2383,7 +2648,7 @@ function App() {
                       href={getWhatsAppBriefUrl()}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-md text-xs tracking-[0.16em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400"
+                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs tracking-[0.16em] uppercase font-bold border transition-all duration-200 hover:border-yellow-400 hover:text-yellow-400"
                       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-primary)' }}
                     >
                       Send via WhatsApp ↗
@@ -2413,7 +2678,7 @@ function App() {
                 <button
                   type="button"
                   onClick={() => setPaletteOpen(true)}
-                  className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-1 rounded-md border hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-1 rounded-xl border hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}
                 >
                   <span>Quick Jump</span>

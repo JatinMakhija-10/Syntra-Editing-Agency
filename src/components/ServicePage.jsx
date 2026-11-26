@@ -78,7 +78,7 @@ function GalleryCard({ item, idx, slides, serviceTitle, onImageClick, isThumbnai
         <p className="text-xs font-semibold text-white leading-tight line-clamp-2">
           {item.title || `${serviceTitle} Deliverable ${idx + 1}`}
         </p>
-        <span className="shrink-0 p-1.5 rounded-md bg-yellow-400 text-black font-bold shadow-md ml-2">
+        <span className="shrink-0 p-1.5 rounded-xl bg-yellow-400 text-black font-bold shadow-md ml-2">
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
           </svg>
@@ -102,8 +102,10 @@ export function ServicePage({
 }) {
   const [copied, setCopied] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
+  const [galleryBrandFilter, setGalleryBrandFilter] = useState('All');
 
   useEffect(() => {
+    setGalleryBrandFilter('All');
     window.scrollTo({ top: 0, behavior: 'instant' });
     document.title = `${service.title} | Syntra Studio`;
     return () => {
@@ -195,7 +197,7 @@ export function ServicePage({
           <div className="flex items-center gap-2.5 sm:gap-4 min-w-0">
             <button
               onClick={onBack}
-              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-bold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-md border shrink-0 cursor-pointer"
+              className="flex items-center gap-1.5 sm:gap-2 text-xs tracking-wider uppercase font-bold hover:text-yellow-400 transition-colors py-1.5 px-3 rounded-xl border shrink-0 cursor-pointer"
               style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
             >
               <span>←</span>
@@ -231,7 +233,7 @@ export function ServicePage({
               <button
                 type="button"
                 onClick={onOpenPalette}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold border transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-colors hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
                 style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
                 title="Quick Switch Services (Ctrl+K)"
               >
@@ -246,7 +248,7 @@ export function ServicePage({
             {/* Share button */}
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs font-bold border transition-all duration-300 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold border transition-all duration-300 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 cursor-pointer"
               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
               title="Copy shareable link"
             >
@@ -271,7 +273,7 @@ export function ServicePage({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shimmer hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-md text-xs tracking-[0.14em] uppercase font-bold shadow-md hover:scale-105 transition-all duration-300"
+              className="btn-shimmer hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs tracking-[0.14em] uppercase font-bold shadow-md hover:scale-105 transition-all duration-300"
             >
               Inquire Now →
             </a>
@@ -304,7 +306,7 @@ export function ServicePage({
                   key={sib.title}
                   type="button"
                   onClick={() => !isActive && onSelectService(sib.title, sib.category)}
-                  className={`shrink-0 px-3 py-1 rounded-md text-xs font-bold border transition-all cursor-pointer ${
+                  className={`shrink-0 px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                     isActive
                       ? 'bg-yellow-400 text-black border-yellow-400 shadow-sm'
                       : 'hover:border-yellow-400 hover:text-yellow-400'
@@ -329,7 +331,7 @@ export function ServicePage({
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <div className="pill-label">{service.tag || category}</div>
             {service.isUpcoming && (
-              <span className="text-[10px] tracking-wider uppercase font-bold px-3 py-1 rounded-md border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_16px_rgba(255,209,0,0.18)] flex items-center gap-1.5">
+              <span className="text-[10px] tracking-wider uppercase font-bold px-3 py-1 rounded-lg border border-yellow-400/40 bg-yellow-400/15 text-yellow-400 shadow-[0_0_16px_rgba(255,209,0,0.18)] flex items-center gap-1.5">
                 <span>✦</span> UPCOMING DISCIPLINE · {service.upcomingBadge || 'EARLY ACCESS'} · {service.targetRelease || 'Q1 2027'}
               </span>
             )}
@@ -352,21 +354,21 @@ export function ServicePage({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-md text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
+              className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-[11px] tracking-[0.2em] uppercase font-bold shadow-lg hover:scale-105 transition-all duration-300"
             >
               {service.isUpcoming ? 'Reserve Early Access on WhatsApp →' : 'Book on WhatsApp →'}
             </a>
             <div className="grid grid-cols-2 sm:flex items-center gap-2.5">
               <a
                 href="mailto:jatinmakhija1005@gmail.com?subject=Inquiry%20regarding%20Syntra%20Services"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 Email Us
               </a>
               <button
                 onClick={handleShare}
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-md text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-[11px] tracking-[0.15em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 {copied ? '✓ Copied' : 'Share Link'}
@@ -385,7 +387,7 @@ export function ServicePage({
                   key={anc.id}
                   type="button"
                   onClick={() => jumpToAnchor(anc.id)}
-                  className="px-3 py-1 rounded-md text-[11px] font-bold border transition-all hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
+                  className="px-3 py-1 rounded-xl text-[11px] font-bold border transition-all hover:border-yellow-400 hover:text-yellow-400 cursor-pointer"
                   style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-primary)' }}
                 >
                   {anc.label} ↓
@@ -417,7 +419,7 @@ export function ServicePage({
                     </div>
                     {showcase.clientLink && !showcase.clientLink.includes('drive.google.com') && (
                       <a href={showcase.clientLink} target="_blank" rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[9px] tracking-[0.2em] uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 hover:text-yellow-400 hover:scale-105"
                         style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)', backgroundColor: 'var(--bg-overlay)' }}>
                         Visit site ↗
                       </a>
@@ -535,7 +537,7 @@ export function ServicePage({
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-yellow-400 text-black text-[10px] tracking-[0.15em] uppercase font-semibold hover:bg-yellow-300 transition-all hover:scale-105"
+                        className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-yellow-400 text-black text-[10px] tracking-[0.15em] uppercase font-semibold hover:bg-yellow-300 transition-all hover:scale-105"
                       >
                         Visit Live →
                       </a>
@@ -548,36 +550,91 @@ export function ServicePage({
         )}
 
         {/* ── SHOWCASE: IMAGE GALLERY ── */}
-        {service.examples?.length > 0 && (
-          <section id="sp-gallery" className="mb-16">
-            <div className="mb-8">
-              <p className="eyebrow mb-2">Portfolio</p>
-              <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-                Visual Gallery
-              </h2>
-              <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
-                Explore {service.examples.length} studio deliverables. Click any item to inspect &amp; cycle in high resolution.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
-              {service.examples.map((item, idx) => (
-                <GalleryCard
-                  key={idx}
-                  item={item}
-                  idx={idx}
-                  slides={service.examples}
-                  serviceTitle={service.title}
-                  onImageClick={onImageClick}
-                  isThumbnails={
-                    service.title?.toLowerCase().includes('thumbnail') ||
-                    service.tag?.toLowerCase().includes('thumbnail') ||
-                    service.tag?.toLowerCase().includes('elite')
-                  }
-                />
-              ))}
-            </div>
-          </section>
-        )}
+        {service.examples?.length > 0 && (() => {
+          const KNOWN_BRANDS = ['Shilpa Pilates', 'Tapas Yog Shala', 'Prana Studio', 'Anohga', 'Arovia.ai'];
+          const brandCounts = {};
+          service.examples.forEach((item) => {
+            const t = item.title || '';
+            const match = KNOWN_BRANDS.find((b) => t.toLowerCase().includes(b.toLowerCase()));
+            if (match) {
+              brandCounts[match] = (brandCounts[match] || 0) + 1;
+            }
+          });
+          const activeBrands = Object.keys(brandCounts);
+          const filteredExamples =
+            galleryBrandFilter === 'All'
+              ? service.examples
+              : service.examples.filter((item) =>
+                  (item.title || '').toLowerCase().includes(galleryBrandFilter.toLowerCase())
+                );
+
+          return (
+            <section id="sp-gallery" className="mb-16">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                <div>
+                  <p className="eyebrow mb-2">Portfolio</p>
+                  <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+                    Visual Gallery
+                  </h2>
+                  <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
+                    Explore {filteredExamples.length} studio deliverables. Click any item to inspect &amp; cycle in high resolution.
+                  </p>
+                </div>
+
+                {activeBrands.length >= 2 && (
+                  <div
+                    className="flex items-center gap-1.5 p-1 rounded-xl border overflow-x-auto max-w-full scrollbar-none"
+                    style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-overlay)' }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setGalleryBrandFilter('All')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
+                        galleryBrandFilter === 'All'
+                          ? 'bg-yellow-400 text-black shadow-sm'
+                          : 'text-stone-400 hover:text-white'
+                      }`}
+                    >
+                      All ({service.examples.length})
+                    </button>
+                    {activeBrands.map((brand) => (
+                      <button
+                        key={brand}
+                        type="button"
+                        onClick={() => setGalleryBrandFilter(brand)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                          galleryBrandFilter === brand
+                            ? 'bg-yellow-400 text-black font-bold shadow-sm'
+                            : 'text-stone-400 hover:text-white'
+                        }`}
+                      >
+                        {brand} ({brandCounts[brand]})
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div key={galleryBrandFilter} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 animate-panel">
+                {filteredExamples.map((item, idx) => (
+                  <GalleryCard
+                    key={`${galleryBrandFilter}-${idx}`}
+                    item={item}
+                    idx={idx}
+                    slides={filteredExamples}
+                    serviceTitle={service.title}
+                    onImageClick={onImageClick}
+                    isThumbnails={
+                      service.title?.toLowerCase().includes('thumbnail') ||
+                      service.tag?.toLowerCase().includes('thumbnail') ||
+                      service.tag?.toLowerCase().includes('elite')
+                    }
+                  />
+                ))}
+              </div>
+            </section>
+          );
+        })()}
 
         {/* ── SHOWCASE: INSTAGRAM REELS ── */}
         {instagramVideos.length > 0 && (
@@ -656,7 +713,7 @@ export function ServicePage({
                         <span className="text-xs font-bold tracking-widest text-yellow-400 uppercase">
                           0{idx + 1}
                         </span>
-                        <span className="text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-md border"
+                        <span className="text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-lg border"
                           style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)', backgroundColor: 'var(--bg-overlay)' }}>
                           Specification
                         </span>
@@ -702,7 +759,7 @@ export function ServicePage({
                               {stage.phase}
                             </span>
                             <span
-                              className={`text-[9px] tracking-wider uppercase font-bold px-2 py-0.5 rounded-md border ${
+                              className={`text-[9px] tracking-wider uppercase font-bold px-2 py-0.5 rounded-xl border ${
                                 isInProgress
                                   ? 'border-yellow-400 bg-yellow-400 text-black animate-pulse'
                                   : isDone
@@ -748,7 +805,7 @@ export function ServicePage({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shimmer px-7 py-3 rounded-md text-xs font-bold shrink-0 text-center uppercase tracking-wider"
+                className="btn-shimmer px-7 py-3 rounded-xl text-xs font-bold shrink-0 text-center uppercase tracking-wider"
               >
                 Claim Early Access Spot →
               </a>
@@ -815,7 +872,7 @@ export function ServicePage({
                     {prevService.title}
                   </h4>
                 </div>
-                <span className="text-[10px] font-mono uppercase px-2 py-1 rounded-sm border shrink-0" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)' }}>
+                <span className="text-[10px] font-mono uppercase px-2 py-1 rounded-lg border shrink-0" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)' }}>
                   {prevService.category === 'AI_UGC' ? 'AI UGC' : prevService.category}
                 </span>
               </button>
@@ -834,7 +891,7 @@ export function ServicePage({
                     {nextService.title}
                   </h4>
                 </div>
-                <span className="text-[10px] font-mono uppercase px-2 py-1 rounded-sm border shrink-0" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)' }}>
+                <span className="text-[10px] font-mono uppercase px-2 py-1 rounded-lg border shrink-0" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)' }}>
                   {nextService.category === 'AI_UGC' ? 'AI UGC' : nextService.category}
                 </span>
               </button>
@@ -866,13 +923,13 @@ export function ServicePage({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-md text-xs tracking-widest uppercase font-bold hover:scale-105 transition-all duration-300 shadow-lg"
+                className="btn-shimmer w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-xs tracking-widest uppercase font-bold hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 Start on WhatsApp →
               </a>
               <button
                 onClick={() => (onSelectCategory ? onSelectCategory(category) : onBack())}
-                className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-xs tracking-widest uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 cursor-pointer"
+                className="w-full sm:w-auto text-center justify-center inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-xs tracking-widest uppercase font-semibold border transition-all duration-300 hover:border-yellow-400 cursor-pointer"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 ← Explore Other Services
@@ -892,7 +949,7 @@ export function ServicePage({
             <button
               type="button"
               onClick={onOpenPalette}
-              className="px-2.5 py-1.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider border hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
+              className="px-2.5 py-1.5 rounded-xl text-[10px] font-mono font-bold uppercase tracking-wider border hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
               style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-overlay)' }}
             >
               Jump ⌘K
@@ -901,7 +958,7 @@ export function ServicePage({
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="w-8 h-8 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black font-bold flex items-center justify-center transition-transform hover:-translate-y-0.5 cursor-pointer"
+            className="w-8 h-8 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black font-bold flex items-center justify-center transition-transform hover:-translate-y-0.5 cursor-pointer"
             aria-label="Scroll back to top"
           >
             ↑

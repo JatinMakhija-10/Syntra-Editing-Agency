@@ -56,19 +56,19 @@ export function ProcessExplorer() {
           <button
             type="button"
             onClick={() => setActiveIdx((i) => (i - 1 + STAGES.length) % STAGES.length)}
-            className="px-3 py-1.5 rounded-md border text-xs font-bold hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded-xl border text-xs font-bold hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
             style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
             aria-label="Previous process stage"
           >
             ← Prev
           </button>
-          <span className="text-xs font-mono font-bold px-2.5 py-1.5 rounded-md border border-yellow-400/30 bg-yellow-400/10 text-yellow-400">
+          <span className="text-xs font-mono font-bold px-2.5 py-1.5 rounded-xl border border-yellow-400/30 bg-yellow-400/10 text-yellow-400">
             {current.step} / 04
           </span>
           <button
             type="button"
             onClick={() => setActiveIdx((i) => (i + 1) % STAGES.length)}
-            className="px-3 py-1.5 rounded-md border text-xs font-bold hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded-xl border text-xs font-bold hover:border-yellow-400 hover:text-yellow-400 transition-colors cursor-pointer"
             style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
             aria-label="Next process stage"
           >
@@ -78,7 +78,7 @@ export function ProcessExplorer() {
       </div>
 
       {/* Progress Track */}
-      <div className="hidden md:block relative h-1 w-full rounded-sm mb-6 overflow-hidden" style={{ backgroundColor: 'var(--bg-overlay)' }}>
+      <div className="hidden md:block relative h-1 w-full rounded-lg mb-6 overflow-hidden" style={{ backgroundColor: 'var(--bg-overlay)' }}>
         <div
           className="h-full bg-yellow-400 transition-all duration-300"
           style={{ width: progressWidth }}
@@ -116,7 +116,7 @@ export function ProcessExplorer() {
                   {s.step}
                 </span>
                 <span
-                  className={`text-[9px] font-mono uppercase tracking-wider font-bold px-2 py-0.5 rounded-sm border ${
+                  className={`text-[9px] font-mono uppercase tracking-wider font-bold px-2 py-0.5 rounded-lg border ${
                     isActive
                       ? 'bg-yellow-400 text-black border-yellow-400'
                       : isCompleted
@@ -178,7 +178,7 @@ export function ProcessExplorer() {
           <a
             href="#contact"
             onClick={handleSmoothScroll}
-            className="btn-shimmer inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md text-xs tracking-wider uppercase font-bold shadow hover:scale-105 transition-all"
+            className="btn-shimmer inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs tracking-wider uppercase font-bold shadow hover:scale-105 transition-all"
           >
             Kick Off Stage 01 →
           </a>

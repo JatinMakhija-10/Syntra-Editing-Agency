@@ -56,7 +56,7 @@ export function ClientCard({ client, delay = 0 }) {
 
           {client.stats && (
             <span
-              className="shrink-0 px-2 py-0.5 rounded-md text-[9px] tracking-wider uppercase font-bold border border-yellow-400/20 text-yellow-400 bg-yellow-400/5"
+              className="shrink-0 px-2 py-0.5 rounded-xl text-[9px] tracking-wider uppercase font-bold border border-yellow-400/20 text-yellow-400 bg-yellow-400/5"
             >
               {client.stats}
             </span>
@@ -75,7 +75,7 @@ export function ClientCard({ client, delay = 0 }) {
           {client.tags.map((tag, tIdx) => (
             <span
               key={tIdx}
-              className="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md border"
+              className="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-xl border"
               style={{
                 borderColor: 'var(--border-color)',
                 backgroundColor: 'var(--bg-overlay)',

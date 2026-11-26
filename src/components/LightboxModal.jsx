@@ -87,7 +87,7 @@ export default function LightboxModal({ item, onClose }) {
         <div className="min-w-0 pr-2">
           {isCarousel && slides.length > 1 ? (
             <div className="flex items-center gap-2.5">
-              <span className="shrink-0 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold tracking-wider text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
+              <span className="shrink-0 px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold tracking-wider text-yellow-400 bg-yellow-400/10 border border-yellow-400/30">
                 {activeIdx + 1} / {slides.length}
               </span>
               <h3 className="text-xs sm:text-sm md:text-base font-bold text-white truncate max-w-[200px] sm:max-w-md">
@@ -105,7 +105,7 @@ export default function LightboxModal({ item, onClose }) {
           <button
             type="button"
             onClick={() => setIsZoomed((z) => !z)}
-            className={`px-3 h-10 rounded-md flex items-center gap-1.5 text-xs font-mono font-bold border transition-all cursor-pointer ${
+            className={`px-3 h-10 rounded-xl flex items-center gap-1.5 text-xs font-mono font-bold border transition-all cursor-pointer ${
               isZoomed
                 ? 'bg-yellow-400 text-black border-yellow-400'
                 : 'text-white/90 hover:text-yellow-400 bg-white/10 hover:bg-white/15 border-white/15'
@@ -120,7 +120,7 @@ export default function LightboxModal({ item, onClose }) {
 
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-md flex items-center justify-center text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all hover:scale-105 cursor-pointer"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all hover:scale-105 cursor-pointer"
             aria-label="Close image viewer"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -153,7 +153,7 @@ export default function LightboxModal({ item, onClose }) {
           {isCarousel && slides.length > 1 && !isZoomed && (
             <button
               onClick={handlePrev}
-              className="absolute left-1.5 sm:left-2 md:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-md flex items-center justify-center text-white bg-black/75 hover:bg-yellow-400 hover:text-black border border-white/20 backdrop-blur-md transition-all hover:scale-110 shadow-2xl cursor-pointer"
+              className="absolute left-1.5 sm:left-2 md:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center text-white bg-black/75 hover:bg-yellow-400 hover:text-black border border-white/20 backdrop-blur-md transition-all hover:scale-110 shadow-2xl cursor-pointer"
               aria-label="Previous slide (Left Arrow)"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -166,7 +166,7 @@ export default function LightboxModal({ item, onClose }) {
           {isCarousel && slides.length > 1 && !isZoomed && (
             <button
               onClick={handleNext}
-              className="absolute right-1.5 sm:right-2 md:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-md flex items-center justify-center text-white bg-black/75 hover:bg-yellow-400 hover:text-black border border-white/20 backdrop-blur-md transition-all hover:scale-110 shadow-2xl cursor-pointer"
+              className="absolute right-1.5 sm:right-2 md:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center text-white bg-black/75 hover:bg-yellow-400 hover:text-black border border-white/20 backdrop-blur-md transition-all hover:scale-110 shadow-2xl cursor-pointer"
               aria-label="Next slide (Right Arrow)"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -191,7 +191,7 @@ export default function LightboxModal({ item, onClose }) {
                   setIsZoomed(false);
                   setActiveIdx(idx);
                 }}
-                className={`relative shrink-0 w-10 sm:w-12 aspect-[3/4] rounded-md overflow-hidden border transition-all duration-200 cursor-pointer ${
+                className={`relative shrink-0 w-10 sm:w-12 aspect-[3/4] rounded-xl overflow-hidden border transition-all duration-200 cursor-pointer ${
                   activeIdx === idx
                     ? 'border-yellow-400 ring-2 ring-yellow-400/50 scale-105 opacity-100'
                     : 'border-white/10 opacity-50 hover:opacity-90 hover:border-white/30'

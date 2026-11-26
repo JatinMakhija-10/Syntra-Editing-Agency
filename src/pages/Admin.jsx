@@ -385,7 +385,7 @@ export default function Admin() {
               Live Site ↗
             </a>
             <button onClick={handleLogout}
-              className="px-3 py-1.5 border border-red-500/30 text-red-400 text-[10px] uppercase tracking-widest font-bold rounded-md hover:bg-red-500/10 transition">
+              className="px-3 py-1.5 border border-red-500/30 text-red-400 text-[10px] uppercase tracking-widest font-bold rounded-xl hover:bg-red-500/10 transition">
               Logout
             </button>
           </div>
@@ -408,7 +408,7 @@ export default function Admin() {
         <div className="max-w-7xl mx-auto px-6 py-2.5 flex items-center gap-2 overflow-x-auto no-scrollbar">
           {categories.map(cat => (
             <button key={cat} onClick={() => setActiveCategory(cat)}
-              className={`flex-shrink-0 px-4 py-1.5 rounded-md text-[10px] tracking-wider uppercase font-semibold transition ${
+              className={`flex-shrink-0 px-4 py-1.5 rounded-xl text-[10px] tracking-wider uppercase font-semibold transition ${
                 activeCategory === cat
                   ? 'bg-yellow-400 text-black font-bold shadow-lg shadow-yellow-400/10'
                   : 'bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white'
@@ -777,8 +777,8 @@ export default function Admin() {
                           <p className="text-[8px] uppercase text-gray-600 tracking-widest">Cards</p>
                         </div>
                       </div>
-                      <div className="h-1 rounded-md bg-white/5 overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-md transition-all"
+                      <div className="h-1 rounded-xl bg-white/5 overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-xl transition-all"
                           style={{ width: `${Math.min(((staticCount + customCount) / Math.max(totalStaticItems, 1)) * 100, 100)}%` }} />
                       </div>
                     </div>

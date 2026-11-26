@@ -39,7 +39,7 @@ export function TeamCard({ name, role, delay = 0 }) {
         
         {/* Themed initials avatar */}
         <div 
-          className="w-20 h-20 rounded-md flex items-center justify-center border-2 transition-all duration-500 shadow-[0_0_20px_rgba(250,204,21,0.15)] group-hover:border-yellow-400 group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(250,204,21,0.3)]"
+          className="w-20 h-20 rounded-2xl flex items-center justify-center border-2 transition-all duration-500 shadow-[0_0_20px_rgba(250,204,21,0.15)] group-hover:border-yellow-400 group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(250,204,21,0.3)]"
           style={{
             backgroundColor: 'rgba(255, 209, 0, 0.08)',
             borderColor: 'rgba(255, 209, 0, 0.3)',
@@ -52,7 +52,7 @@ export function TeamCard({ name, role, delay = 0 }) {
       </div>
       <div className="p-5 flex items-center justify-between gap-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
         <div className="flex-1">
-          <div className="inline-flex px-3 py-1 bg-yellow-400 text-black text-[10px] uppercase tracking-[0.25em] font-semibold mb-2 rounded-sm">
+          <div className="inline-flex px-3 py-1 bg-yellow-400 text-black text-[10px] uppercase tracking-[0.25em] font-semibold mb-2 rounded-lg">
             {name}
           </div>
           <p className="text-xs text-white/90 font-medium">{role}</p>
